@@ -1,1 +1,137 @@
+/* ===== Global Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0a0015, #16002d, #220044);
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow:
+    0 0 10px #8a2be2,
+    0 0 20px #8a2be2,
+    0 0 40px #ff00ff;
+}
+
+.hero p {
+  max-width: 700px;
+  font-size: 1.2rem;
+  color: #d9cfff;
+}
+
+/* ===== Button ===== */
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 14px 28px;
+  background: linear-gradient(45deg, #8a2be2, #ff00ff);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 999px;
+  box-shadow:
+    0 0 15px rgba(138, 43, 226, 0.7),
+    0 0 30px rgba(255, 0, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 0 20px rgba(138, 43, 226, 0.9),
+    0 0 40px rgba(255, 0, 255, 0.7);
+}
+
+/* ===== Offers Section ===== */
+.offers {
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.offers h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
+  text-shadow: 0 0 10px #8a2be2;
+}
+
+/* ===== Cards ===== */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(138, 43, 226, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(255, 0, 255, 0.25);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+  color: #ffffff;
+}
+
+.card p {
+  color: #d9cfff;
+  font-size: 1rem;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: #cdb8ff;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .offers h2 {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+}
