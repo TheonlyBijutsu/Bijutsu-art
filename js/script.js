@@ -1,1 +1,2 @@
-console.log("Bijutsu Studio loaded successfully!");
+// js/script.js
+console.log("Bijutsu Studio loaded.");
