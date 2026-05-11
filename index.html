@@ -1,62 +1,28 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>-Bijutsu Studio-</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Bijutsu Studio</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
-  <header class="hero">
-    <h1>🎨 Bijutsu Studio</h1>
-    <p>Custom Anime Art, Original Characters & Short Animations</p>
-    <a href="https://discord.gg/J3m9Hqt8ed" target="_blank" class="btn">📩 Order on Discord</a>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <section class="offers">
-    <h2>✨ Commission Offers</h2>
+  <main class="container">
+    <h1>Welcome to Bijutsu Studio</h1>
+    <p>Custom Anime Art, OC Design, and Short Animations.</p>
+  </main>
 
-    <div class="card">
-      <h3>🖼️ Anime DP / PFP</h3>
-      <p>Starter ₹49 • Pro ₹149 • Elite ₹299</p>
-    </div>
-
-    <div class="card">
-      <h3>🧬 Original Character Design</h3>
-      <p>Starter ₹99 • Pro ₹299 • Elite ₹599</p>
-    </div>
-
-    <div class="card">
-      <h3>🎬 10–15 Second Animation</h3>
-      <p>Starter ₹199 • Pro ₹499 • Elite ₹999</p>
-    </div>
-
-    <div class="card">
-      <h3>🔥 Combo Packages</h3>
-      <p>Character Launch Pack ₹129 • Creator Pack ₹399 • Ultimate Pack ₹999</p>
-    </div>
-  </section>
-
-  <section class="gallery">
-    <h2>🖼️ Portfolio Gallery</h2>
-    <p class="coming-soon">Add your artworks in the <strong>images</strong> folder later.</p>
-  </section>
-
-  <section class="ai-section">
-    <h2>🤖 Bijutsu AI Assistant</h2>
-    <div class="ai-box">
-      <div id="chat-output">Ask me about prices, services, or delivery time.</div>
-      <input id="user-input" type="text" placeholder="Type your question..." />
-      <button onclick="askAI()">Send</button>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 Bijutsu Studio ✨</p>
-  </footer>
-
-  <script src="script.js"></script>
-  <script src="ai.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/ai.js"></script>
 </body>
 </html>
