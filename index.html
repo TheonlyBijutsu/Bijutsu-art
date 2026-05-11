@@ -3,95 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bijutsu Studio | Anime Art & Animation</title>
-  <meta name="description" content="Custom Anime PFPs, OC Designs and Short Animations.">
+  <title>Bijutsu Studio</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
 </head>
 <body>
-
-<header class="header">
-  <div class="container nav-container">
-    <a href="index.html" class="logo">BIJUTSU <span>STUDIO</span></a>
-    <nav class="nav">
-      <a href="index.html" class="active">Home</a>
+  <header class="site-header">
+    <a class="logo" href="index.html">Bijutsu Studio</a>
+    <nav>
+      <a href="index.html">Home</a>
       <a href="portfolio.html">Portfolio</a>
       <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <p class="tag">✨ COMMISSIONS OPEN ✨</p>
-      <h1>Bring Your <span>Anime Ideas</span> To Life</h1>
-      <p class="subtitle">
-        Custom Anime DP/PFP, Original Character Design and 10–15 second animations.
-      </p>
-      <div class="hero-buttons">
-        <a href="portfolio.html" class="btn btn-primary">View Portfolio</a>
-        <a href="pricing.html" class="btn btn-secondary">See Pricing</a>
-      </div>
+  <main class="hero">
+    <h1>Anime Art, Original Characters & Short Animations</h1>
+    <p>Custom PFPs, OC designs, and cinematic 10–15 second animations.</p>
+    <div class="hero-buttons">
+      <a class="btn primary" href="portfolio.html">View Portfolio</a>
+      <a class="btn" href="pricing.html">See Prices</a>
     </div>
+  </main>
 
-    <div class="hero-image">
-      <img src="images/portfolio.jpg" alt="Bijutsu Studio Artwork">
+  <button id="ai-toggle">BOT</button>
+
+  <section id="ai-panel">
+    <div class="ai-header">
+      <span>Bijutsu AI</span>
+      <button id="ai-close">×</button>
     </div>
-  </div>
-</section>
-
-<section class="features">
-  <div class="container">
-    <h2>Services</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>🖼️ Anime DP / PFP</h3>
-        <p>Stylized profile pictures with polished details and lighting.</p>
-      </div>
-      <div class="card">
-        <h3>🧬 OC Design</h3>
-        <p>Unique original characters with outfits, accessories and lore.</p>
-      </div>
-      <div class="card">
-        <h3>🎬 Short Animations</h3>
-        <p>10–15 second animated loops with glow and cinematic effects.</p>
-      </div>
+    <div id="ai-messages"></div>
+    <div class="ai-input-row">
+      <input id="ai-input" type="text" placeholder="Ask about prices, OC design, delivery...">
+      <button id="ai-send">Send</button>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="cta">
-  <div class="container cta-box">
-    <h2>Ready to Create Something Amazing?</h2>
-    <p>Let's transform your imagination into art.</p>
-    <a href="contact.html" class="btn btn-primary">Order Now</a>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <p>© 2026 Bijutsu Studio | Created by Gourav</p>
-    <p>📧 errorarmy987@gmail.com</p>
-  </div>
-</footer>
-
-<button class="ai-button" onclick="toggleAI()">BOT</button>
-<div id="ai-panel" class="ai-panel hidden">
-  <div class="ai-header">
-    <h3>Bijutsu AI</h3>
-    <button onclick="toggleAI()">✕</button>
-  </div>
-  <div id="ai-messages" class="ai-messages">
-    <div class="ai-message bot">Hello! 👋 Ask me about pricing, art ideas, or commissions.</div>
-  </div>
-  <div class="ai-input-area">
-    <input id="ai-input" type="text" placeholder="Type your message...">
-    <button onclick="sendAIMessage()">Send</button>
-  </div>
-</div>
-
-<script src="js/script.js"></script>
-<script src="js/ai.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/ai.js"></script>
 </body>
 </html>
