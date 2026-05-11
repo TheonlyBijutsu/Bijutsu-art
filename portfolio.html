@@ -5,42 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio | Bijutsu Studio</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
 </head>
 <body>
-
-<header class="header">
-  <div class="container nav-container">
-    <a href="index.html" class="logo">BIJUTSU <span>STUDIO</span></a>
-    <nav class="nav">
+  <header class="site-header">
+    <a class="logo" href="index.html">Bijutsu Studio</a>
+    <nav>
       <a href="index.html">Home</a>
-      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="portfolio.html">Portfolio</a>
       <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<section class="page-hero">
-  <div class="container">
+  <main class="page">
     <h1>Portfolio</h1>
-    <p>Featured artworks and animations.</p>
-  </div>
-</section>
+    <img src="images/portfolio.jpg" alt="Portfolio Art" class="portfolio-image">
+  </main>
 
-<section class="gallery-section">
-  <div class="container">
-    <div class="gallery">
-      <img src="images/portfolio.jpg" alt="Artwork 1">
-      <img src="images/portfolio.jpg" alt="Artwork 2">
-      <img src="images/portfolio.jpg" alt="Artwork 3">
-      <img src="images/portfolio.jpg" alt="Artwork 4">
-      <img src="images/portfolio.jpg" alt="Artwork 5">
-      <img src="images/portfolio.jpg" alt="Artwork 6">
-    </div>
-  </div>
-</section>
+  <button id="ai-toggle">BOT</button>
+  <section id="ai-panel"></section>
 
-<script src="js/script.js"></script>
-<script src="js/ai.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/ai.js"></script>
 </body>
 </html>
