@@ -1,64 +1,76 @@
-// 🔑 Paste your OpenRouter API key here
-const OPENROUTER_API_KEY = "PASTE_YOUR_API_KEY_HERE";
+const WORKER_URL = 'https://bijutsu-ai.e-r-r-o-r-97op.workers.dev/';
 
-const MODEL = "qwen/qwen3-4b";
+const aiToggle = document.getElementById('ai-toggle');
+const aiPanel = document.getElementById('ai-panel');
+const aiClose = document.getElementById('ai-close');
+const aiInput = document.getElementById('ai-input');
+const aiSend = document.getElementById('ai-send');
+const aiMessages = document.getElementById('ai-messages');
 
-function addMessage(text, type) {
-  const messages = document.getElementById('ai-messages');
-  if (!messages) return;
+let isProcessing = false;
 
+function addMessage(text, sender = 'bot') {
   const div = document.createElement('div');
-  div.className = `ai-message ${type}`;
+  div.className = `ai-message ${sender}`;
   div.textContent = text;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+  aiMessages.appendChild(div);
+  aiMessages.scrollTop = aiMessages.scrollHeight;
+  return div;
+}
+
+if (aiToggle) {
+  aiToggle.addEventListener('click', () => {
+    aiPanel.classList.toggle('open');
+    if (aiMessages && aiMessages.children.length === 0) {
+      addMessage("Hi! I'm Bijutsu AI 🎨 Ask me about pricing, OC design and delivery.");
+    }
+  });
+}
+
+if (aiClose) {
+  aiClose.addEventListener('click', () => aiPanel.classList.remove('open'));
 }
 
 async function sendAIMessage() {
-  const input = document.getElementById('ai-input');
-  if (!input) return;
+  const text = aiInput.value.trim();
+  if (!text || isProcessing) return;
 
-  const message = input.value.trim();
-  if (!message) return;
+  isProcessing = true;
+  aiInput.disabled = true;
+  aiSend.disabled = true;
 
-  addMessage(message, 'user');
-  input.value = '';
+  addMessage(text, 'user');
+  aiInput.value = '';
 
-  if (OPENROUTER_API_KEY === 'PASTE_YOUR_API_KEY_HERE') {
-    addMessage('Please add your OpenRouter API key in js/ai.js 🔑', 'bot');
-    return;
-  }
-
-  addMessage('Thinking... 🤖', 'bot');
-
-  const messages = document.getElementById('ai-messages');
-  const thinking = messages.lastElementChild;
-
-  const systemPrompt = `You are Bijutsu AI, a helpful multilingual assistant for an anime art commission website.
-You answer in English, Hindi, or Hinglish depending on the user.
-You help with pricing, art suggestions, OC ideas, and commission guidance.`;
+  const thinking = addMessage('Bijutsu AI is sketching... ✏️');
 
   try {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const response = await fetch(WORKER_URL, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: message }
-        ]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
     });
 
-    const data = await response.json(); 
-    const reply = data.choices?.[0]?.message?.content || 'No response.';
-    thinking.textContent = reply;
-  } catch (error) {
-    thinking.textContent = 'Error connecting to AI.';
-    console.error(error);
+    const data = await response.json();
+    thinking.textContent = data.reply || 'No response.';
+  } catch (err) {
+    thinking.textContent = 'Connection error. Please try again.';
+    console.error(err);
+  } finally {
+    isProcessing = false;
+    aiInput.disabled = false;
+    aiSend.disabled = false;
+    aiInput.focus();
   }
+}
+
+if (aiSend) aiSend.addEventListener('click', sendAIMessage);
+
+if (aiInput) {
+  aiInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendAIMessage();
+    }
+  });
 }
