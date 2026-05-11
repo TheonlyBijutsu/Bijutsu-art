@@ -1,0 +1,1 @@
+console.log("Bijutsu Studio loaded successfully!");
