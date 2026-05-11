@@ -1,4 +1,3 @@
-<!-- portfolio.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,19 +7,48 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">BIJUTSU<span> STUDIO</span></a>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="container">
-    <h1>Portfolio</h1>
-    <p>Artwork gallery coming soon.</p>
-  </main>
+  <section class="page-hero">
+    <div class="container">
+      <h1>My Portfolio</h1>
+      <p>Selected artwork and featured projects.</p>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery">
+        <img src="images/portfolio.png" alt="Artwork 1">
+        <img src="images/portfolio.png" alt="Artwork 2">
+        <img src="images/portfolio.png" alt="Artwork 3">
+        <img src="images/portfolio.png" alt="Artwork 4">
+        <img src="images/portfolio.png" alt="Artwork 5">
+        <img src="images/portfolio.png" alt="Artwork 6">
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Bijutsu Studio</p>
+      <p>📧 errorarmy987@gmail.com</p>
+    </div>
+  </footer>
+
+  <button class="ai-button">BOT</button>
 
   <script src="js/script.js"></script>
   <script src="js/ai.js"></script>
