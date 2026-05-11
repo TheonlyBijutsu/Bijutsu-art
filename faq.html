@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | Bijutsu Studio</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="grid-overlay"></div>
+
+<header class="header">
+  <a href="index.html" class="logo">Bijutsu Studio</a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+
+<main class="container page">
+<h1>Frequently Asked Questions</h1>
+<div class="faq-list">
+  <div class="card reveal"><h3>How do I order?</h3><p>Email your idea, references and selected package.</p></div>
+  <div class="card reveal"><h3>When does work start?</h3><p>Work begins after advance payment.</p></div>
+  <div class="card reveal"><h3>How many revisions?</h3><p>Revisions depend on the package you choose.</p></div>
+</div>
+</main>
+
+
+<footer class="footer">
+  <p>Custom Anime Art • OC Design • Animation</p>
+  <p><a href="mailto:errorarmy987@gmail.com">errorarmy987@gmail.com</a></p>
+</footer>
+
+<button id="ai-toggle" aria-label="Open Assistant"><span class="bot-core"></span></button>
+
+<div id="ai-panel" class="ai-panel">
+  <div class="ai-header">
+    <div>
+      <strong>Bijutsu Assistant</strong>
+      <small>Commission Guide</small>
+    </div>
+    <button id="ai-close" type="button">×</button>
+  </div>
+  <div id="ai-messages" class="ai-messages"></div>
+  <div class="ai-input-row">
+    <input id="ai-input" type="text" placeholder="Ask about pricing, delivery, or OC ideas...">
+    <button id="ai-send" type="button">Send</button>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+<script src="js/ai.js"></script>
+</body>
+</html>
