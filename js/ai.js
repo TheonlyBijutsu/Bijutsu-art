@@ -1,11 +1,12 @@
-
 const WORKER_URL = "https://bijutsu-ai.e-r-r-o-r-97op.workers.dev/";
+
 const aiToggle = document.getElementById("ai-toggle");
 const aiPanel = document.getElementById("ai-panel");
 const aiClose = document.getElementById("ai-close");
 const aiInput = document.getElementById("ai-input");
 const aiSend = document.getElementById("ai-send");
 const aiMessages = document.getElementById("ai-messages");
+
 let isProcessing = false;
 
 function addMessage(text, sender = "bot") {
@@ -18,10 +19,16 @@ function addMessage(text, sender = "bot") {
 }
 
 function togglePanel(forceOpen = null) {
-  const open = forceOpen === null ? !aiPanel.classList.contains("open") : forceOpen;
+  const open = forceOpen === null
+    ? !aiPanel.classList.contains("open")
+    : forceOpen;
+
   aiPanel.classList.toggle("open", open);
+
   if (open && aiMessages.children.length === 0) {
-    addMessage("Welcome to Bijutsu Studio. Ask me about prices, delivery time, or character ideas.");
+    addMessage(
+      "Welcome to Bijutsu Studio. Ask me about prices, delivery time, or character ideas."
+    );
   }
 }
 
@@ -35,18 +42,49 @@ async function sendAIMessage() {
 
   addMessage(text, "user");
   aiInput.value = "";
+
   const thinking = addMessage("Thinking...");
 
   try {
     const response = await fetch(WORKER_URL, {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({message: text})
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: text
+      })
     });
-    const data = await response.json();
-    thinking.textContent = data.reply || "No response received.";
+
+    // Raw text lete hain taaki different response formats handle ho saken
+    const raw = await response.text();
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      data = { reply: raw };
+    }
+
+    // Different possible response formats
+    const reply =
+      data.reply ||
+      data.response ||
+      data.answer ||
+      data.result ||
+      data.output ||
+      (data.choices &&
+        data.choices[0] &&
+        data.choices[0].message &&
+        data.choices[0].message.content) ||
+      null;
+
+    thinking.textContent =
+      reply || "Sorry, I couldn't generate a response.";
+
   } catch (error) {
-    thinking.textContent = "Connection error. Please try again.";
+    thinking.textContent =
+      "Connection error. Please try again.";
     console.error(error);
   } finally {
     isProcessing = false;
@@ -59,7 +97,8 @@ async function sendAIMessage() {
 aiToggle?.addEventListener("click", () => togglePanel());
 aiClose?.addEventListener("click", () => togglePanel(false));
 aiSend?.addEventListener("click", sendAIMessage);
-aiInput?.addEventListener("keydown", e => {
+
+aiInput?.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
     sendAIMessage();
