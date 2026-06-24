@@ -1,63 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact | Bijutsu Studio</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/chatbot.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Bijutsu Studio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .contact-left { }
+
+    .contact-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .contact-intro {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-methods { display: flex; flex-direction: column; gap: 1rem; }
+
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--ink-3);
+      border: 0.5px solid var(--border-light);
+      border-radius: 2px;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-method:hover {
+      border-color: var(--sakura-dim);
+      background: var(--ink-4);
+    }
+
+    .method-icon {
+      width: 36px; height: 36px;
+      background: var(--sakura-glow);
+      border: 0.5px solid var(--sakura-dim);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .method-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .method-value {
+      font-size: 0.85rem;
+      color: var(--white);
+    }
+
+    .response-note {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0.7rem 1rem;
+      border-left: 1px solid var(--sakura-dim);
+    }
+
+    /* Commission form styled */
+    .commission-form {
+      background: var(--ink-2);
+      border: 0.5px solid var(--border-light);
+      padding: 2.5rem;
+      border-radius: 2px;
+    }
+
+    .form-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group:last-of-type { margin-bottom: 1.5rem; }
+
+    label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      background: var(--ink-3);
+      border: 0.5px solid var(--border-light);
+      border-radius: 1px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.7rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--sakura-dim);
+    }
+
+    select option { background: var(--ink-3); }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    .form-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .mailto-link {
+      display: inline-block;
+      color: var(--sakura);
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+
+    .mailto-link:hover { text-decoration: underline; }
+
+    .social-row {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.8rem;
+    }
+
+    .social-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 0.5px solid var(--border-light);
+      padding: 0.4rem 0.8rem;
+      border-radius: 1px;
+      text-decoration: none;
+      font-size: 0.72rem;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .social-chip:hover {
+      border-color: var(--sakura-dim);
+      color: var(--sakura);
+    }
+  </style>
 </head>
 <body>
-<div class="bg-orb orb-1"></div>
-<div class="bg-orb orb-2"></div>
-<div class="grid-overlay"></div>
 
-<header class="header">
-  <a href="index.html" class="logo">Bijutsu Studio</a>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="faq.html">FAQ</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<canvas id="particle-canvas"></canvas>
 
+<nav>
+  <a href="index.html" class="logo"><span class="logo-dot"></span>BIJUTSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" class="active nav-cta">Contact</a></li>
+  </ul>
+</nav>
 
-<main class="container page">
-<h1>Contact</h1>
-<p class="page-subtitle">Let's turn your imagination into art.</p>
-<div class="card contact-card reveal">
-  <h3>Email</h3>
-  <p><a href="mailto:errorarmy987@gmail.com">errorarmy987@gmail.com</a></p>
-  <p>Typical response time: within 24 hours.</p>
-</div>
+<main>
+  <section class="page-hero">
+    <p class="eyebrow">Get in Touch</p>
+    <h1>Let's Create <em>Together.</em></h1>
+    <p>Ready to bring your character to life? Reach out and let's talk about your vision.</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <div class="contact-left fade-in">
+          <h2 class="contact-heading">Start Your<br>Commission</h2>
+          <p class="contact-intro">Send over your idea, references, and chosen package. I'll get back to you within 24 hours to confirm and get started.</p>
+
+          <div class="contact-methods">
+            <a href="mailto:errorarmy987@gmail.com" class="contact-method">
+              <div class="method-icon">✉</div>
+              <div>
+                <div class="method-label">Email</div>
+                <div class="method-value">errorarmy987@gmail.com</div>
+              </div>
+            </a>
+            <a href="https://discord.gg/J3m9Hqt8ed" target="_blank" class="contact-method">
+              <div class="method-icon">💬</div>
+              <div>
+                <div class="method-label">Discord Server</div>
+                <div class="method-value">discord.gg/J3m9Hqt8ed</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="response-note">
+            Typical response time: within 24 hours. Commissions are taken in order of payment received.
+          </div>
+
+          <div class="social-row">
+            <a href="https://discord.gg/J3m9Hqt8ed" target="_blank" class="social-chip">⊹ Discord</a>
+          </div>
+        </div>
+
+        <div class="commission-form fade-in" style="transition-delay:0.15s">
+          <div class="form-title">Commission Brief</div>
+          <div class="form-sub">Fill this out and copy-paste it into your email — makes it much faster!</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name / Handle</label>
+              <input type="text" placeholder="e.g. SakuraFan99" id="f-name">
+            </div>
+            <div class="form-group">
+              <label>Package Type</label>
+              <select id="f-package">
+                <option value="">Select package...</option>
+                <option>Anime PFP — Starter (₹49)</option>
+                <option>Anime PFP — Pro (₹149)</option>
+                <option>Anime PFP — Elite (₹299)</option>
+                <option>OC Design — Starter (₹99)</option>
+                <option>OC Design — Pro (₹299)</option>
+                <option>OC Design — Elite (₹599)</option>
+                <option>Animation — Starter (₹199)</option>
+                <option>Animation — Pro (₹499)</option>
+                <option>Animation — Elite (₹999)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Your idea / character description</label>
+            <textarea placeholder="Describe your character, their outfit, personality, any references you have..." id="f-desc"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Reference links (optional)</label>
+            <input type="text" placeholder="Pinterest board, image links, etc." id="f-refs">
+          </div>
+
+          <p class="form-note">This form generates an email template — click the button below to open your mail app with everything filled in. (Directly emailing is always fine too!)</p>
+
+          <a href="#" class="btn btn-primary" id="generate-mailto" style="width:100%; text-align:center;">Open in Email App →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </main>
 
-
-<footer class="footer">
-  <p>Custom Anime Art • OC Design • Animation</p>
-  <p><a href="mailto:errorarmy987@gmail.com">errorarmy987@gmail.com</a></p>
+<footer>
+  <a href="index.html" class="footer-logo">BIJUTSU</a>
+  <ul class="footer-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Bijutsu Studio</div>
 </footer>
 
-<button id="ai-toggle" aria-label="Open Assistant"><span class="bot-core"></span></button>
-
-<div id="ai-panel" class="ai-panel">
-  <div class="ai-header">
-    <div>
-      <strong>Bijutsu Assistant</strong>
-      <small>Commission Guide</small>
+<div class="ai-ring"></div>
+<button class="ai-btn" id="ai-btn" aria-label="Open Bijutsu Assistant">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#E8A0B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+    <circle cx="8.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+    <circle cx="12" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+    <circle cx="15.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+  </svg>
+</button>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">B</div>
+      <div><div class="chat-name">Bijutsu Assistant</div><div class="chat-status">● Online</div></div>
     </div>
-    <button id="ai-close" type="button">×</button>
+    <button class="chat-close" id="chat-close">✕</button>
   </div>
-  <div id="ai-messages" class="ai-messages"></div>
-  <div class="ai-input-row">
-    <input id="ai-input" type="text" placeholder="Ask about pricing, delivery, or OC ideas...">
-    <button id="ai-send" type="button">Send</button>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">Ready to commission? I can help you pick the right package! 🎨</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" placeholder="Ask anything..." />
+    <button class="chat-send" id="chat-send">→</button>
   </div>
 </div>
 
-<script src="js/script.js"></script>
-<script src="js/ai.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('generate-mailto').addEventListener('click', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('f-name').value || '(your name)';
+    const pkg = document.getElementById('f-package').value || '(not selected)';
+    const desc = document.getElementById('f-desc').value || '(no description)';
+    const refs = document.getElementById('f-refs').value || 'None';
+
+    const subject = encodeURIComponent('Commission Request — ' + pkg);
+    const body = encodeURIComponent(
+      'Hi Bijutsu!\n\n' +
+      'Name / Handle: ' + name + '\n' +
+      'Package: ' + pkg + '\n\n' +
+      'Character / Idea:\n' + desc + '\n\n' +
+      'References:\n' + refs + '\n\n' +
+      'Looking forward to working with you!'
+    );
+
+    window.location.href = 'mailto:errorarmy987@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
 </body>
 </html>
