@@ -56,7 +56,7 @@ p.wobble += p.wobbleSpeed;
 p.x += p.speedX + Math.sin(p.wobble) * 0.3;
 p.rot += p.rotSpeed;
 
-```
+
   if (p.y > H + 20 || p.x < -20 || p.x > W + 20) {
     Object.assign(p, makePetal());
     p.x = Math.random() * W;
@@ -67,7 +67,7 @@ p.rot += p.rotSpeed;
 });
 
 requestAnimationFrame(tick);
-```
+
 
 }
 
