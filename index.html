@@ -295,6 +295,31 @@
       background: linear-gradient(to bottom, transparent, var(--sakura-dim), transparent);
       margin: 0 auto 2rem;
     }
+
+    /* ── RESPONSIVE: HOME PAGE ── */
+    @media (max-width: 860px) {
+      .home-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-left {
+        padding: 3.5rem 1.4rem 1.5rem;
+        text-align: center;
+        align-items: center;
+      }
+      .hero-sub { max-width: none; margin-left: auto; margin-right: auto; }
+      .hero-btns { justify-content: center; margin-bottom: 2.5rem; }
+      .stats { justify-content: center; gap: 1.8rem; }
+      .hero-right { order: -1; padding: 2.5rem 1.4rem 1rem; }
+      .art-stack { width: 230px; height: 300px; }
+      .art-card-main { width: 200px; height: 260px; }
+      .art-card-behind { width: 184px; height: 246px; }
+      .art-card-back { width: 168px; height: 230px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .svc { border-right: none; border-bottom: 0.5px solid var(--border-light); }
+      .svc:last-child { border-bottom: none; }
+      .cta-section { padding: 4.5rem 1.4rem; }
+    }
   </style>
 </head>
 <body>
@@ -311,7 +336,11 @@
     <li><a href="faq.html">FAQ</a></li>
     <li><a href="contact.html" class="nav-cta">Contact</a></li>
   </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-overlay" id="nav-overlay"></div>
 
 <main>
   <!-- HERO -->
@@ -444,6 +473,7 @@
   </div>
 </div>
 
+<script src="js/script.js"></script>
 <script src="js/ai.js"></script>
 </body>
 </html>
