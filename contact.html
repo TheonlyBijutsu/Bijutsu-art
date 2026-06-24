@@ -188,6 +188,10 @@
       border-color: var(--sakura-dim);
       color: var(--sakura);
     }
+    @media (max-width: 800px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -203,7 +207,11 @@
     <li><a href="faq.html">FAQ</a></li>
     <li><a href="contact.html" class="active nav-cta">Contact</a></li>
   </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-overlay" id="nav-overlay"></div>
 
 <main>
   <section class="page-hero">
@@ -329,7 +337,7 @@
   </div>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/script.js"></script>
 <script>
   document.getElementById('generate-mailto').addEventListener('click', function(e) {
     e.preventDefault();
