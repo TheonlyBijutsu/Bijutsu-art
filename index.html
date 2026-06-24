@@ -1,124 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bijutsu Studio | Premium Anime Art & Animation</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/chatbot.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bijutsu Studio | Premium Anime Art & Animation</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── HOME HERO ── */
+    .home-hero {
+      min-height: 94vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 3rem 6rem 5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.12;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-title em { font-style: normal; color: var(--sakura); }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 380px;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+
+    .stats {
+      display: flex;
+      gap: 3rem;
+      padding-top: 2.5rem;
+      border-top: 0.5px solid var(--border-light);
+    }
+
+    .stat-num {
+      font-family: 'Cinzel', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    /* ── HERO RIGHT – ART SHOWCASE ── */
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 4rem 4rem 4rem 1rem;
+    }
+
+    .art-stack {
+      position: relative;
+      width: 300px;
+      height: 400px;
+    }
+
+    .art-card {
+      position: absolute;
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      background: var(--ink-3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .art-card-main {
+      width: 260px;
+      height: 340px;
+      top: 30px; left: 20px;
+      z-index: 3;
+    }
+
+    .art-card-behind {
+      width: 240px;
+      height: 320px;
+      top: 10px; left: 35px;
+      z-index: 2;
+      transform: rotate(3deg);
+      border-color: rgba(232,160,180,0.06);
+    }
+
+    .art-card-back {
+      width: 220px;
+      height: 300px;
+      top: 0; left: 50px;
+      z-index: 1;
+      transform: rotate(6deg);
+      border-color: rgba(232,160,180,0.04);
+    }
+
+    .art-icon {
+      width: 60px; height: 60px;
+      border: 0.5px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .art-placeholder {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      color: rgba(232,160,180,0.3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .corner-tl, .corner-br {
+      position: absolute;
+      width: 18px; height: 18px;
+    }
+
+    .corner-tl { top: 10px; left: 10px; border-top: 1px solid var(--sakura); border-left: 1px solid var(--sakura); }
+    .corner-br { bottom: 10px; right: 10px; border-bottom: 1px solid var(--sakura); border-right: 1px solid var(--sakura); }
+
+    /* floating tags */
+    .float-tag {
+      position: absolute;
+      background: var(--ink-4);
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.68rem;
+      color: var(--sakura);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: floatY 4s ease-in-out infinite;
+    }
+
+    .float-tag:nth-child(1) { top: 5%; right: -5px; animation-delay: 0s; }
+    .float-tag:nth-child(2) { bottom: 12%; left: -10px; animation-delay: 1.5s; }
+    .float-tag:nth-child(3) { top: 40%; right: -15px; animation-delay: 3s; }
+
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ── SERVICES SECTION ── */
+    .services { background: var(--ink-2); }
+
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .sec-label span {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--sakura);
+    }
+
+    .sec-label::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--border-light);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 0.5px solid var(--border-light);
+    }
+
+    .svc {
+      padding: 2.8rem 2rem;
+      border-right: 0.5px solid var(--border-light);
+      position: relative;
+      transition: background 0.25s;
+    }
+
+    .svc:last-child { border-right: none; }
+    .svc:hover { background: var(--ink-3); }
+
+    .svc::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--sakura);
+      transition: width 0.4s;
+    }
+
+    .svc:hover::before { width: 100%; }
+
+    .svc-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      color: rgba(232,160,180,0.25);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+    }
+
+    .svc-glyph {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .svc-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .svc-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .svc-price {
+      font-size: 0.75rem;
+      color: var(--sakura);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .svc-price::before { content: ''; display: block; width: 14px; height: 0.5px; background: var(--sakura); }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 8rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(232,160,180,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-inner { position: relative; z-index: 2; max-width: 560px; margin: 0 auto; }
+    .cta-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .cta-desc { color: var(--muted); margin-bottom: 2.5rem; line-height: 1.7; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── LINE DIVIDER ── */
+    .divider-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--sakura-dim), transparent);
+      margin: 0 auto 2rem;
+    }
+  </style>
 </head>
 <body>
-<div class="bg-orb orb-1"></div>
-<div class="bg-orb orb-2"></div>
-<div class="grid-overlay"></div>
 
-<header class="header">
-  <a href="index.html" class="logo">Bijutsu Studio</a>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="faq.html">FAQ</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<canvas id="particle-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo"><span class="logo-dot"></span>BIJUTSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
 
 <main>
-  <section class="hero container">
-    <span class="badge">Anime Art • OC Design • Animation</span>
+  <!-- HERO -->
+  <section class="home-hero">
+    <div class="hero-left fade-in">
+      <p class="eyebrow">Bijutsu Studio</p>
+      <h1 class="hero-title">Where Stories<br>Bloom Into <em>Art.</em></h1>
+      <p class="hero-sub">Premium anime profile pictures, original character designs, and cinematic short animations — crafted with emotion and stunning detail.</p>
+      <div class="hero-btns">
+        <a href="portfolio.html" class="btn btn-primary">View Portfolio</a>
+        <a href="pricing.html" class="btn btn-outline">Commission Prices</a>
+      </div>
+      <div class="stats">
+        <div>
+          <div class="stat-num">120+</div>
+          <div class="stat-label">Commissions Done</div>
+        </div>
+        <div>
+          <div class="stat-num">4.9★</div>
+          <div class="stat-label">Client Rating</div>
+        </div>
+        <div>
+          <div class="stat-num">48h</div>
+          <div class="stat-label">Avg. Response</div>
+        </div>
+      </div>
+    </div>
 
-    <h1>Where Stories Bloom Into Art.</h1>
-
-    <p>
-      Premium anime profile pictures, original character designs,
-      and cinematic short animations crafted with care, emotion,
-      and stunning visual detail.
-    </p>
-
-    <div class="hero-actions">
-      <a href="portfolio.html" class="btn btn-primary">
-        View Portfolio
-      </a>
-
-      <a href="pricing.html" class="btn btn-secondary">
-        Commission Prices
-      </a>
-
-      <a
-        href="https://discord.gg/J3m9Hqt8ed"
-        class="btn btn-discord"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Join Discord
-      </a>
+    <div class="hero-right fade-in" style="transition-delay:0.2s">
+      <div class="art-stack">
+        <div class="art-card art-card-back"></div>
+        <div class="art-card art-card-behind"></div>
+        <div class="art-card art-card-main">
+          <div class="corner-tl"></div>
+          <div class="corner-br"></div>
+          <div class="art-icon">🎨</div>
+          <p class="art-placeholder">Add your<br>best artwork<br>here</p>
+        </div>
+        <div class="float-tag">Anime PFP</div>
+        <div class="float-tag">OC Design</div>
+        <div class="float-tag">Animation</div>
+      </div>
     </div>
   </section>
 
-  <section class="features container">
-    <article class="card reveal">
-      <h3>Anime PFPs</h3>
-      <p>
-        Detailed portraits with expressive eyes,
-        dramatic lighting, and aesthetic effects.
-      </p>
-    </article>
+  <!-- SERVICES -->
+  <section class="services section">
+    <div class="container">
+      <div class="sec-label"><span>What I Create</span></div>
+      <div class="services-grid">
+        <div class="svc fade-in">
+          <div class="svc-num">01</div>
+          <span class="svc-glyph">🎭</span>
+          <div class="svc-title">Anime PFPs</div>
+          <p class="svc-desc">Detailed portraits with expressive eyes, dramatic lighting, and aesthetic effects that make your profile impossible to scroll past.</p>
+          <div class="svc-price">From ₹49</div>
+        </div>
+        <div class="svc fade-in" style="transition-delay:0.15s">
+          <div class="svc-num">02</div>
+          <span class="svc-glyph">✦</span>
+          <div class="svc-title">Original Characters</div>
+          <p class="svc-desc">Complete character concepts built from your lore, references, and imagination — from first sketch to final polished render.</p>
+          <div class="svc-price">From ₹99</div>
+        </div>
+        <div class="svc fade-in" style="transition-delay:0.3s">
+          <div class="svc-num">03</div>
+          <span class="svc-glyph">🎬</span>
+          <div class="svc-title">Short Animations</div>
+          <p class="svc-desc">10–15 second cinematic loops with glow, motion blur, and polished finishing that bring your character to life.</p>
+          <div class="svc-price">From ₹199</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <article class="card reveal">
-      <h3>Original Characters</h3>
-      <p>
-        Complete character concepts crafted from
-        your lore, references, and imagination.
-      </p>
-    </article>
-
-    <article class="card reveal">
-      <h3>Short Animations</h3>
-      <p>
-        10–15 second cinematic loops with glow,
-        motion, and polished finishing.
-      </p>
-    </article>
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner fade-in">
+      <div class="divider-line"></div>
+      <p class="eyebrow">Ready to commission?</p>
+      <h2 class="cta-title">Bring Your Vision<br>To Life.</h2>
+      <p class="cta-desc">Every piece is unique. Share your ideas and I'll craft art that truly represents your character and story.</p>
+      <div class="cta-btns">
+        <a href="contact.html" class="btn btn-primary">Start a Commission</a>
+        <a href="https://discord.gg/J3m9Hqt8ed" class="btn btn-outline" target="_blank">Join Discord</a>
+      </div>
+    </div>
   </section>
 </main>
 
-<footer class="footer">
-  <p>Custom Anime Art • OC Design • Animation</p>
-  <p>
-    <a href="mailto:errorarmy987@gmail.com">
-      errorarmy987@gmail.com
-    </a>
-  </p>
+<footer>
+  <a href="index.html" class="footer-logo">BIJUTSU</a>
+  <ul class="footer-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Bijutsu Studio</div>
 </footer>
 
-<!-- Floating AI Button -->
-<button id="ai-toggle" aria-label="Open Assistant">
-  <span class="bot-core"></span>
+<!-- AI CHATBOT -->
+<div class="ai-ring"></div>
+<button class="ai-btn" id="ai-btn" aria-label="Open Bijutsu Assistant">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#E8A0B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+    <circle cx="8.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+    <circle cx="12" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+    <circle cx="15.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+  </svg>
 </button>
 
-<!-- AI Chat Panel -->
-<div id="ai-panel" class="ai-panel">
-  <div class="ai-header">
-    <div>
-      <strong>Bijutsu Assistant</strong>
-      <small>Commission Guide</small>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">B</div>
+      <div>
+        <div class="chat-name">Bijutsu Assistant</div>
+        <div class="chat-status">● Online</div>
+      </div>
     </div>
-    <button id="ai-close" type="button">×</button>
+    <button class="chat-close" id="chat-close">✕</button>
   </div>
-
-  <div id="ai-messages" class="ai-messages"></div>
-
-  <div class="ai-input-row">
-    <input
-      id="ai-input"
-      type="text"
-      placeholder="Ask about pricing, delivery, or OC ideas..."
-    >
-    <button id="ai-send" type="button">Send</button>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">Hey! 👋 I'm the Bijutsu Assistant. Ask me about commissions, pricing, or anything else!</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" placeholder="Ask anything..." />
+    <button class="chat-send" id="chat-send">→</button>
   </div>
 </div>
 
-<script src="js/script.js"></script>
-<script src="js/ai.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
