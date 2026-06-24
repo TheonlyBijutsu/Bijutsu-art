@@ -439,4 +439,106 @@ footer {
 }
 
 /* all content above canvas */
-nav, main, footer, .ai-btn, .ai-ring, .chat-panel { position: relative; z-index: 1; }
+nav, main, footer { position: relative; z-index: 1; }
+
+/* ── DYNAMIC AI CHAT MESSAGES (created by js/ai.js) ── */
+.ai-message {
+  padding: 0.6rem 0.85rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  max-width: 88%;
+}
+
+.ai-message.bot {
+  background: var(--ink-4);
+  color: var(--white);
+  border: 0.5px solid var(--border);
+  align-self: flex-start;
+}
+
+.ai-message.user {
+  background: var(--sakura-glow);
+  color: var(--white);
+  border: 0.5px solid var(--sakura-dim);
+  align-self: flex-end;
+}
+
+/* ── MOBILE NAV TOGGLE ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px; height: 34px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 250;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 150;
+}
+
+.nav-overlay.open { display: block; }
+
+/* ── RESPONSIVE: PHONE / TABLET ── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.2rem; }
+
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    height: 100vh;
+    width: min(78vw, 300px);
+    background: var(--ink-2);
+    border-left: 0.5px solid var(--border);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.7rem;
+    padding: 5.5rem 2rem 2rem;
+    transition: right 0.35s ease;
+    z-index: 200;
+  }
+
+  .nav-links.open { right: 0; }
+  .nav-links a { font-size: 0.85rem; }
+
+  .section { padding: 3.5rem 1.3rem; }
+  .section-sm { padding: 2rem 1.3rem; }
+  .page-hero { padding: 3.5rem 1.3rem 2.2rem; }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1.3rem;
+  }
+
+  /* AI chat widget — keep on the left, just fit the screen */
+  .ai-btn { width: 52px; height: 52px; left: 1.1rem; bottom: 1.1rem; }
+  .ai-ring { width: 64px; height: 64px; left: calc(1.1rem - 6px); bottom: calc(1.1rem - 6px); }
+  .chat-panel {
+    left: 0.7rem;
+    right: 0.7rem;
+    width: auto;
+    bottom: 4.7rem;
+  }
+}
