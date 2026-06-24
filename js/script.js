@@ -1,12 +1,34 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+  // ── SCROLL FADE-IN ANIMATIONS ──
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add("visible");
     });
   }, {threshold: 0.15});
 
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+
+  // ── MOBILE NAV (hamburger) ──
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  const navOverlay = document.getElementById("nav-overlay");
+
+  function closeMobileNav() {
+    navToggle?.classList.remove("open");
+    navLinks?.classList.remove("open");
+    navOverlay?.classList.remove("open");
+  }
+
+  navToggle?.addEventListener("click", () => {
+    const open = !navLinks.classList.contains("open");
+    navToggle.classList.toggle("open", open);
+    navLinks.classList.toggle("open", open);
+    navOverlay?.classList.toggle("open", open);
+  });
+
+  navOverlay?.addEventListener("click", closeMobileNav);
+  navLinks?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileNav));
 
   const gallery = document.getElementById("portfolio-gallery");
   if (gallery) {
@@ -25,3 +47,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
