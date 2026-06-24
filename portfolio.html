@@ -1,59 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio | Bijutsu Studio</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/chatbot.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Bijutsu Studio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .filter-bar {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 2.5rem 0 3.5rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 0.5px solid var(--border-light);
+      color: var(--muted);
+      padding: 0.45rem 1.2rem;
+      border-radius: 1px;
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--sakura);
+      color: var(--sakura);
+      background: var(--sakura-glow);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border-light);
+    }
+
+    .port-card {
+      background: var(--ink-2);
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .port-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,15,0.9) 0%, transparent 50%);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .port-card:hover::before { opacity: 1; }
+
+    .port-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.2rem;
+      z-index: 3;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .port-card:hover .port-overlay {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .port-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .port-tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sakura);
+    }
+
+    .port-placeholder {
+      font-size: 2rem;
+      z-index: 1;
+    }
+
+    .port-label {
+      font-size: 0.68rem;
+      color: rgba(232,160,180,0.25);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      z-index: 1;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    /* corner decoration on hover */
+    .port-card::after {
+      content: '';
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 14px; height: 14px;
+      border-top: 0.5px solid var(--sakura);
+      border-right: 0.5px solid var(--sakura);
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .port-card:hover::after { opacity: 1; }
+
+    .coming-notice {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .coming-notice strong {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+  </style>
 </head>
 <body>
-<div class="bg-orb orb-1"></div>
-<div class="bg-orb orb-2"></div>
-<div class="grid-overlay"></div>
 
-<header class="header">
-  <a href="index.html" class="logo">Bijutsu Studio</a>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="faq.html">FAQ</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<canvas id="particle-canvas"></canvas>
 
+<nav>
+  <a href="index.html" class="logo"><span class="logo-dot"></span>BIJUTSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
 
-<main class="container page">
-  <h1>Portfolio</h1>
-  <p class="page-subtitle">PORTFOLIO.</p>
-  <section id="portfolio-gallery" class="gallery"></section>
+<main>
+  <section class="page-hero">
+    <p class="eyebrow">Creative Work</p>
+    <h1>The <em>Portfolio</em></h1>
+    <p>Every piece tells a story. Browse commissions across all categories.</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All Work</button>
+        <button class="filter-btn" data-filter="pfp">Anime PFPs</button>
+        <button class="filter-btn" data-filter="oc">OC Designs</button>
+        <button class="filter-btn" data-filter="anim">Animations</button>
+      </div>
+
+      <div class="portfolio-grid">
+        <!-- Replace these placeholder cards with <img> tags once you have artwork -->
+        <div class="port-card fade-in" data-cat="pfp">
+          <div class="port-placeholder">🎭</div>
+          <div class="port-label">Upload your<br>artwork here</div>
+          <div class="port-overlay">
+            <div class="port-title">Anime PFP — Commission #1</div>
+            <div class="port-tag">Anime PFP</div>
+          </div>
+        </div>
+        <div class="port-card fade-in" data-cat="oc" style="transition-delay:0.1s">
+          <div class="port-placeholder">✦</div>
+          <div class="port-label">Upload your<br>artwork here</div>
+          <div class="port-overlay">
+            <div class="port-title">OC Design — Commission #2</div>
+            <div class="port-tag">OC Design</div>
+          </div>
+        </div>
+        <div class="port-card fade-in" data-cat="anim" style="transition-delay:0.2s">
+          <div class="port-placeholder">🎬</div>
+          <div class="port-label">Upload your<br>artwork here</div>
+          <div class="port-overlay">
+            <div class="port-title">Animation — Commission #3</div>
+            <div class="port-tag">Animation</div>
+          </div>
+        </div>
+        <div class="port-card fade-in" data-cat="pfp" style="transition-delay:0.15s">
+          <div class="port-placeholder">🌸</div>
+          <div class="port-label">Upload your<br>artwork here</div>
+          <div class="port-overlay">
+            <div class="port-title">Anime PFP — Commission #4</div>
+            <div class="port-tag">Anime PFP</div>
+          </div>
+        </div>
+        <div class="port-card fade-in" data-cat="oc" style="transition-delay:0.25s">
+          <div class="port-placeholder">🗡️</div>
+          <div class="port-label">Upload your<br>artwork here</div>
+          <div class="port-overlay">
+            <div class="port-title">OC Design — Commission #5</div>
+            <div class="port-tag">OC Design</div>
+          </div>
+        </div>
+        <div class="port-card fade-in" data-cat="pfp" style="transition-delay:0.3s">
+          <div class="port-placeholder">⚡</div>
+          <div class="port-label">Upload your<br>artwork here</div>
+          <div class="port-overlay">
+            <div class="port-title">Anime PFP — Commission #6</div>
+            <div class="port-tag">Anime PFP</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="coming-notice fade-in">
+        <strong>More coming soon.</strong>
+        Replace the placeholders above by uploading your actual artwork images to the <code>images/</code> folder, then set each card's background-image in CSS.
+      </div>
+    </div>
+  </section>
 </main>
 
-
-<footer class="footer">
-  <p>Custom Anime Art • OC Design • Animation</p>
-  <p><a href="mailto:errorarmy987@gmail.com">errorarmy987@gmail.com</a></p>
+<footer>
+  <a href="index.html" class="footer-logo">BIJUTSU</a>
+  <ul class="footer-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Bijutsu Studio</div>
 </footer>
 
-<button id="ai-toggle" aria-label="Open Assistant"><span class="bot-core"></span></button>
-
-<div id="ai-panel" class="ai-panel">
-  <div class="ai-header">
-    <div>
-      <strong>Bijutsu Assistant</strong>
-      <small>Commission Guide</small>
+<div class="ai-ring"></div>
+<button class="ai-btn" id="ai-btn" aria-label="Open Bijutsu Assistant">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#E8A0B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+    <circle cx="8.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+    <circle cx="12" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+    <circle cx="15.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
+  </svg>
+</button>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">B</div>
+      <div><div class="chat-name">Bijutsu Assistant</div><div class="chat-status">● Online</div></div>
     </div>
-    <button id="ai-close" type="button">×</button>
+    <button class="chat-close" id="chat-close">✕</button>
   </div>
-  <div id="ai-messages" class="ai-messages"></div>
-  <div class="ai-input-row">
-    <input id="ai-input" type="text" placeholder="Ask about pricing, delivery, or OC ideas...">
-    <button id="ai-send" type="button">Send</button>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">Like what you see? I can help you commission a piece! 🌸</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" placeholder="Ask anything..." />
+    <button class="chat-send" id="chat-send">→</button>
   </div>
 </div>
 
-<script src="js/script.js"></script>
-<script src="js/ai.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Filter functionality
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.port-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.style.display = show ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
 </body>
 </html>
