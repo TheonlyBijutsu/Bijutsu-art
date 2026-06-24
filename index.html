@@ -415,7 +415,7 @@
 
 <!-- AI CHATBOT -->
 <div class="ai-ring"></div>
-<button class="ai-btn" id="ai-btn" aria-label="Open Bijutsu Assistant">
+<button class="ai-btn" id="ai-toggle" aria-label="Open Bijutsu Assistant">
   <svg viewBox="0 0 24 24" fill="none" stroke="#E8A0B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
     <circle cx="8.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
@@ -424,7 +424,7 @@
   </svg>
 </button>
 
-<div class="chat-panel" id="chat-panel">
+<div class="chat-panel" id="ai-panel">
   <div class="chat-header">
     <div class="chat-header-info">
       <div class="chat-avatar">B</div>
@@ -433,17 +433,17 @@
         <div class="chat-status">● Online</div>
       </div>
     </div>
-    <button class="chat-close" id="chat-close">✕</button>
+    <button class="chat-close" id="ai-close">✕</button>
   </div>
-  <div class="chat-messages" id="chat-messages">
+  <div class="chat-messages" id="ai-messages">
     <div class="chat-msg bot">Hey! 👋 I'm the Bijutsu Assistant. Ask me about commissions, pricing, or anything else!</div>
   </div>
   <div class="chat-input-row">
-    <input class="chat-input" id="chat-input" placeholder="Ask anything..." />
-    <button class="chat-send" id="chat-send">→</button>
+    <input class="chat-input" id="ai-input" placeholder="Ask anything..." />
+    <button class="chat-send" id="ai-send">→</button>
   </div>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/ai.js"></script>
 </body>
 </html>
