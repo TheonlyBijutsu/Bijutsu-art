@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ | Bijutsu Studio</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
   <style>
-    .faq-grid {
+    .faq-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      max-width: 1000px;
+      gap: 3.5rem;
+      max-width: 980px;
       margin: 0 auto;
     }
 
     .faq-col-label {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       text-transform: uppercase;
       letter-spacing: 0.2em;
       color: var(--sakura);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
-
     .faq-col-label::after {
       content: '';
       flex: 1;
@@ -42,11 +42,11 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 1rem;
-      padding: 1.1rem 0;
+      padding: 1rem 0;
     }
 
     .faq-q-text {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--white);
       line-height: 1.4;
@@ -61,9 +61,9 @@
       align-items: center;
       justify-content: center;
       color: var(--sakura);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       transition: all 0.25s;
-      margin-top: 0.1rem;
+      margin-top: 0.08rem;
     }
 
     .faq-item.open .faq-toggle {
@@ -75,49 +75,34 @@
     .faq-a {
       overflow: hidden;
       max-height: 0;
-      transition: max-height 0.35s ease, padding 0.35s ease;
-      padding: 0;
+      transition: max-height 0.38s ease;
     }
-
-    .faq-a-inner {
-      font-size: 0.83rem;
-      color: var(--muted);
-      line-height: 1.75;
-      padding-bottom: 1.1rem;
-    }
-
     .faq-item.open .faq-a { max-height: 300px; }
 
-    /* big decorative number */
-    .faq-section-num {
-      font-family: 'Cinzel', serif;
-      font-size: 5rem;
-      color: rgba(232,160,180,0.04);
-      position: absolute;
-      top: -1rem;
-      right: 0;
-      line-height: 1;
-      pointer-events: none;
+    .faq-a-inner {
+      font-size: 0.81rem;
+      color: var(--muted);
+      line-height: 1.75;
+      padding-bottom: 1rem;
     }
-
-    .faq-col { position: relative; }
 
     .still-stuck {
       text-align: center;
-      margin-top: 5rem;
+      margin-top: 4.5rem;
       padding-top: 3rem;
       border-top: 0.5px solid var(--border-light);
     }
 
     .still-stuck h3 {
       font-family: 'Cinzel', serif;
-      font-size: 1.3rem;
-      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.7rem;
     }
 
-    .still-stuck p { color: var(--muted); font-size: 0.88rem; margin-bottom: 2rem; }
-    @media (max-width: 700px) {
-      .faq-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .still-stuck p { color: var(--muted); font-size: 0.86rem; margin-bottom: 2rem; }
+
+    @media (max-width: 680px) {
+      .faq-layout { grid-template-columns: 1fr; gap: 2rem; }
     }
   </style>
 </head>
@@ -144,106 +129,74 @@
   <section class="page-hero">
     <p class="eyebrow">Got Questions?</p>
     <h1>Frequently <em>Asked</em></h1>
-    <p>Everything you need to know before commissioning. Can't find the answer? Just ask.</p>
+    <p>Everything you need to know before commissioning. Can't find it? Just ask the bot or email me.</p>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="faq-grid">
-        <div class="faq-col fade-in">
+      <div class="faq-layout">
+        <div class="fade-in">
           <div class="faq-col-label">Ordering</div>
-          <div class="faq-section-num">01</div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">How do I place a commission?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Email errorarmy987@gmail.com with your idea, reference images, and your chosen package. I'll confirm availability and send payment details. Work starts after advance payment is received.</div></div>
+            <div class="faq-q"><span class="faq-q-text">How do I place a commission?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Email errorarmy987@gmail.com with your idea, reference images, and chosen package. I'll confirm availability and send payment details. Work starts after advance payment is received.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">When does work actually begin?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Work begins after the advance payment is confirmed. Once paid, you'll be added to the queue and I'll start on your commission in order.</div></div>
+            <div class="faq-q"><span class="faq-q-text">When does work begin?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Work begins after advance payment is confirmed. You'll be added to the queue and I'll start in order.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">What payment methods are accepted?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">UPI is the primary method. Other options can be arranged — mention your preferred method when you reach out and we'll sort it out.</div></div>
+            <div class="faq-q"><span class="faq-q-text">What payment methods do you accept?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">UPI is the primary method. Other options can be arranged — mention your preferred method when you reach out.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">Can I request something not listed?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Absolutely! If your idea doesn't fit neatly into the listed packages, just describe it in your email. Custom pricing is available for unique requests.</div></div>
+            <div class="faq-q"><span class="faq-q-text">Can I request something custom?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Absolutely! If your idea doesn't fit a listed package, describe it in your email. Custom pricing is available for unique requests.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">Do you take rush orders?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Rush delivery is available on Elite-tier commissions with priority slots. Mention your deadline in the email and I'll let you know if it's feasible.</div></div>
+            <div class="faq-q"><span class="faq-q-text">Do you take rush orders?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Rush delivery is available on Elite-tier with priority slots. Mention your deadline and I'll confirm feasibility.</div></div>
           </div>
         </div>
 
-        <div class="faq-col fade-in" style="transition-delay:0.15s">
+        <div class="fade-in" style="transition-delay:0.15s">
           <div class="faq-col-label">Artwork & Process</div>
-          <div class="faq-section-num">02</div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">How many revisions do I get?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Starter gets 1 revision, Pro gets 2, and Elite gets unlimited revisions. Minor tweaks (colour, small edits) are always free. Major changes like full redraws count as a revision round.</div></div>
+            <div class="faq-q"><span class="faq-q-text">How many revisions do I get?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Starter gets 1 revision, Pro gets 2, Elite gets unlimited. Minor tweaks (colour, small edits) are always free. Major changes count as a revision round.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">How long does delivery take?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Anime PFPs: 2–4 days · OC Designs: 4–7 days · Animations: 7–14 days. Times may vary during busy periods — I'll always give you an estimate upfront.</div></div>
+            <div class="faq-q"><span class="faq-q-text">How long does delivery take?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Anime PFPs: 2–4 days · OC Designs: 4–7 days · Animations: 7–14 days. Times may vary during busy periods — I'll give you an estimate upfront.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">What file formats will I receive?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Final files are delivered as high-resolution PNG (transparent BG available on request). Animations are delivered as MP4 or GIF. Source files are not included.</div></div>
+            <div class="faq-q"><span class="faq-q-text">What file formats will I receive?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Final files are high-res PNG (transparent BG available on request). Animations delivered as MP4 or GIF. Source files are not included.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">Can I use the art commercially?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">All packages include full personal use rights. For commercial use (merch, branding, etc.), a commercial licence fee applies. Contact me for rates before placing a commercial order.</div></div>
+            <div class="faq-q"><span class="faq-q-text">Can I use the art commercially?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">All packages include full personal use rights. For commercial use (merch, branding etc.), a commercial licence fee applies. Contact me before ordering for rates.</div></div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">
-              <span class="faq-q-text">Will my art be posted publicly?</span>
-              <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">Completed commissions may be shared on the portfolio and socials as examples of my work. If you'd like your commission kept private, just mention it when ordering and I'll respect that.</div></div>
+            <div class="faq-q"><span class="faq-q-text">Will my art be shared publicly?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Completed commissions may be shared on portfolio and socials as examples. If you'd like your piece kept private, just mention it when ordering.</div></div>
           </div>
         </div>
       </div>
 
       <div class="still-stuck fade-in">
         <h3>Still have a question?</h3>
-        <p>I reply within 24 hours — just reach out directly.</p>
+        <p>I reply within 24 hours — reach out directly or use the chat bot.</p>
         <a href="contact.html" class="btn btn-primary">Contact Me</a>
       </div>
     </div>
@@ -262,40 +215,25 @@
 </footer>
 
 <div class="ai-ring"></div>
-<button class="ai-btn" id="ai-btn" aria-label="Open Bijutsu Assistant">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#E8A0B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
-    <circle cx="8.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-    <circle cx="12" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-    <circle cx="15.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-  </svg>
+<button id="ai-toggle" aria-label="Open Bijutsu Assistant">
+  <span class="bot-core"></span>
 </button>
-<div class="chat-panel" id="chat-panel">
-  <div class="chat-header">
-    <div class="chat-header-info">
-      <div class="chat-avatar">B</div>
-      <div><div class="chat-name">Bijutsu Assistant</div><div class="chat-status">● Online</div></div>
+<div class="ai-panel" id="ai-panel">
+  <div class="ai-header">
+    <div>
+      <strong style="font-size:0.9rem;">Bijutsu Assistant</strong>
+      <small>● Online — Ask me anything!</small>
     </div>
-    <button class="chat-close" id="chat-close">✕</button>
+    <button id="ai-close">✕</button>
   </div>
-  <div class="chat-messages" id="chat-messages">
-    <div class="chat-msg bot">Can't find your answer? Ask me directly! 🌸</div>
-  </div>
-  <div class="chat-input-row">
-    <input class="chat-input" id="chat-input" placeholder="Ask anything..." />
-    <button class="chat-send" id="chat-send">→</button>
+  <div class="ai-messages" id="ai-messages"></div>
+  <div class="ai-input-row">
+    <input id="ai-input" placeholder="Ask about prices, delivery, commissions…" />
+    <button id="ai-send">→</button>
   </div>
 </div>
 
 <script src="js/script.js"></script>
-<script>
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    });
-  });
-</script>
+<script src="js/ai.js"></script>
 </body>
 </html>
