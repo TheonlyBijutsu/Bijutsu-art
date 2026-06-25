@@ -5,40 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio | Bijutsu Studio</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
   <style>
     .filter-bar {
       display: flex;
-      gap: 0.6rem;
+      gap: 0.5rem;
       justify-content: center;
       flex-wrap: wrap;
-      margin: 2.5rem 0 3.5rem;
+      margin: 2.2rem 0 3rem;
     }
 
     .filter-btn {
       background: transparent;
       border: 0.5px solid var(--border-light);
       color: var(--muted);
-      padding: 0.45rem 1.2rem;
+      padding: 0.42rem 1.1rem;
       border-radius: 1px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.2s;
       font-family: 'Inter', sans-serif;
     }
-
     .filter-btn:hover, .filter-btn.active {
       border-color: var(--sakura);
       color: var(--sakura);
       background: var(--sakura-glow);
     }
 
+    /* ── GALLERY GRID ── */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2px;
       background: var(--border-light);
+      min-height: 200px;
     }
 
     .port-card {
@@ -47,70 +49,33 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
     }
 
+    /* image / video fills card */
+    .port-card img,
+    .port-card video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .port-card:hover img,
+    .port-card:hover video { transform: scale(1.04); }
+
+    /* dark overlay on hover */
     .port-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(10,10,15,0.9) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(8,8,14,0.92) 0%, rgba(8,8,14,0.1) 55%, transparent 100%);
       z-index: 2;
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.35s;
     }
-
     .port-card:hover::before { opacity: 1; }
 
-    .port-overlay {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 1.2rem;
-      z-index: 3;
-      transform: translateY(10px);
-      opacity: 0;
-      transition: all 0.3s;
-    }
-
-    .port-card:hover .port-overlay {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .port-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      color: var(--white);
-      margin-bottom: 0.25rem;
-    }
-
-    .port-tag {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--sakura);
-    }
-
-    .port-placeholder {
-      font-size: 2rem;
-      z-index: 1;
-    }
-
-    .port-label {
-      font-size: 0.68rem;
-      color: rgba(232,160,180,0.25);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      z-index: 1;
-      text-align: center;
-      padding: 0 1rem;
-    }
-
-    /* corner decoration on hover */
+    /* corner accent */
     .port-card::after {
       content: '';
       position: absolute;
@@ -122,22 +87,115 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
-
     .port-card:hover::after { opacity: 1; }
 
-    .coming-notice {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--muted);
-      font-size: 0.88rem;
+    .port-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.1rem;
+      z-index: 3;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: all 0.35s;
+    }
+    .port-card:hover .port-overlay { transform: translateY(0); opacity: 1; }
+
+    .port-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      color: var(--white);
+      margin-bottom: 0.2rem;
     }
 
-    .coming-notice strong {
+    .port-tag {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sakura);
+    }
+
+    /* video play badge */
+    .play-badge {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 42px; height: 42px;
+      background: rgba(232,160,180,0.18);
+      border: 0.5px solid var(--sakura-dim);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 3;
+      color: var(--sakura);
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .port-card[data-cat="anim"]:hover .play-badge { opacity: 1; }
+
+    /* empty state */
+    .gallery-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .gallery-empty strong {
       display: block;
       font-family: 'Cinzel', serif;
       font-size: 1rem;
       color: var(--white);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .upload-guide {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: var(--ink-2);
+      border: 0.5px solid var(--border-light);
+      border-radius: 2px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .upload-guide h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .upload-guide table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    .upload-guide th {
+      text-align: left;
+      color: var(--sakura);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.5rem 0.6rem;
+      border-bottom: 0.5px solid var(--border-light);
+    }
+
+    .upload-guide td {
+      padding: 0.55rem 0.6rem;
+      color: var(--muted);
+      border-bottom: 0.5px solid var(--border-light);
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    .upload-guide td:first-child { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -176,61 +234,26 @@
         <button class="filter-btn" data-filter="anim">Animations</button>
       </div>
 
-      <div class="portfolio-grid">
-        <!-- Replace these placeholder cards with <img> tags once you have artwork -->
-        <div class="port-card fade-in" data-cat="pfp">
-          <div class="port-placeholder">🎭</div>
-          <div class="port-label">Upload your<br>artwork here</div>
-          <div class="port-overlay">
-            <div class="port-title">Anime PFP — Commission #1</div>
-            <div class="port-tag">Anime PFP</div>
-          </div>
-        </div>
-        <div class="port-card fade-in" data-cat="oc" style="transition-delay:0.1s">
-          <div class="port-placeholder">✦</div>
-          <div class="port-label">Upload your<br>artwork here</div>
-          <div class="port-overlay">
-            <div class="port-title">OC Design — Commission #2</div>
-            <div class="port-tag">OC Design</div>
-          </div>
-        </div>
-        <div class="port-card fade-in" data-cat="anim" style="transition-delay:0.2s">
-          <div class="port-placeholder">🎬</div>
-          <div class="port-label">Upload your<br>artwork here</div>
-          <div class="port-overlay">
-            <div class="port-title">Animation — Commission #3</div>
-            <div class="port-tag">Animation</div>
-          </div>
-        </div>
-        <div class="port-card fade-in" data-cat="pfp" style="transition-delay:0.15s">
-          <div class="port-placeholder">🌸</div>
-          <div class="port-label">Upload your<br>artwork here</div>
-          <div class="port-overlay">
-            <div class="port-title">Anime PFP — Commission #4</div>
-            <div class="port-tag">Anime PFP</div>
-          </div>
-        </div>
-        <div class="port-card fade-in" data-cat="oc" style="transition-delay:0.25s">
-          <div class="port-placeholder">🗡️</div>
-          <div class="port-label">Upload your<br>artwork here</div>
-          <div class="port-overlay">
-            <div class="port-title">OC Design — Commission #5</div>
-            <div class="port-tag">OC Design</div>
-          </div>
-        </div>
-        <div class="port-card fade-in" data-cat="pfp" style="transition-delay:0.3s">
-          <div class="port-placeholder">⚡</div>
-          <div class="port-label">Upload your<br>artwork here</div>
-          <div class="port-overlay">
-            <div class="port-title">Anime PFP — Commission #6</div>
-            <div class="port-tag">Anime PFP</div>
-          </div>
+      <!-- Cards injected here by script.js -->
+      <div class="portfolio-grid" id="portfolio-gallery">
+        <div class="gallery-empty" id="gallery-empty">
+          <strong>Loading artwork…</strong>
+          Add your images to the <code>images/</code> folder and they'll appear here automatically.
         </div>
       </div>
 
-      <div class="coming-notice fade-in">
-        <strong>More coming soon.</strong>
-        Replace the placeholders above by uploading your actual artwork images to the <code>images/</code> folder, then set each card's background-image in CSS.
+      <!-- Naming guide — only shown when gallery is empty -->
+      <div class="upload-guide fade-in" id="upload-guide">
+        <h3>How to add your artwork</h3>
+        <table>
+          <tr><th>File name</th><th>Category</th><th>Type</th></tr>
+          <tr><td>pfp.png</td><td>Anime PFP</td><td>Image</td></tr>
+          <tr><td>pfp1.png, pfp2.png…</td><td>Anime PFP</td><td>Image</td></tr>
+          <tr><td>c1.png, c2.png…</td><td>OC Design</td><td>Image</td></tr>
+          <tr><td>oc1.png, oc2.png…</td><td>OC Design</td><td>Image</td></tr>
+          <tr><td>animation.mp4</td><td>Animation</td><td>Video</td></tr>
+          <tr><td>anim1.mp4, anim2.mp4…</td><td>Animation</td><td>Video</td></tr>
+        </table>
       </div>
     </div>
   </section>
@@ -247,49 +270,40 @@
   <div class="footer-copy">© 2025 Bijutsu Studio</div>
 </footer>
 
+<!-- AI CHATBOT — original IDs preserved exactly -->
 <div class="ai-ring"></div>
-<button class="ai-btn" id="ai-btn" aria-label="Open Bijutsu Assistant">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#E8A0B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
-    <circle cx="8.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-    <circle cx="12" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-    <circle cx="15.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-  </svg>
+<button id="ai-toggle" aria-label="Open Bijutsu Assistant">
+  <span class="bot-core"></span>
 </button>
-<div class="chat-panel" id="chat-panel">
-  <div class="chat-header">
-    <div class="chat-header-info">
-      <div class="chat-avatar">B</div>
-      <div><div class="chat-name">Bijutsu Assistant</div><div class="chat-status">● Online</div></div>
+<div class="ai-panel" id="ai-panel">
+  <div class="ai-header">
+    <div>
+      <strong style="font-size:0.9rem;">Bijutsu Assistant</strong>
+      <small>● Online — Ask me anything!</small>
     </div>
-    <button class="chat-close" id="chat-close">✕</button>
+    <button id="ai-close">✕</button>
   </div>
-  <div class="chat-messages" id="chat-messages">
-    <div class="chat-msg bot">Like what you see? I can help you commission a piece! 🌸</div>
-  </div>
-  <div class="chat-input-row">
-    <input class="chat-input" id="chat-input" placeholder="Ask anything..." />
-    <button class="chat-send" id="chat-send">→</button>
+  <div class="ai-messages" id="ai-messages"></div>
+  <div class="ai-input-row">
+    <input id="ai-input" placeholder="Ask about prices, delivery, commissions…" />
+    <button id="ai-send">→</button>
   </div>
 </div>
 
 <script src="js/script.js"></script>
+<script src="js/ai.js"></script>
 <script>
-  // Filter functionality
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.port-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      cards.forEach(card => {
-        const show = filter === 'all' || card.dataset.cat === filter;
-        card.style.display = show ? 'flex' : 'none';
-      });
-    });
+  // Hide upload guide once any card loads
+  const guide = document.getElementById('upload-guide');
+  const emptyMsg = document.getElementById('gallery-empty');
+  const galleryObs = new MutationObserver(() => {
+    const cards = document.querySelectorAll('.port-card');
+    if (cards.length > 0) {
+      if (guide) guide.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = 'none';
+    }
   });
+  galleryObs.observe(document.getElementById('portfolio-gallery'), { childList: true });
 </script>
 </body>
 </html>
