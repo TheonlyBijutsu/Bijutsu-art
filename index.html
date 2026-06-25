@@ -3,41 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BIJUTSU ART // Cybernetic Portfolio & Creator Hub</title>
+  <title>BIJUTSU ART // Cybernetic Gallery</title>
   
+  <!-- Fonts & Icon Libraries -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* -------------------------------------------------------------------------- */
-    /* 1. CORE VARIABLES & CYBERPUNK STYLING BASE                                 */
-    /* -------------------------------------------------------------------------- */
     :root {
       --bg-color: #050508;
       --cyber-black: #020204;
       --neon-cyan: #00f0ff;
       --neon-magenta: #ff007f;
       --glass-bg: rgba(10, 10, 18, 0.7);
-      --glass-bg-solid: rgba(14, 14, 26, 0.95);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-border-cyan: rgba(0, 240, 255, 0.25);
-      --glass-border-magenta: rgba(255, 0, 127, 0.25);
-      
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      
       --font-cyber: 'Orbitron', sans-serif;
       --font-body: 'Space Grotesk', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      
-      --transition-fast: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      
-      --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.3), 0 0 20px rgba(0, 240, 255, 0.1);
-      --glow-magenta: 0 0 10px rgba(255, 0, 127, 0.3), 0 0 20px rgba(255, 0, 127, 0.1);
+      --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.3);
+      --glow-magenta: 0 0 10px rgba(255, 0, 127, 0.3);
     }
 
     * {
@@ -59,60 +47,13 @@
       background-attachment: fixed;
     }
 
-    /* Custom Scrollbars */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--cyber-black);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--neon-cyan);
-    }
-
-    /* Custom Floating Selection Indicator */
-    .custom-cursor {
-      width: 12px;
-      height: 12px;
-      border: 1px solid var(--neon-cyan);
-      border-radius: 50%;
-      position: fixed;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 99999;
-      transition: width 0.15s, height 0.15s, background-color 0.15s;
-    }
-    .custom-cursor-dot {
-      width: 4px;
-      height: 4px;
-      background-color: var(--neon-magenta);
-      border-radius: 50%;
-      position: fixed;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 99999;
-    }
-    @media (pointer: coarse) {
-      .custom-cursor, .custom-cursor-dot {
-        display: none !important;
-      }
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* 2. LAYOUT & NAVIGATION                                                     */
-    /* -------------------------------------------------------------------------- */
+    /* Header & Navigation */
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
       background: rgba(5, 5, 8, 0.85);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--glass-border);
     }
 
@@ -123,7 +64,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 24px;
-      gap: 20px;
     }
 
     .brand {
@@ -146,7 +86,6 @@
       font-weight: 900;
       color: var(--neon-cyan);
       font-size: 18px;
-      background: rgba(0, 0, 0, 0.5);
     }
 
     .brand-title {
@@ -154,1817 +93,216 @@
       font-weight: 800;
       font-size: 22px;
       letter-spacing: 2px;
-      background: linear-gradient(90deg, #ffffff, #94a3b8);
+      color: #ffffff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.05);
+      text-shadow: var(--glow-cyan);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1400px;
+      margin: 60px auto 30px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: var(--font-cyber);
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #fff, var(--text-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .search-bar-wrapper {
-      flex: 1;
-      max-width: 400px;
-      position: relative;
-    }
-
-    .search-input {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      padding: 10px 16px 10px 42px;
-      color: var(--text-primary);
-      font-family: var(--font-body);
-      font-size: 14px;
-      transition: var(--transition-fast);
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--neon-cyan);
-      box-shadow: var(--glow-cyan);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 14px;
-      pointer-events: none;
-    }
-
-    .nav-tabs {
-      display: flex;
-      gap: 8px;
-    }
-
-    .tab-btn {
-      background: transparent;
-      border: 1px solid transparent;
+    .hero p {
+      font-size: 1.2rem;
       color: var(--text-secondary);
-      font-family: var(--font-cyber);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: var(--transition-fast);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      max-width: 600px;
+      margin: 0 auto 30px auto;
     }
 
-    .tab-btn:hover {
-      color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .tab-btn.active {
-      color: var(--neon-cyan);
-      background: rgba(0, 240, 255, 0.05);
-      border-color: var(--glass-border-cyan);
-      box-shadow: var(--glow-cyan);
-    }
-
-    .btn-signin {
-      background: linear-gradient(135deg, var(--neon-magenta), #c084fc);
-      border: none;
-      color: #ffffff;
-      font-family: var(--font-cyber);
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 1px;
-      padding: 10px 22px;
-      border-radius: 6px;
-      cursor: pointer;
-      box-shadow: var(--glow-magenta);
-      transition: var(--transition-fast);
-    }
-
-    .btn-signin:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
-    }
-
+    /* Main Content Grid */
     main {
       max-width: 1400px;
-      margin: 32px auto;
+      margin: 0 auto 60px auto;
       padding: 0 24px;
     }
 
-    .panel {
-      display: none;
-      animation: panelFadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-    }
-
-    .panel.active {
-      display: block;
-    }
-
-    @keyframes panelFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* 3. PANEL A: ART FEED (MASONRY GRID & CONTROLS)                             */
-    /* -------------------------------------------------------------------------- */
-    .feed-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .filter-chips {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      background: rgba(15, 15, 25, 0.6);
-      border: 1px solid var(--glass-border);
-      color: var(--text-secondary);
+    .section-title {
       font-family: var(--font-cyber);
-      font-size: 12px;
-      font-weight: 500;
-      padding: 8px 18px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: var(--transition-fast);
-    }
-
-    .chip:hover {
-      border-color: var(--neon-cyan);
-      color: var(--neon-cyan);
-    }
-
-    .chip.active {
-      background: rgba(0, 240, 255, 0.08);
-      border-color: var(--neon-cyan);
-      color: var(--neon-cyan);
-      box-shadow: var(--glow-cyan);
-    }
-
-    .art-grid {
-      columns: 4 300px;
-      column-gap: 24px;
-      width: 100%;
-    }
-
-    .art-card {
-      break-inside: avoid;
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 16px;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
       margin-bottom: 24px;
-      transition: var(--transition-smooth);
-      position: relative;
-      cursor: pointer;
-      display: block;
-    }
-
-    .art-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      padding: 1px;
-      background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-
-    .art-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--glass-border-cyan);
-      box-shadow: 0 12px 24px rgba(0, 240, 255, 0.1);
-    }
-
-    .art-card-img-wrapper {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 14px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .art-card-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: var(--transition-smooth);
-    }
-
-    .art-card:hover .art-card-img {
-      transform: scale(1.03);
-    }
-
-    .art-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(5, 5, 8, 0.8) 0%, transparent 60%);
-      opacity: 0;
-      transition: var(--transition-fast);
+      color: var(--neon-magenta);
+      text-shadow: var(--glow-magenta);
       display: flex;
-      align-items: flex-end;
-      padding: 16px;
+      align-items: center;
+      gap: 10px;
     }
 
-    .art-card:hover .art-card-overlay {
-      opacity: 1;
-    }
-
-    .art-card-category {
-      background: rgba(0, 240, 255, 0.15);
-      border: 1.5px solid var(--neon-cyan);
-      color: var(--neon-cyan);
-      font-family: var(--font-cyber);
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 4px;
-      letter-spacing: 0.5px;
-    }
-
-    .art-card-info h3 {
-      font-family: var(--font-cyber);
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-
-    .art-card-info p {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* SKELETON LOADERS (PULSE PREVENTING LAYOUT SHIFT)                           */
-    /* -------------------------------------------------------------------------- */
-    .skeleton-grid {
+    .featured-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 24px;
+      margin-bottom: 60px;
     }
 
-    .skeleton-card {
-      background: rgba(10, 10, 18, 0.4);
+    .art-card {
+      background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: 12px;
       padding: 16px;
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
     }
 
-    .skeleton-block {
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
-      background-size: 200% 100%;
-      animation: pulse-shimmer 1.5s infinite linear;
-      border-radius: 6px;
-    }
-
-    .skeleton-image {
-      width: 100%;
-      height: 280px;
-      margin-bottom: 14px;
-    }
-
-    .skeleton-title {
-      width: 60%;
-      height: 16px;
-      margin-bottom: 10px;
-    }
-
-    .skeleton-desc {
-      width: 90%;
-      height: 12px;
-      margin-bottom: 6px;
-    }
-
-    .skeleton-desc-short {
-      width: 45%;
-      height: 12px;
-    }
-
-    @keyframes pulse-shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-      100% {
-        background-position: 200% 0;
-      }
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* 4. PANEL B: LIVE MESSENGER UI                                              */
-    /* -------------------------------------------------------------------------- */
-    .messenger-wrapper {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      height: calc(100vh - 160px);
-      min-height: 600px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    .messenger-sidebar {
-      border-right: 1px solid var(--glass-border);
-      display: flex;
-      flex-direction: column;
-      background: rgba(5, 5, 8, 0.5);
-    }
-
-    .sidebar-header {
-      padding: 20px;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .sidebar-header h2 {
-      font-family: var(--font-cyber);
-      font-size: 16px;
-      letter-spacing: 1px;
-    }
-
-    .active-chats-list {
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .chat-node {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
-      cursor: pointer;
-      transition: var(--transition-fast);
-      border-left: 3px solid transparent;
-    }
-
-    .chat-node:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .chat-node.active {
-      background: rgba(0, 240, 255, 0.04);
-      border-left-color: var(--neon-cyan);
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: var(--cyber-black);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .status-badge {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      border: 2px solid var(--bg-color);
-    }
-
-    .status-badge.online {
-      background-color: #10b981;
-      box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
-    }
-
-    .status-badge.idle {
-      background-color: #f59e0b;
-    }
-
-    .status-badge.offline {
-      background-color: #64748b;
-    }
-
-    .chat-meta {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .chat-username {
-      font-family: var(--font-cyber);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .chat-last-msg {
-      font-size: 12px;
-      color: var(--text-secondary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .messenger-chat-area {
-      display: flex;
-      flex-direction: column;
-      background: rgba(2, 2, 4, 0.2);
-    }
-
-    .chat-area-header {
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(5, 5, 8, 0.3);
-    }
-
-    .chat-header-profile {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .chat-header-info h3 {
-      font-family: var(--font-cyber);
-      font-size: 15px;
-      letter-spacing: 0.5px;
-    }
-
-    .chat-header-info p {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .message-stream {
-      flex: 1;
-      padding: 24px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .bubble-wrapper {
-      display: flex;
-      gap: 12px;
-      max-width: 70%;
-    }
-
-    .bubble-wrapper.incoming {
-      align-self: flex-start;
-    }
-
-    .bubble-wrapper.outgoing {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
-
-    .bubble {
-      padding: 14px 18px;
-      border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .bubble-wrapper.incoming .bubble {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--glass-border);
-      color: var(--text-primary);
-    }
-
-    .bubble-wrapper.outgoing .bubble {
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid var(--glass-border-cyan);
-      color: var(--text-primary);
-    }
-
-    .bubble-time {
-      font-size: 10px;
-      color: var(--text-muted);
-      margin-top: 4px;
-      align-self: flex-end;
-      font-family: var(--font-mono);
-    }
-
-    .bubble-wrapper.outgoing .bubble-time {
-      align-self: flex-start;
-    }
-
-    .chat-input-wrapper {
-      padding: 20px 24px;
-      border-top: 1px solid var(--glass-border);
-      background: rgba(5, 5, 8, 0.5);
-    }
-
-    .chat-input-container {
-      display: flex;
-      gap: 12px;
-    }
-
-    .chat-text-input {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      padding: 14px 18px;
-      color: var(--text-primary);
-      font-family: var(--font-body);
-      font-size: 14px;
-      transition: var(--transition-fast);
-    }
-
-    .chat-text-input:focus {
-      outline: none;
+    .art-card:hover {
+      transform: translateY(-5px);
       border-color: var(--neon-cyan);
+      box-shadow: 0 10px 20px rgba(0, 240, 255, 0.1);
     }
 
-    .chat-send-btn {
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid var(--neon-cyan);
-      color: var(--neon-cyan);
-      border-radius: 8px;
-      padding: 0 24px;
-      cursor: pointer;
-      font-family: var(--font-cyber);
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      box-shadow: var(--glow-cyan);
-      transition: var(--transition-fast);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .chat-send-btn:hover {
-      background: var(--neon-cyan);
-      color: var(--cyber-black);
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* 5. PANEL C: CREATOR HUB & CALCULATOR                                       */
-    /* -------------------------------------------------------------------------- */
-    .creator-grid {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 32px;
-    }
-
-    @media (max-width: 1024px) {
-      .creator-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .hub-profile-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 32px;
-      position: relative;
-    }
-
-    .hub-profile-header {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    @media (max-width: 640px) {
-      .hub-profile-header {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-
-    .profile-avatar-frame {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      flex-shrink: 0;
-    }
-
-    .profile-avatar-frame::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
-      animation: rotateFrame 6s linear infinite;
-    }
-
-    @keyframes rotateFrame {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .profile-avatar {
+    .art-img-placeholder {
       width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      position: relative;
-      z-index: 1;
-      border: 4px solid var(--bg-color);
-    }
-
-    .profile-meta h1 {
-      font-family: var(--font-cyber);
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
-
-    .profile-handle {
+      height: 250px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
       font-family: var(--font-mono);
       font-size: 13px;
-      color: var(--neon-cyan);
-      margin-bottom: 8px;
-    }
-
-    .profile-bio {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .stats-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      border-top: 1px solid var(--glass-border);
-      border-bottom: 1px solid var(--glass-border);
-      padding: 24px 0;
-      margin: 24px 0;
-    }
-
-    @media (max-width: 640px) {
-      .stats-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .stat-node {
-      text-align: center;
-    }
-
-    .stat-val {
-      font-family: var(--font-cyber);
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .stat-lbl {
-      font-size: 11px;
-      font-family: var(--font-cyber);
-      letter-spacing: 1px;
-      color: var(--text-muted);
-    }
-
-    .hub-showcase-title {
-      font-family: var(--font-cyber);
-      font-size: 16px;
-      letter-spacing: 1.5px;
       margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    .hub-showcase-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    .art-img-placeholder i {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--neon-cyan);
     }
 
-    @media (max-width: 640px) {
-      .hub-showcase-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .hub-showcase-node {
-      border-radius: 8px;
-      overflow: hidden;
-      aspect-ratio: 1;
-      border: 1px solid var(--glass-border);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .hub-showcase-node img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition-fast);
-    }
-
-    .hub-showcase-node:hover img {
-      transform: scale(1.05);
-    }
-
-    /* Pricing Calculator Block */
-    .calculator-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border-magenta);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: var(--glow-magenta);
-      height: fit-content;
-    }
-
-    .calc-header {
-      margin-bottom: 20px;
-    }
-
-    .calc-header h2 {
+    .art-info h3 {
       font-family: var(--font-cyber);
       font-size: 18px;
-      letter-spacing: 1px;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .calc-header p {
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
-    .calc-option {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      user-select: none;
-      transition: var(--transition-fast);
-    }
-
-    .calc-option:hover {
-      border-color: rgba(255, 0, 127, 0.4);
-    }
-
-    .calc-option-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .calc-checkbox {
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border: 1.5px solid var(--text-muted);
-      border-radius: 4px;
-      outline: none;
-      cursor: pointer;
-      position: relative;
-      transition: var(--transition-fast);
-    }
-
-    .calc-checkbox:checked {
-      background: var(--neon-magenta);
-      border-color: var(--neon-magenta);
-      box-shadow: var(--glow-magenta);
-    }
-
-    .calc-checkbox:checked::after {
-      content: '✓';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .calc-label {
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .calc-cost {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--neon-cyan);
-    }
-
-    .calc-notes-box {
-      margin-top: 16px;
-    }
-
-    .calc-notes-lbl {
-      display: block;
-      font-family: var(--font-cyber);
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      color: var(--text-secondary);
-    }
-
-    .calc-textarea {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      padding: 12px;
-      color: var(--text-primary);
-      font-family: var(--font-body);
-      font-size: 13px;
-      resize: none;
-      height: 80px;
-    }
-
-    .calc-textarea:focus {
-      outline: none;
-      border-color: var(--neon-magenta);
-    }
-
-    .calc-total-box {
-      margin-top: 20px;
-      padding: 16px;
-      background: rgba(255, 0, 127, 0.04);
-      border: 1px solid rgba(255, 0, 127, 0.15);
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .total-lbl {
-      font-family: var(--font-cyber);
-      font-size: 12px;
-      letter-spacing: 1px;
-      color: var(--text-secondary);
-    }
-
-    .total-price {
-      font-family: var(--font-mono);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--neon-cyan);
-      text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
-    }
-
-    .btn-calc-submit {
-      width: 100%;
-      background: linear-gradient(135deg, var(--neon-magenta), #9333ea);
-      border: none;
-      color: #ffffff;
-      font-family: var(--font-cyber);
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 1px;
-      padding: 14px;
-      border-radius: 8px;
-      margin-top: 16px;
-      cursor: pointer;
-      box-shadow: var(--glow-magenta);
-      transition: var(--transition-fast);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-calc-submit:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* 6. ADVANCED DISCOVERY & AUTH MODALS                                        */
-    /* -------------------------------------------------------------------------- */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 2, 4, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 1010;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      padding: 24px;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      background: var(--glass-bg-solid);
-      border: 1px solid var(--glass-border-cyan);
-      box-shadow: var(--glow-cyan);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 440px;
-      padding: 36px;
-      position: relative;
-      transform: scale(0.95);
-      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    .modal-overlay.active .modal-card {
-      transform: scale(1);
-    }
-
-    .modal-close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 20px;
-      cursor: pointer;
-      transition: var(--transition-fast);
-    }
-
-    .modal-close-btn:hover {
-      color: var(--text-primary);
-    }
-
-    .auth-title {
-      font-family: var(--font-cyber);
-      font-size: 22px;
-      text-align: center;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-    }
-
-    .auth-subtitle {
-      font-size: 13px;
-      color: var(--text-secondary);
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .auth-form-group {
-      margin-bottom: 18px;
-    }
-
-    .auth-label {
-      display: block;
-      font-family: var(--font-cyber);
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      color: var(--text-secondary);
-    }
-
-    .auth-input {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: var(--text-primary);
-      font-family: var(--font-body);
-      font-size: 14px;
-      transition: var(--transition-fast);
-    }
-
-    .auth-input:focus {
-      outline: none;
-      border-color: var(--neon-cyan);
-    }
-
-    .btn-auth-submit {
-      width: 100%;
-      background: linear-gradient(135deg, #00f0ff, #3b82f6);
-      border: none;
-      color: #020204;
-      font-family: var(--font-cyber);
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: 1px;
-      padding: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-      box-shadow: var(--glow-cyan);
-      transition: var(--transition-fast);
-    }
-
-    .btn-auth-submit:hover {
-      filter: brightness(1.1);
-      transform: translateY(-1px);
-    }
-
-    .auth-divider {
-      text-align: center;
-      margin: 24px 0;
-      position: relative;
-      font-size: 12px;
-      color: var(--text-muted);
-      font-family: var(--font-cyber);
-    }
-
-    .auth-divider::before, .auth-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 30%;
-      height: 1px;
-      background: var(--glass-border);
-    }
-
-    .auth-divider::before { left: 0; }
-    .auth-divider::after { right: 0; }
-
-    .oauth-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .oauth-btn {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: var(--transition-fast);
-    }
-
-    .oauth-btn-google {
-      background: #ffffff;
-      color: #1f2937;
-      border: 1px solid #e5e7eb;
-    }
-
-    .oauth-btn-google:hover {
-      background: #f9fafb;
-    }
-
-    .oauth-btn-discord {
-      background: #5865F2;
-      color: #ffffff;
-      border: none;
-    }
-
-    .oauth-btn-discord:hover {
-      background: #4752c4;
-    }
-
-    .oauth-btn-meta {
-      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-      color: #ffffff;
-      border: none;
-    }
-
-    .oauth-btn-meta:hover {
-      filter: brightness(1.1);
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* LIGHTBOX & PALETTE GENERATOR                                               */
-    /* -------------------------------------------------------------------------- */
-    .lightbox-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 2, 4, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 1050;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      padding: 40px;
-    }
-
-    .lightbox-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .lightbox-card {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      background: var(--cyber-black);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 1100px;
-      max-height: 85vh;
-      overflow: hidden;
-    }
-
-    @media (max-width: 900px) {
-      .lightbox-card {
-        grid-template-columns: 1fr;
-        max-height: 90vh;
-        overflow-y: auto;
-      }
-    }
-
-    .lightbox-viewer {
-      background: #020205;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      position: relative;
-    }
-
-    .lightbox-img {
-      max-width: 100%;
-      max-height: 70vh;
-      object-fit: contain;
-      border-radius: 6px;
-    }
-
-    .lightbox-sidebar {
-      padding: 32px;
-      background: var(--glass-bg-solid);
-      border-left: 1px solid var(--glass-border);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .lightbox-details h2 {
-      font-family: var(--font-cyber);
-      font-size: 20px;
       margin-bottom: 8px;
     }
 
-    .lightbox-details p {
+    .art-info p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.5;
     }
 
-    .palette-box {
-      margin-top: 32px;
-    }
-
-    .palette-title {
-      font-family: var(--font-cyber);
-      font-size: 11px;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .palette-swatches {
-      display: flex;
-      gap: 12px;
-    }
-
-    .swatch {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      position: relative;
-      transition: var(--transition-fast);
-    }
-
-    .swatch:hover {
-      transform: scale(1.15);
-      border-color: #ffffff;
-    }
-
-    .swatch::after {
-      content: attr(data-hex);
-      position: absolute;
-      bottom: -24px;
-      left: 50%;
-      transform: translateX(-50%);
+    /* Footer Static Banner */
+    footer {
+      border-top: 1px solid var(--glass-border);
+      padding: 40px 24px;
+      text-align: center;
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 12px;
       color: var(--text-secondary);
-      opacity: 0;
-      transition: var(--transition-fast);
-      white-space: nowrap;
-    }
-
-    .swatch:hover::after {
-      opacity: 1;
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /* INTELLECTUAL PROPERTY TOAST                                                */
-    /* -------------------------------------------------------------------------- */
-    .toast-container {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      z-index: 2000;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .toast-node {
-      background: rgba(5, 5, 8, 0.95);
-      border: 1px solid var(--glass-border-magenta);
-      box-shadow: var(--glow-magenta);
-      border-radius: 8px;
-      padding: 16px 24px;
-      color: #ffffff;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transform: translateY(100px);
-      opacity: 0;
-      animation: toastSlideIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-    }
-
-    @keyframes toastSlideIn {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .toast-node i {
-      color: var(--neon-magenta);
-      font-size: 16px;
     }
   </style>
 </head>
 <body>
 
-  <div class="custom-cursor" id="cursorNode"></div>
-  <div class="custom-cursor-dot" id="cursorDotNode"></div>
-
+  <!-- REAL NAVIGATION (Linking to your actual pages) -->
   <header>
     <div class="nav-container">
-      <a href="#" class="brand" onclick="navigate('feed')">
+      <a href="index.html" class="brand">
         <div class="brand-logo">B</div>
-        <div class="brand-title">BIJUTSU</div>
+        <div class="brand-title">BIJUTSU ART</div>
       </a>
 
-      <div class="search-bar-wrapper">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" class="search-input" id="globalSearchInput" placeholder="Search artists username... (Press Enter)">
-      </div>
-
-      <div class="nav-tabs">
-        <button class="tab-btn active" id="tab-feed" onclick="navigate('feed')">
-          <i class="fa-solid fa-images"></i> Feed
-        </button>
-        <button class="tab-btn" id="tab-messenger" onclick="navigate('messenger')">
-          <i class="fa-solid fa-comment-nodes"></i> Messenger
-        </button>
-        <button class="tab-btn" id="tab-creator" onclick="navigate('creator')">
-          <i class="fa-solid fa-user-gear"></i> Creator Hub
-        </button>
-      </div>
-
-      <button class="btn-signin" onclick="openAuthModal()">Sign In</button>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
     </div>
   </header>
 
+  <!-- WELCOME HERO -->
+  <section class="hero">
+    <h1>THEONLYBIJUTSU</h1>
+    <p>Welcome to the encrypted visual terminal. Original digital concept layouts, manga sketches, and high-fidelity cyberpunk artwork collections.</p>
+  </section>
+
+  <!-- MAIN ART ARCHIVE -->
   <main>
+    <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> FEATURED MATRIX RUNS</h2>
     
-    <section class="panel active" id="panel-feed">
-      <div class="feed-controls">
-        <div class="filter-chips">
-          <div class="chip active" onclick="filterCatalog('all', this)">All Nodes</div>
-          <div class="chip" onclick="filterCatalog('digital', this)">Digital Paintings</div>
-          <div class="chip" onclick="filterCatalog('sketches', this)">Manga Sketches</div>
-          <div class="chip" onclick="filterCatalog('concept', this)">Concept Layouts</div>
+    <div class="featured-grid">
+      <!-- Card 1 -->
+      <a href="portfolio.html" class="art-card">
+        <div class="art-img-placeholder">
+          <i class="fa-regular fa-image"></i>
+          [ Connect image from assets ]
         </div>
-      </div>
-      
-      <div class="skeleton-grid" id="skeletonFeed">
-        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
-        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
-        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
-        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
-      </div>
-
-      <div class="art-grid" id="actualArtCatalog" style="display: none;"></div>
-    </section>
-
-    <section class="panel" id="panel-messenger">
-      <div class="messenger-wrapper">
-        <div class="messenger-sidebar">
-          <div class="sidebar-header">
-            <h2>ACTIVE TERMINALS</h2>
-          </div>
-          <div class="active-chats-list" id="activeChatsContainer"></div>
+        <div class="art-info">
+          <h3>Project Node _01</h3>
+          <p>Click to open full showcase archive details inside portfolio pipeline.</p>
         </div>
-        <div class="messenger-chat-area">
-          <div class="chat-area-header">
-            <div class="chat-header-profile">
-              <div class="avatar-wrapper">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="avatar" id="activeChatAvatar" alt="Target Profile">
-                <div class="status-badge online" id="activeChatStatus"></div>
-              </div>
-              <div class="chat-header-info">
-                <h3 id="activeChatTitle">Aesthetic_Ghost</h3>
-                <p id="activeChatSub">System Channel Established</p>
-              </div>
-            </div>
-          </div>
-          <div class="message-stream" id="chatMessageStream"></div>
-          <div class="chat-input-wrapper">
-            <div class="chat-input-container">
-              <input type="text" class="chat-text-input" id="chatInputField" placeholder="Broadcast secure encrypted message packet...">
-              <button class="chat-send-btn" onclick="executeMessageSend()">
-                SEND <i class="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
-          </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="portfolio.html" class="art-card">
+        <div class="art-img-placeholder">
+          <i class="fa-regular fa-image"></i>
+          [ Connect image from assets ]
         </div>
-      </div>
-    </section>
-
-    <section class="panel" id="panel-creator">
-      <div class="creator-grid">
-        <div class="hub-profile-card">
-          <div class="hub-profile-header">
-            <div class="profile-avatar-frame">
-              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=300&q=80" class="profile-avatar" alt="Primary Artisan">
-            </div>
-            <div class="profile-meta">
-              <h1>Takashi_Bijutsu</h1>
-              <div class="profile-handle">SECURE IDENTITY NODE // @bijutsu_art</div>
-              <p class="profile-bio">Principal Cybernetic Illustrator and Concept Architect. Visual developer pushing dark systemic UI layouts across distributed canvas engines.</p>
-            </div>
-          </div>
-          
-          <div class="stats-container">
-            <div class="stat-node"><div class="stat-val">142</div><div class="stat-lbl">NODES</div></div>
-            <div class="stat-node"><div class="stat-val">84.2K</div><div class="stat-lbl">RECEPTORS</div></div>
-            <div class="stat-node"><div class="stat-val">1.2M</div><div class="stat-lbl">REACTIONS</div></div>
-            <div class="stat-node"><div class="stat-val">ONLINE</div><div class="stat-lbl">STATUS</div></div>
-          </div>
-
-          <div class="hub-showcase-title">
-            <i class="fa-solid fa-bolt-lightning" style="color: var(--neon-cyan);"></i> ACTIVE ARCHIVE RUNS
-          </div>
-          <div class="hub-showcase-grid" id="profileShowcaseGrid"></div>
+        <div class="art-info">
+          <h3>Project Node _02</h3>
+          <p>Click to open full showcase archive details inside portfolio pipeline.</p>
         </div>
+      </a>
 
-        <div class="calculator-card">
-          <div class="calc-header">
-            <h2>COMMISSION ENGINE</h2>
-            <p>Calculate visual production parameter valuations dynamically.</p>
-          </div>
-          <div id="calculatorOptionsWrapper"></div>
-          <div class="calc-notes-box">
-            <label class="calc-notes-lbl">CREATIVE MANIFESTO BRIEF</label>
-            <textarea class="calc-textarea" placeholder="Input parameters, asset constraints, and thematic mandates..."></textarea>
-          </div>
-          <div class="calc-total-box">
-            <div class="total-lbl">ESTIMATED VALUATION</div>
-            <div class="total-price" id="calcTotalDisplay">$0.00</div>
-          </div>
-          <button class="btn-calc-submit" onclick="dispatchCommissionOrder()">
-            DISPATCH COMMISSIONS REQUEST <i class="fa-solid fa-terminal"></i>
-          </button>
+      <!-- Card 3 -->
+      <a href="portfolio.html" class="art-card">
+        <div class="art-img-placeholder">
+          <i class="fa-regular fa-image"></i>
+          [ Connect image from assets ]
         </div>
-      </div>
-    </section>
-
+        <div class="art-info">
+          <h3>Project Node _03</h3>
+          <p>Click to open full showcase archive details inside portfolio pipeline.</p>
+        </div>
+      </a>
+    </div>
   </main>
 
-  <div class="modal-overlay" id="authModalDrawer" onclick="closeAuthModalViaOverlay(event)">
-    <div class="modal-card">
-      <button class="modal-close-btn" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
-      <h2 class="auth-title">ACCESS PORTAL</h2>
-      <p class="auth-subtitle">Establish centralized matrix authentication</p>
-      
-      <div class="auth-form-group">
-        <label class="auth-label">IDENTITY DEPLOYMENT EMAIL</label>
-        <input type="email" class="auth-input" placeholder="operator@domain.com">
-      </div>
-      <div class="auth-form-group">
-        <label class="auth-label">SECURE CODEWORDS PASSPHRASE</label>
-        <input type="password" class="auth-input" placeholder="••••••••••••">
-      </div>
-      
-      <button class="btn-auth-submit" onclick="simulateFormLogin()">AUTHENTICATE MATRIX ACCESS</button>
-      
-      <div class="auth-divider">OR INTEGRATE INTEGRITY CREDENTIALS</div>
-      
-      <div class="oauth-grid">
-        <button class="oauth-btn oauth-btn-google" onclick="triggerOAuthPipe('Google Identity Server')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_Logo.svg" style="width:16px;" alt="Google"> Sync with Google Access
-        </button>
-        <button class="oauth-btn oauth-btn-discord" onclick="triggerOAuthPipe('Discord Gateway Matrix')">
-          <i class="fa-brands fa-discord"></i> Connect Discord Endpoint
-        </button>
-        <button class="oauth-btn oauth-btn-meta" onclick="triggerOAuthPipe('Meta Core Infrastructure')">
-          <i class="fa-brands fa-instagram"></i> Link Meta Creator Node
-        </button>
-      </div>
-    </div>
-  </div>
+  <footer>
+    <p>© 2026 THEONLYBIJUTSU // ALL RIGHTS RESERVED // SECURITY PROTECTED PIPELINE</p>
+  </footer>
 
-  <div class="lightbox-overlay" id="lightboxView" onclick="closeLightboxViaOverlay(event)">
-    <div class="lightbox-card">
-      <div class="lightbox-viewer">
-        <img src="" class="lightbox-img" id="lightboxTargetImg" alt="High Resolution Asset Node">
-      </div>
-      <div class="lightbox-sidebar">
-        <div class="lightbox-details">
-          <button class="modal-close-btn" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
-          <h2 id="lightboxTitle">Asset Node Title</h2>
-          <p id="lightboxDescription">Detailed matrix illustration descriptions</p>
-        </div>
-        <div class="palette-box">
-          <div class="palette-title">EXTRACTED CORE CHROMATIC SWATCHES</div>
-          <div class="palette-swatches" id="lightboxPaletteContainer"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast-container" id="globalToastVault"></div>
-
-  <script>
-    /* Mock Database Context Packets */
-    const artDatabase = [
-      { id: 1, title: 'Neo-Tokyo Shift', category: 'digital', author: 'Takashi_Bijutsu', desc: 'Metropolitan neon dispersion layout via distributed engine nodes.', src: 'https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?auto=format&fit=crop&w=500&q=80', colors: ['#00f0ff', '#ff007f', '#0b0b16', '#7e22ce', '#3b82f6'] },
-      { id: 2, title: 'Ghost in the Shell', category: 'sketches', author: 'Aesthetic_Ghost', desc: 'Rough exploratory cybernetic biomechanic anatomical schematics.', src: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=500&q=80', colors: ['#1e293b', '#64748b', '#cbd5e1', '#0f172a', '#334155'] },
-      { id: 3, title: 'Synthesized Oasis Layout', category: 'concept', author: 'Nexus_Core', desc: 'Terraced matrix structures mapped inside virtual biosphere layers.', src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80', colors: ['#f472b6', '#38bdf8', '#1e1b4b', '#4c1d95', '#030712'] },
-      { id: 4, title: 'Cyberpunk Catalyst', category: 'digital', author: 'Takashi_Bijutsu', desc: 'High-density streetscape composition using chroma overlay vectors.', src: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80', colors: ['#e11d48', '#2563eb', '#111827', '#f59e0b', '#06b6d4'] },
-      { id: 5, title: 'Mecha Core Assembly', category: 'sketches', author: 'KuroEmi', desc: 'Orthographic structural layouts of armored dreadnought frames.', src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=500&q=80', colors: ['#4b5563', '#1f2937', '#9ca3af', '#111827', '#d1d5db'] },
-      { id: 6, title: 'Neural Fracture Plane', category: 'concept', author: 'Cyber_Vandal', desc: 'Abstracted canvas arrays interpreting raw synapses matrix loads.', src: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=500&q=80', colors: ['#000000', '#ffffff', '#3f3f46', '#71717a', '#a1a1aa'] }
-    ];
-
-    const chatDatabase = {
-      'Aesthetic_Ghost': { avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80', status: 'online', logs: [{ type: 'incoming', text: 'Hey, I checked out your Neo-Tokyo Shift layout. The blending curves look pristine.', time: '14:22' }, { type: 'outgoing', text: 'Thanks! Extracted those color layers manually over vector grids.', time: '14:25' }] },
-      'Nexus_Core': { avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80', status: 'idle', logs: [{ type: 'incoming', text: 'Are your system commission pipelines operational right now?', time: '09:12' }] },
-      'KuroEmi': { avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80', status: 'offline', logs: [{ type: 'incoming', text: 'Dispatched the orthographic sketch reference nodes to your matrix terminal.', time: 'Yesterday' }] }
-    };
-
-    const commissionCalculatorSchema = [
-      { id: 'portrait', name: 'Character Cyber Portrait', price: 150.00 },
-      { id: 'bg', name: 'Custom High-Density Cyber Background', price: 250.00 },
-      { id: 'commercial', name: 'Commercial Exploitation License Extensions', price: 200.00 },
-      { id: 'fx', name: 'Neon Shader Micro-Animation Effects (FX)', price: 100.00 }
-    ];
-
-    let currentActiveChatUser = 'Aesthetic_Ghost';
-
-    /* Custom Floating Selection Tracking Logic */
-    const cursor = document.getElementById('cursorNode');
-    const cursorDot = document.getElementById('cursorDotNode');
-
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursorDot.style.left = e.clientX + 'px';
-      cursorDot.style.top = e.clientY + 'px';
-    });
-
-    document.addEventListener('mousedown', () => {
-      cursor.style.width = '24px';
-      cursor.style.height = '24px';
-      cursor.style.backgroundColor = 'rgba(0, 240, 255, 0.1)';
-    });
-
-    document.addEventListener('mouseup', () => {
-      cursor.style.width = '12px';
-      cursor.style.height = '12px';
-      cursor.style.backgroundColor = 'transparent';
-    });
-
-    /* Single Page Routing Controller Matrix */
-    function navigate(panelId) {
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      
-      document.getElementById(`panel-${panelId}`).classList.add('active');
-      document.getElementById(`tab-${panelId}`).classList.add('active');
-      
-      if(panelId === 'messenger') {
-        renderMessengerSidebar();
-        renderChatStream();
-      }
-    }
-
-    /* Rendering Core Engine Mechanics */
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        document.getElementById('skeletonFeed').style.display = 'none';
-        const catalogNode = document.getElementById('actualArtCatalog');
-        catalogNode.style.display = 'block';
-        renderArtGrid(artDatabase);
-        renderProfileShowcase();
-        initializeCalculator();
-      }, 1200);
-
-      setupIntellectualPropertyShield();
-    });
-
-    function renderArtGrid(dataset) {
-      const container = document.getElementById('actualArtCatalog');
-      container.innerHTML = '';
-      dataset.forEach(art => {
-        const card = document.createElement('div');
-        card.className = 'art-card';
-        card.setAttribute('onclick', `openLightbox(${art.id})`);
-        card.innerHTML = `
-          <div class="art-card-img-wrapper">
-            <img src="${art.src}" class="art-card-img" alt="${art.title}">
-            <div class="art-card-overlay">
-              <span class="art-card-category">${art.category}</span>
-            </div>
-          </div>
-          <div class="art-card-info">
-            <h3>${art.title}</h3>
-            <p>Architect // <strong>@${art.author}</strong></p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filterCatalog(category, element) {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      element.classList.add('active');
-      if(category === 'all') {
-        renderArtGrid(artDatabase);
-      } else {
-        const filtered = artDatabase.filter(a => a.category === category);
-        renderArtGrid(filtered);
-      }
-    }
-
-    /* Live Messenger Internal Control Blocks */
-    function renderMessengerSidebar() {
-      const container = document.getElementById('activeChatsContainer');
-      container.innerHTML = '';
-      Object.keys(chatDatabase).forEach(username => {
-        const data = chatDatabase[username];
-        const lastMsgObj = data.logs[data.logs.length - 1];
-        const lastMsgText = lastMsgObj ? lastMsgObj.text : 'Channel Opened';
-        
-        const node = document.createElement('div');
-        node.className = `chat-node ${username === currentActiveChatUser ? 'active' : ''}`;
-        node.setAttribute('onclick', `switchChatTarget('${username}')`);
-        node.innerHTML = `
-          <div class="avatar-wrapper">
-            <img src="${data.avatar}" class="avatar" alt="${username}">
-            <div class="status-badge ${data.status}"></div>
-          </div>
-          <div class="chat-meta">
-            <div class="chat-username">${username}</div>
-            <div class="chat-last-msg">${lastMsgText}</div>
-          </div>
-        `;
-        container.appendChild(node);
-      });
-    }
-
-    function renderChatStream() {
-      const container = document.getElementById('chatMessageStream');
-      container.innerHTML = '';
-      const context = chatDatabase[currentActiveChatUser];
-      
-      document.getElementById('activeChatAvatar').src = context.avatar;
-      document.getElementById('activeChatTitle').innerText = currentActiveChatUser;
-      
-      const badge = document.getElementById('activeChatStatus');
-      badge.className = `status-badge ${context.status}`;
-      
-      context.logs.forEach(log => {
-        const wrapper = document.createElement('div');
-        wrapper.className = `bubble-wrapper ${log.type}`;
-        wrapper.innerHTML = `
-          <div class="bubble">${log.text}</div>
-          <div class="bubble-time">${log.time}</div>
-        `;
-        container.appendChild(wrapper);
-      });
-      container.scrollTop = container.scrollHeight;
-    }
-
-    function switchChatTarget(username) {
-      currentActiveChatUser = username;
-      renderMessengerSidebar();
-      renderChatStream();
-    }
-
-    function executeMessageSend() {
-      const input = document.getElementById('chatInputField');
-      if(!input.value.trim()) return;
-      
-      const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      chatDatabase[currentActiveChatUser].logs.push({
-        type: 'outgoing',
-        text: input.value,
-        time: timeNow
-      });
-      
-      input.value = '';
-      renderMessengerSidebar();
-      renderChatStream();
-    }
-
-    document.getElementById('chatInputField').addEventListener('keydown', (e) => {
-      if(e.key === 'Enter') executeMessageSend();
-    });
-
-    /* Global Search Matrix Discovery Route Interceptors */
-    document.getElementById('globalSearchInput').addEventListener('keydown', (e) => {
-      if(e.key === 'Enter') {
-        const query = e.target.value.trim();
-        if(!query) return;
-        
-        if(!chatDatabase[query]) {
-          chatDatabase[query] = {
-            avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80',
-            status: 'online',
-            logs: [{ type: 'incoming', text: `System Automated handshake routing packet targeting @${query}. Send a message packet.`, time: 'Now' }]
-          };
-        }
-        currentActiveChatUser = query;
-        e.target.value = '';
-        navigate('messenger');
-      }
-    });
-
-    /* Pricing Calculator Logic Grid Blocks */
-    function initializeCalculator() {
-      const wrapper = document.getElementById('calculatorOptionsWrapper');
-      wrapper.innerHTML = '';
-      commissionCalculatorSchema.forEach(option => {
-        const node = document.createElement('div');
-        node.className = 'calc-option';
-        node.setAttribute('onclick', `toggleCalculatorNode('${option.id}')`);
-        node.innerHTML = `
-          <div class="calc-option-left">
-            <input type="checkbox" class="calc-checkbox" id="calc-cb-${option.id}" value="${option.price}" onclick="event.stopPropagation(); processCalculationFormula();">
-            <span class="calc-label">${option.name}</span>
-          </div>
-          <div class="calc-cost">$${option.price.toFixed(2)}</div>
-        `;
-        wrapper.appendChild(node);
-      });
-    }
-
-    function toggleCalculatorNode(id) {
-      const cb = document.getElementById(`calc-cb-${id}`);
-      cb.checked = !cb.checked;
-      processCalculationFormula();
-    }
-
-    function processCalculationFormula() {
-      let runTotal = 0;
-      commissionCalculatorSchema.forEach(option => {
-        const cb = document.getElementById(`calc-cb-${option.id}`);
-        if(cb && cb.checked) runTotal += parseFloat(cb.value);
-      });
-      document.getElementById('calcTotalDisplay').innerText = `$${runTotal.toFixed(2)}`;
-    }
-
-    function dispatchCommissionOrder() {
-      triggerCustomToast('Commissions Parameter Payload Dispatched successfully.');
-    }
-
-    /* Modal Layer Controller Interceptors */
-    function openAuthModal() { document.getElementById('authModalDrawer').classList.add('active'); }
-    function closeAuthModal() { document.getElementById('authModalDrawer').classList.remove('active'); }
-    function closeAuthModalViaOverlay(e) { if(e.target.id === 'authModalDrawer') closeAuthModal(); }
-    
-    function simulateFormLogin() {
-      triggerCustomToast('Secure internal identity mapping successful.');
-      closeAuthModal();
-    }
-    function triggerOAuthPipe(provider) {
-      triggerCustomToast(`OAuth payload verification route via [${provider}] verified.`);
-      closeAuthModal();
-    }
-
-    /* Lightbox & Palette Processor Blocks */
-    function openLightbox(id) {
-      const asset = artDatabase.find(a => a.id === id);
-      if(!asset) return;
-      
-      document.getElementById('lightboxTargetImg').src = asset.src;
-      document.getElementById('lightboxTitle').innerText = asset.title;
-      document.getElementById('lightboxDescription').innerText = asset.desc;
-      
-      const paletteContainer = document.getElementById('lightboxPaletteContainer');
-      paletteContainer.innerHTML = '';
-      
-      asset.colors.forEach(hex => {
-        const swatch = document.createElement('div');
-        swatch.className = 'swatch';
-        swatch.style.backgroundColor = hex;
-        swatch.setAttribute('data-hex', hex);
-        swatch.setAttribute('onclick', `navigator.clipboard.writeText('${hex}'); triggerCustomToast('Hex code copied to clipboard: ${hex}');`);
-        paletteContainer.appendChild(swatch);
-      });
-      
-      document.getElementById('lightboxView').classList.add('active');
-    }
-
-    function closeLightbox() { document.getElementById('lightboxView').classList.remove('active'); }
-    function closeLightboxViaOverlay(e) { if(e.target.id === 'lightboxView') closeLightbox(); }
-
-    function renderProfileShowcase() {
-      const container = document.getElementById('profileShowcaseGrid');
-      container.innerHTML = '';
-      const filtered = artDatabase.filter(a => a.author === 'Takashi_Bijutsu');
-      filtered.forEach(art => {
-        const node = document.createElement('div');
-        node.className = 'hub-showcase-node';
-        node.setAttribute('onclick', `openLightbox(${art.id})`);
-        node.innerHTML = `<img src="${art.src}" alt="${art.title}">`;
-        container.appendChild(node);
-      });
-    }
-
-    /* IP Protection Layer Strategy Interceptors */
-    function setupIntellectualPropertyShield() {
-      document.addEventListener('contextmenu', (e) => {
-        if(e.target.tagName === 'IMG' || e.target.classList.contains('art-card-overlay')) {
-          e.preventDefault();
-          triggerCustomToast('Bijutsu Art Integrity Protection: Downloading Restricted.');
-        }
-      });
-
-      document.addEventListener('touchstart', (e) => {
-        if(e.target.tagName === 'IMG') {
-          window.touchLockTimer = setTimeout(() => {
-            triggerCustomToast('Bijutsu Art Security: Context Menu Isolation Active.');
-          }, 600);
-        }
-      }, { passive: true });
-
-      document.addEventListener('touchend', () => {
-        if(window.touchLockTimer) clearTimeout(window.touchLockTimer);
-      });
-    }
-
-    function triggerCustomToast(msg) {
-      const vault = document.getElementById('globalToastVault');
-      const node = document.createElement('div');
-      node.className = 'toast-node';
-      node.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span>${msg}</span>`;
-      vault.appendChild(node);
-      
-      setTimeout(() => {
-        node.style.opacity = '0';
-        node.style.transform = 'translateY(20px)';
-        setTimeout(() => node.remove(), 300);
-      }, 4000);
-    }
-  </script>
 </body>
 </html>
