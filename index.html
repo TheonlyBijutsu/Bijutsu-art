@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bijutsu Studio | Premium Anime Art & Animation</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
   <style>
     /* ── HOME HERO ── */
     .home-hero {
-      min-height: 94vh;
+      min-height: 93vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
       position: relative;
@@ -19,41 +20,40 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 6rem 3rem 6rem 5rem;
+      padding: 5rem 2.5rem 5rem 5rem;
       position: relative;
       z-index: 2;
     }
 
     .hero-title {
       font-family: 'Cinzel', serif;
-      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
       font-weight: 700;
       line-height: 1.12;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.5rem;
     }
-
     .hero-title em { font-style: normal; color: var(--sakura); }
 
     .hero-sub {
-      font-size: 1rem;
+      font-size: 0.97rem;
       color: var(--muted);
       line-height: 1.85;
-      max-width: 380px;
-      margin-bottom: 2.8rem;
+      max-width: 370px;
+      margin-bottom: 2.5rem;
     }
 
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+    .hero-btns { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
 
     .stats {
       display: flex;
-      gap: 3rem;
-      padding-top: 2.5rem;
+      gap: 2.8rem;
+      padding-top: 2.2rem;
       border-top: 0.5px solid var(--border-light);
     }
 
     .stat-num {
       font-family: 'Cinzel', serif;
-      font-size: 1.7rem;
+      font-size: 1.65rem;
       font-weight: 700;
       color: var(--white);
       line-height: 1;
@@ -61,132 +61,170 @@
     }
 
     .stat-label {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.13em;
       color: var(--muted);
     }
 
-    /* ── HERO RIGHT – ART SHOWCASE ── */
+    /* ── HERO RIGHT ── */
     .hero-right {
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 4rem 4rem 4rem 1rem;
+      padding: 3rem 3rem 3rem 1rem;
+    }
+
+    /* Glowing orb behind art */
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px; height: 320px;
+      background: radial-gradient(ellipse, rgba(232,160,180,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: orbPulse 5s ease-in-out infinite;
+    }
+
+    @keyframes orbPulse {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.8; }
+      50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
     }
 
     .art-stack {
       position: relative;
-      width: 300px;
-      height: 400px;
+      width: 280px;
+      height: 380px;
     }
 
     .art-card {
       position: absolute;
       border: 0.5px solid var(--border);
-      border-radius: 2px;
+      border-radius: 3px;
       background: var(--ink-3);
       overflow: hidden;
+    }
+
+    .art-card-main {
+      width: 250px; height: 330px;
+      top: 25px; left: 15px;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-    }
-
-    .art-card-main {
-      width: 260px;
-      height: 340px;
-      top: 30px; left: 20px;
-      z-index: 3;
     }
 
     .art-card-behind {
-      width: 240px;
-      height: 320px;
-      top: 10px; left: 35px;
+      width: 234px; height: 314px;
+      top: 12px; left: 28px;
       z-index: 2;
       transform: rotate(3deg);
-      border-color: rgba(232,160,180,0.06);
+      border-color: rgba(232,160,180,0.05);
     }
 
     .art-card-back {
-      width: 220px;
-      height: 300px;
-      top: 0; left: 50px;
+      width: 218px; height: 298px;
+      top: 0; left: 42px;
       z-index: 1;
       transform: rotate(6deg);
-      border-color: rgba(232,160,180,0.04);
+      border-color: rgba(232,160,180,0.03);
     }
 
-    .art-icon {
-      width: 60px; height: 60px;
-      border: 0.5px solid var(--border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .art-placeholder {
-      font-family: 'Cinzel', serif;
-      font-size: 0.72rem;
-      color: rgba(232,160,180,0.3);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-align: center;
-      padding: 0 1rem;
+    /* Hero image — shown when you add images/hero.png */
+    .hero-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .corner-tl, .corner-br {
       position: absolute;
-      width: 18px; height: 18px;
+      width: 16px; height: 16px;
     }
+    .corner-tl { top: 8px; left: 8px; border-top: 1px solid var(--sakura); border-left: 1px solid var(--sakura); }
+    .corner-br { bottom: 8px; right: 8px; border-bottom: 1px solid var(--sakura); border-right: 1px solid var(--sakura); }
 
-    .corner-tl { top: 10px; left: 10px; border-top: 1px solid var(--sakura); border-left: 1px solid var(--sakura); }
-    .corner-br { bottom: 10px; right: 10px; border-bottom: 1px solid var(--sakura); border-right: 1px solid var(--sakura); }
-
-    /* floating tags */
     .float-tag {
       position: absolute;
       background: var(--ink-4);
       border: 0.5px solid var(--border);
       border-radius: 2px;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.68rem;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.64rem;
       color: var(--sakura);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       animation: floatY 4s ease-in-out infinite;
+      white-space: nowrap;
     }
 
-    .float-tag:nth-child(1) { top: 5%; right: -5px; animation-delay: 0s; }
-    .float-tag:nth-child(2) { bottom: 12%; left: -10px; animation-delay: 1.5s; }
-    .float-tag:nth-child(3) { top: 40%; right: -15px; animation-delay: 3s; }
+    .float-tag:nth-child(1) { top: 4%; right: -8px; animation-delay: 0s; }
+    .float-tag:nth-child(2) { bottom: 14%; left: -14px; animation-delay: 1.8s; }
+    .float-tag:nth-child(3) { top: 42%; right: -18px; animation-delay: 3.2s; }
 
     @keyframes floatY {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-9px); }
     }
 
-    /* ── SERVICES SECTION ── */
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      overflow: hidden;
+      border-top: 0.5px solid var(--border-light);
+      border-bottom: 0.5px solid var(--border-light);
+      padding: 0.75rem 0;
+      background: var(--ink-2);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 2.5rem;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-item {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .marquee-item::after {
+      content: '✦';
+      color: var(--sakura);
+      font-size: 0.5rem;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SERVICES ── */
     .services { background: var(--ink-2); }
 
     .sec-label {
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 3rem;
+      margin-bottom: 2.8rem;
     }
-
     .sec-label span {
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       color: var(--sakura);
+      white-space: nowrap;
     }
-
     .sec-label::after {
       content: '';
       flex: 1;
@@ -201,12 +239,12 @@
     }
 
     .svc {
-      padding: 2.8rem 2rem;
+      padding: 2.5rem 1.8rem;
       border-right: 0.5px solid var(--border-light);
       position: relative;
-      transition: background 0.25s;
+      transition: background 0.3s;
+      overflow: hidden;
     }
-
     .svc:last-child { border-right: none; }
     .svc:hover { background: var(--ink-3); }
 
@@ -215,54 +253,87 @@
       position: absolute;
       top: 0; left: 0;
       width: 0; height: 1px;
-      background: var(--sakura);
-      transition: width 0.4s;
+      background: linear-gradient(to right, var(--sakura), transparent);
+      transition: width 0.5s ease;
     }
-
     .svc:hover::before { width: 100%; }
 
     .svc-num {
       font-family: 'Cinzel', serif;
-      font-size: 0.62rem;
-      color: rgba(232,160,180,0.25);
-      letter-spacing: 0.2em;
-      margin-bottom: 1.5rem;
+      font-size: 0.58rem;
+      color: rgba(232,160,180,0.2);
+      letter-spacing: 0.22em;
+      margin-bottom: 1.4rem;
     }
 
-    .svc-glyph {
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem;
-      display: block;
-    }
+    .svc-glyph { font-size: 1.5rem; margin-bottom: 1.1rem; display: block; }
 
     .svc-title {
       font-family: 'Cinzel', serif;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--white);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.7rem;
     }
 
     .svc-desc {
-      font-size: 0.83rem;
+      font-size: 0.81rem;
       color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1.5rem;
+      line-height: 1.78;
+      margin-bottom: 1.4rem;
     }
 
     .svc-price {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: var(--sakura);
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
+    .svc-price::before { content: ''; display: block; width: 12px; height: 0.5px; background: var(--sakura); }
 
-    .svc-price::before { content: ''; display: block; width: 14px; height: 0.5px; background: var(--sakura); }
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--ink); }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+    }
+
+    .testi-card {
+      background: var(--ink-2);
+      padding: 2rem 1.8rem;
+      transition: background 0.25s;
+    }
+    .testi-card:hover { background: var(--ink-3); }
+
+    .testi-stars {
+      color: var(--sakura);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.9rem;
+    }
+
+    .testi-text {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+
+    .testi-name {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
 
     /* ── CTA ── */
     .cta-section {
-      padding: 8rem 3rem;
+      padding: 7rem 2.5rem;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -274,51 +345,45 @@
       top: 50%; left: 50%;
       transform: translate(-50%,-50%);
       width: 700px; height: 400px;
-      background: radial-gradient(ellipse, rgba(232,160,180,0.06) 0%, transparent 60%);
+      background: radial-gradient(ellipse, rgba(232,160,180,0.05) 0%, transparent 60%);
       pointer-events: none;
     }
 
-    .cta-inner { position: relative; z-index: 2; max-width: 560px; margin: 0 auto; }
+    .cta-inner { position: relative; z-index: 2; max-width: 540px; margin: 0 auto; }
     .cta-title {
       font-family: 'Cinzel', serif;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
       font-weight: 700;
       margin-bottom: 1rem;
+      line-height: 1.2;
     }
-    .cta-desc { color: var(--muted); margin-bottom: 2.5rem; line-height: 1.7; }
+    .cta-desc { color: var(--muted); margin-bottom: 2.4rem; line-height: 1.7; font-size: 0.95rem; }
     .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-    /* ── LINE DIVIDER ── */
     .divider-line {
-      width: 1px;
-      height: 60px;
+      width: 1px; height: 55px;
       background: linear-gradient(to bottom, transparent, var(--sakura-dim), transparent);
       margin: 0 auto 2rem;
     }
 
-    /* ── RESPONSIVE: HOME PAGE ── */
+    /* ── RESPONSIVE HOME ── */
     @media (max-width: 860px) {
-      .home-hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-      .hero-left {
-        padding: 3.5rem 1.4rem 1.5rem;
-        text-align: center;
-        align-items: center;
-      }
-      .hero-sub { max-width: none; margin-left: auto; margin-right: auto; }
-      .hero-btns { justify-content: center; margin-bottom: 2.5rem; }
-      .stats { justify-content: center; gap: 1.8rem; }
-      .hero-right { order: -1; padding: 2.5rem 1.4rem 1rem; }
-      .art-stack { width: 230px; height: 300px; }
-      .art-card-main { width: 200px; height: 260px; }
-      .art-card-behind { width: 184px; height: 246px; }
-      .art-card-back { width: 168px; height: 230px; }
+      .home-hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 3rem 1.2rem 1.5rem; text-align: center; align-items: center; }
+      .hero-sub { max-width: none; }
+      .hero-btns { justify-content: center; margin-bottom: 2rem; }
+      .stats { justify-content: center; gap: 1.6rem; }
+      .hero-right { order: -1; padding: 2.5rem 1.2rem 1rem; }
+      .art-stack { width: 210px; height: 285px; }
+      .art-card-main { width: 190px; height: 255px; }
+      .art-card-behind { width: 176px; height: 240px; }
+      .art-card-back { width: 162px; height: 225px; }
+      .float-tag { display: none; }
       .services-grid { grid-template-columns: 1fr; }
       .svc { border-right: none; border-bottom: 0.5px solid var(--border-light); }
       .svc:last-child { border-bottom: none; }
-      .cta-section { padding: 4.5rem 1.4rem; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 4rem 1.2rem; }
     }
   </style>
 </head>
@@ -326,7 +391,6 @@
 
 <canvas id="particle-canvas"></canvas>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="logo"><span class="logo-dot"></span>BIJUTSU</a>
   <ul class="nav-links">
@@ -355,7 +419,7 @@
       </div>
       <div class="stats">
         <div>
-          <div class="stat-num">120+</div>
+          <div class="stat-num" data-target="120" data-suffix="+">0+</div>
           <div class="stat-label">Commissions Done</div>
         </div>
         <div>
@@ -363,7 +427,7 @@
           <div class="stat-label">Client Rating</div>
         </div>
         <div>
-          <div class="stat-num">48h</div>
+          <div class="stat-num" data-target="48" data-suffix="h">0h</div>
           <div class="stat-label">Avg. Response</div>
         </div>
       </div>
@@ -376,8 +440,14 @@
         <div class="art-card art-card-main">
           <div class="corner-tl"></div>
           <div class="corner-br"></div>
-          <div class="art-icon">🎨</div>
-          <p class="art-placeholder">Add your<br>best artwork<br>here</p>
+          <!-- Add images/hero.png to show your art here -->
+          <img class="hero-img" src="images/hero.png" alt="Bijutsu Art"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            style="border-radius:2px;">
+          <div style="display:none;flex-direction:column;align-items:center;gap:0.6rem;">
+            <span style="font-size:2rem;">🎨</span>
+            <span style="font-family:'Cinzel',serif;font-size:0.65rem;color:rgba(232,160,180,0.3);letter-spacing:0.15em;text-transform:uppercase;text-align:center;padding:0 1rem;">Add images/hero.png</span>
+          </div>
         </div>
         <div class="float-tag">Anime PFP</div>
         <div class="float-tag">OC Design</div>
@@ -385,6 +455,24 @@
       </div>
     </div>
   </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">Anime PFP</span>
+      <span class="marquee-item">OC Design</span>
+      <span class="marquee-item">Short Animation</span>
+      <span class="marquee-item">Commission Open</span>
+      <span class="marquee-item">Fast Delivery</span>
+      <span class="marquee-item">From ₹49</span>
+      <span class="marquee-item">Anime PFP</span>
+      <span class="marquee-item">OC Design</span>
+      <span class="marquee-item">Short Animation</span>
+      <span class="marquee-item">Commission Open</span>
+      <span class="marquee-item">Fast Delivery</span>
+      <span class="marquee-item">From ₹49</span>
+    </div>
+  </div>
 
   <!-- SERVICES -->
   <section class="services section">
@@ -416,6 +504,30 @@
     </div>
   </section>
 
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="sec-label"><span>Client Reviews</span></div>
+      <div class="testi-grid">
+        <div class="testi-card fade-in">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Absolutely stunning work. My OC came to life exactly how I imagined. Super fast delivery too!"</p>
+          <div class="testi-name">— Raven_OC</div>
+        </div>
+        <div class="testi-card fade-in" style="transition-delay:0.12s">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"The animation loop is insane quality for the price. Everyone on my Discord server loved it."</p>
+          <div class="testi-name">— ShadowBlade99</div>
+        </div>
+        <div class="testi-card fade-in" style="transition-delay:0.24s">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Best anime PFP commission I've ever ordered. The detail in the eyes is just chef's kiss."</p>
+          <div class="testi-name">— MoonlitArtist</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-section">
     <div class="cta-inner fade-in">
@@ -442,34 +554,24 @@
   <div class="footer-copy">© 2025 Bijutsu Studio</div>
 </footer>
 
-<!-- AI CHATBOT -->
+<!-- AI CHATBOT — original IDs preserved exactly -->
 <div class="ai-ring"></div>
-<button class="ai-btn" id="ai-toggle" aria-label="Open Bijutsu Assistant">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#E8A0B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
-    <circle cx="8.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-    <circle cx="12" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-    <circle cx="15.5" cy="12" r="1" fill="#E8A0B4" stroke="none"/>
-  </svg>
+<button id="ai-toggle" aria-label="Open Bijutsu Assistant">
+  <span class="bot-core"></span>
 </button>
 
-<div class="chat-panel" id="ai-panel">
-  <div class="chat-header">
-    <div class="chat-header-info">
-      <div class="chat-avatar">B</div>
-      <div>
-        <div class="chat-name">Bijutsu Assistant</div>
-        <div class="chat-status">● Online</div>
-      </div>
+<div class="ai-panel" id="ai-panel">
+  <div class="ai-header">
+    <div>
+      <strong style="font-size:0.9rem;">Bijutsu Assistant</strong>
+      <small>● Online — Ask me anything!</small>
     </div>
-    <button class="chat-close" id="ai-close">✕</button>
+    <button id="ai-close">✕</button>
   </div>
-  <div class="chat-messages" id="ai-messages">
-    <div class="chat-msg bot">Hey! 👋 I'm the Bijutsu Assistant. Ask me about commissions, pricing, or anything else!</div>
-  </div>
-  <div class="chat-input-row">
-    <input class="chat-input" id="ai-input" placeholder="Ask anything..." />
-    <button class="chat-send" id="ai-send">→</button>
+  <div class="ai-messages" id="ai-messages"></div>
+  <div class="ai-input-row">
+    <input id="ai-input" placeholder="Ask about prices, delivery, commissions…" />
+    <button id="ai-send">→</button>
   </div>
 </div>
 
