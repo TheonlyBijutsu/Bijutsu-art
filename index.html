@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BIJUTSU ART // Cybernetic Portfolio & Creator Hub</title>
   
-  <!-- Fonts & Icon Libraries -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -1162,7 +1161,7 @@
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid var(--glass-border);
       border-radius: 8px;
-      padding: 12px 14px;
+      padding: 12px 16px;
       color: var(--text-primary);
       font-family: var(--font-body);
       font-size: 14px;
@@ -1176,13 +1175,13 @@
 
     .btn-auth-submit {
       width: 100%;
-      background: linear-gradient(135deg, var(--neon-cyan), #06b6d4);
+      background: linear-gradient(135deg, #00f0ff, #3b82f6);
       border: none;
-      color: var(--cyber-black);
+      color: #020204;
       font-family: var(--font-cyber);
       font-weight: 800;
       font-size: 13px;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       padding: 14px;
       border-radius: 8px;
       cursor: pointer;
@@ -1197,117 +1196,160 @@
     }
 
     .auth-divider {
-      display: flex;
-      align-items: center;
       text-align: center;
-      color: var(--text-muted);
-      font-size: 11px;
-      font-family: var(--font-cyber);
       margin: 24px 0;
+      position: relative;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font-cyber);
     }
 
     .auth-divider::before, .auth-divider::after {
       content: '';
-      flex: 1;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: absolute;
+      top: 50%;
+      width: 30%;
+      height: 1px;
+      background: var(--glass-border);
     }
 
-    .auth-divider:not(:empty)::before {
-      margin-right: 12px;
-    }
+    .auth-divider::before { left: 0; }
+    .auth-divider::after { right: 0; }
 
-    .auth-divider:not(:empty)::after {
-      margin-left: 12px;
-    }
-
-    .social-auth-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .oauth-grid {
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
 
-    .social-btn {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
+    .oauth-btn {
+      width: 100%;
       padding: 12px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 12px;
       transition: var(--transition-fast);
-      font-size: 18px;
     }
 
-    .social-btn.google { color: #ea4335; }
-    .social-btn.discord { color: #5865f2; }
-    .social-btn.meta { color: #1877f2; }
+    .oauth-btn-google {
+      background: #ffffff;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+    }
 
-    .social-btn:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.15);
+    .oauth-btn-google:hover {
+      background: #f9fafb;
+    }
+
+    .oauth-btn-discord {
+      background: #5865F2;
+      color: #ffffff;
+      border: none;
+    }
+
+    .oauth-btn-discord:hover {
+      background: #4752c4;
+    }
+
+    .oauth-btn-meta {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #ffffff;
+      border: none;
+    }
+
+    .oauth-btn-meta:hover {
+      filter: brightness(1.1);
     }
 
     /* -------------------------------------------------------------------------- */
     /* LIGHTBOX & PALETTE GENERATOR                                               */
     /* -------------------------------------------------------------------------- */
-    .lightbox-card {
-      max-width: 900px;
-      padding: 0;
-      overflow: hidden;
-      border: 1px solid var(--glass-border-cyan);
-    }
-
-    .lightbox-layout {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-    }
-
-    @media (max-width: 768px) {
-      .lightbox-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .lightbox-visual {
-      background: rgba(0, 0, 0, 0.9);
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 2, 4, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1050;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 380px;
-      max-height: 550px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 40px;
     }
 
-    .lightbox-img-render {
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-card {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      background: var(--cyber-black);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      max-width: 1100px;
+      max-height: 85vh;
+      overflow: hidden;
     }
 
-    .lightbox-details {
+    @media (max-width: 900px) {
+      .lightbox-card {
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+    }
+
+    .lightbox-viewer {
+      background: #020205;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .lightbox-sidebar {
       padding: 32px;
+      background: var(--glass-bg-solid);
+      border-left: 1px solid var(--glass-border);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: var(--glass-bg-solid);
     }
 
-    .lightbox-heading h2 {
+    .lightbox-details h2 {
       font-family: var(--font-cyber);
-      font-size: 22px;
-      margin-bottom: 12px;
+      font-size: 20px;
+      margin-bottom: 8px;
     }
 
-    .lightbox-desc {
+    .lightbox-details p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 24px;
+      line-height: 1.5;
     }
 
-    .palette-generator-box {
-      border-top: 1px solid var(--glass-border);
-      padding-top: 24px;
+    .palette-box {
+      margin-top: 32px;
     }
 
     .palette-title {
@@ -1316,561 +1358,310 @@
       letter-spacing: 1px;
       color: var(--text-muted);
       margin-bottom: 12px;
-      display: block;
     }
 
-    .palette-chips-flex {
+    .palette-swatches {
       display: flex;
       gap: 12px;
     }
 
-    .color-chip {
-      width: 48px;
-      height: 48px;
+    .swatch {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
       cursor: pointer;
       position: relative;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: var(--transition-fast);
     }
 
-    .color-chip:hover {
+    .swatch:hover {
       transform: scale(1.15);
       border-color: #ffffff;
     }
 
-    .color-chip-hex {
+    .swatch::after {
+      content: attr(data-hex);
       position: absolute;
-      bottom: -22px;
+      bottom: -24px;
       left: 50%;
       transform: translateX(-50%);
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-secondary);
       opacity: 0;
-      transition: opacity 0.2s ease;
-      pointer-events: none;
+      transition: var(--transition-fast);
+      white-space: nowrap;
     }
 
-    .color-chip:hover .color-chip-hex {
+    .swatch:hover::after {
       opacity: 1;
     }
 
     /* -------------------------------------------------------------------------- */
-    /* CUSTOM FLOATING TOASTS                                                     */
+    /* INTELLECTUAL PROPERTY TOAST                                                */
     /* -------------------------------------------------------------------------- */
-    .toast-deck {
+    .toast-container {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 10000;
+      bottom: 32px;
+      right: 32px;
+      z-index: 2000;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      max-width: 380px;
-      width: calc(100% - 48px);
+      gap: 12px;
     }
 
     .toast-node {
-      background: var(--glass-bg-solid);
-      border-left: 3px solid var(--neon-cyan);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-      color: var(--text-primary);
-      padding: 16px 20px;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 12px;
+      background: rgba(5, 5, 8, 0.95);
+      border: 1px solid var(--glass-border-magenta);
+      box-shadow: var(--glow-magenta);
+      border-radius: 8px;
+      padding: 16px 24px;
+      color: #ffffff;
+      font-size: 13px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 14px;
+      transform: translateY(100px);
+      opacity: 0;
       animation: toastSlideIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
-    .toast-node.warning {
-      border-left-color: var(--neon-magenta);
-    }
-
-    .toast-node.success {
-      border-left-color: #10b981;
-    }
-
     @keyframes toastSlideIn {
-      from {
-        transform: translateX(120%);
-        opacity: 0;
-      }
       to {
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 1;
       }
     }
 
-    .toast-node.toast-die {
-      animation: toastSlideOut 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-    }
-
-    @keyframes toastSlideOut {
-      to {
-        transform: translateX(120%);
-        opacity: 0;
-      }
+    .toast-node i {
+      color: var(--neon-magenta);
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Custom Cursor Nodes -->
-  <div id="js-cursor" class="custom-cursor"></div>
-  <div id="js-cursor-dot" class="custom-cursor-dot"></div>
+  <div class="custom-cursor" id="cursorNode"></div>
+  <div class="custom-cursor-dot" id="cursorDotNode"></div>
 
-  <!-- Header Section -->
   <header>
     <div class="nav-container">
-      <a href="#" class="brand" onclick="navigate('feed'); return false;">
+      <a href="#" class="brand" onclick="navigate('feed')">
         <div class="brand-logo">B</div>
         <div class="brand-title">BIJUTSU</div>
       </a>
 
       <div class="search-bar-wrapper">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="nav-search" class="search-input" placeholder="Search terminal users (e.g., cyber_junkie_99)...">
+        <input type="text" class="search-input" id="globalSearchInput" placeholder="Search artists username... (Press Enter)">
       </div>
 
-      <nav class="nav-tabs">
-        <button id="tab-feed" class="tab-btn active" onclick="navigate('feed')">
-          <i class="fa-solid fa-shapes"></i> Art Feed
+      <div class="nav-tabs">
+        <button class="tab-btn active" id="tab-feed" onclick="navigate('feed')">
+          <i class="fa-solid fa-images"></i> Feed
         </button>
-        <button id="tab-messenger" class="tab-btn" onclick="navigate('messenger')">
-          <i class="fa-solid fa-message"></i> Messenger
+        <button class="tab-btn" id="tab-messenger" onclick="navigate('messenger')">
+          <i class="fa-solid fa-comment-nodes"></i> Messenger
         </button>
-        <button id="tab-creator" class="tab-btn" onclick="navigate('creator')">
+        <button class="tab-btn" id="tab-creator" onclick="navigate('creator')">
           <i class="fa-solid fa-user-gear"></i> Creator Hub
         </button>
-      </nav>
+      </div>
 
-      <button class="btn-signin" onclick="openAuthModal()">SIGN IN</button>
+      <button class="btn-signin" onclick="openAuthModal()">Sign In</button>
     </div>
   </header>
 
-  <!-- Main Application Workspace -->
   <main>
     
-    <!-- PANEL A: ART FEED -->
-    <div id="panel-feed" class="panel active">
+    <section class="panel active" id="panel-feed">
       <div class="feed-controls">
         <div class="filter-chips">
-          <button class="chip active" onclick="filterGallery('all', this)">All Matrices</button>
-          <button class="chip" onclick="filterGallery('sketches', this)">Sketches</button>
-          <button class="chip" onclick="filterGallery('concept-art', this)">Concept Art</button>
-          <button class="chip" onclick="filterGallery('digital-paintings', this)">Digital Paintings</button>
+          <div class="chip active" onclick="filterCatalog('all', this)">All Nodes</div>
+          <div class="chip" onclick="filterCatalog('digital', this)">Digital Paintings</div>
+          <div class="chip" onclick="filterCatalog('sketches', this)">Manga Sketches</div>
+          <div class="chip" onclick="filterCatalog('concept', this)">Concept Layouts</div>
         </div>
       </div>
+      
+      <div class="skeleton-grid" id="skeletonFeed">
+        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
+        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
+        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
+        <div class="skeleton-card"><div class="skeleton-block skeleton-image"></div><div class="skeleton-block skeleton-title"></div><div class="skeleton-block skeleton-desc"></div><div class="skeleton-block skeleton-desc-short"></div></div>
+      </div>
 
-      <!-- Gallery Grid & Skeleton Injectors -->
-      <div id="art-grid-container" class="art-grid"></div>
-    </div>
+      <div class="art-grid" id="actualArtCatalog" style="display: none;"></div>
+    </section>
 
-    <!-- PANEL B: LIVE MESSENGER UI -->
-    <div id="panel-messenger" class="panel">
+    <section class="panel" id="panel-messenger">
       <div class="messenger-wrapper">
         <div class="messenger-sidebar">
           <div class="sidebar-header">
-            <h2>ACTIVE COMLINKS</h2>
+            <h2>ACTIVE TERMINALS</h2>
           </div>
-          <div id="chats-list" class="active-chats-list"></div>
+          <div class="active-chats-list" id="activeChatsContainer"></div>
         </div>
-
         <div class="messenger-chat-area">
           <div class="chat-area-header">
             <div class="chat-header-profile">
               <div class="avatar-wrapper">
-                <img id="chat-header-avatar" class="avatar" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
-                <span id="chat-header-status" class="status-badge"></span>
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="avatar" id="activeChatAvatar" alt="Target Profile">
+                <div class="status-badge online" id="activeChatStatus"></div>
               </div>
               <div class="chat-header-info">
-                <h3 id="chat-header-user">Terminal Session</h3>
-                <p id="chat-header-desc">Awaiting Handshake</p>
+                <h3 id="activeChatTitle">Aesthetic_Ghost</h3>
+                <p id="activeChatSub">System Channel Established</p>
               </div>
             </div>
-            <div style="font-size: 14px; color: var(--text-muted);">
-              <i class="fa-solid fa-link"></i> Sec_Lnk_Up
-            </div>
           </div>
-
-          <div id="message-stream" class="message-stream"></div>
-
+          <div class="message-stream" id="chatMessageStream"></div>
           <div class="chat-input-wrapper">
-            <form id="chat-form" class="chat-input-container" onsubmit="handleSendMessage(event)">
-              <input type="text" id="chat-text-input" class="chat-text-input" placeholder="Type direct instruction payload..." autocomplete="off">
-              <button type="submit" class="chat-send-btn">
-                UPLINK <i class="fa-solid fa-paper-plane"></i>
+            <div class="chat-input-container">
+              <input type="text" class="chat-text-input" id="chatInputField" placeholder="Broadcast secure encrypted message packet...">
+              <button class="chat-send-btn" onclick="executeMessageSend()">
+                SEND <i class="fa-solid fa-paper-plane"></i>
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- PANEL C: CREATOR HUB -->
-    <div id="panel-creator" class="panel">
+    <section class="panel" id="panel-creator">
       <div class="creator-grid">
-        
-        <!-- Biography & Details Node -->
         <div class="hub-profile-card">
           <div class="hub-profile-header">
             <div class="profile-avatar-frame">
-              <img class="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Bijutsu Core">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=300&q=80" class="profile-avatar" alt="Primary Artisan">
             </div>
             <div class="profile-meta">
-              <h1>BIJUTSU CORE</h1>
-              <p class="profile-handle">@the_only_bijutsu_grid</p>
-              <p class="profile-bio">High-tech visual synthesis unit based in Tokyo. Creating neural-interface concept art, low-life structural blueprints, and glowing vector studies. Merging synthetic and organic paradigms.</p>
+              <h1>Takashi_Bijutsu</h1>
+              <div class="profile-handle">SECURE IDENTITY NODE // @bijutsu_art</div>
+              <p class="profile-bio">Principal Cybernetic Illustrator and Concept Architect. Visual developer pushing dark systemic UI layouts across distributed canvas engines.</p>
             </div>
           </div>
-
-          <!-- Stats Dashboard -->
-          <div class="stats-container">
-            <div class="stat-node">
-              <div class="stat-val">124K</div>
-              <div class="stat-lbl">UPLINKS</div>
-            </div>
-            <div class="stat-node">
-              <div class="stat-val">9.4K</div>
-              <div class="stat-lbl">RESONATORS</div>
-            </div>
-            <div class="stat-node">
-              <div class="stat-val">42</div>
-              <div class="stat-lbl">BUILDS</div>
-            </div>
-            <div class="stat-node">
-              <div class="stat-val">100%</div>
-              <div class="stat-lbl">STABILITY</div>
-            </div>
-          </div>
-
-          <h3 class="hub-showcase-title">
-            <i class="fa-solid fa-fire-flame-curved" style="color: var(--neon-cyan);"></i> ACTIVE RECENT STATIONS
-          </h3>
           
-          <div class="hub-showcase-grid">
-            <div class="hub-showcase-node" onclick="triggerShowcaseDetail(1)">
-              <img src="https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?auto=format&fit=crop&w=300&q=80" alt="">
-            </div>
-            <div class="hub-showcase-node" onclick="triggerShowcaseDetail(4)">
-              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80" alt="">
-            </div>
-            <div class="hub-showcase-node" onclick="triggerShowcaseDetail(3)">
-              <img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=300&q=80" alt="">
-            </div>
+          <div class="stats-container">
+            <div class="stat-node"><div class="stat-val">142</div><div class="stat-lbl">NODES</div></div>
+            <div class="stat-node"><div class="stat-val">84.2K</div><div class="stat-lbl">RECEPTORS</div></div>
+            <div class="stat-node"><div class="stat-val">1.2M</div><div class="stat-lbl">REACTIONS</div></div>
+            <div class="stat-node"><div class="stat-val">ONLINE</div><div class="stat-lbl">STATUS</div></div>
           </div>
+
+          <div class="hub-showcase-title">
+            <i class="fa-solid fa-bolt-lightning" style="color: var(--neon-cyan);"></i> ACTIVE ARCHIVE RUNS
+          </div>
+          <div class="hub-showcase-grid" id="profileShowcaseGrid"></div>
         </div>
 
-        <!-- Commission Price Calculator Box -->
         <div class="calculator-card">
           <div class="calc-header">
-            <h2>COMMISSION ESTIMATOR</h2>
-            <p>Select target directives to compute processing quotes.</p>
+            <h2>COMMISSION ENGINE</h2>
+            <p>Calculate visual production parameter valuations dynamically.</p>
           </div>
-
-          <div class="calc-option" onclick="toggleCalcOption('portrait')">
-            <div class="calc-option-left">
-              <input type="checkbox" id="calc-portrait" class="calc-checkbox" checked disabled>
-              <label class="calc-label" for="calc-portrait">Character Cyber Portrait</label>
-            </div>
-            <div class="calc-cost">$150</div>
-          </div>
-
-          <div class="calc-option" onclick="toggleCalcOption('background')">
-            <div class="calc-option-left">
-              <input type="checkbox" id="calc-background" class="calc-checkbox">
-              <label class="calc-label" for="calc-background">Custom Neo-Tokyo BG</label>
-            </div>
-            <div class="calc-cost">+$100</div>
-          </div>
-
-          <div class="calc-option" onclick="toggleCalcOption('commercial')">
-            <div class="calc-option-left">
-              <input type="checkbox" id="calc-commercial" class="calc-checkbox">
-              <label class="calc-label" for="calc-commercial">Commercial Rights Uplink</label>
-            </div>
-            <div class="calc-cost">+$150</div>
-          </div>
-
-          <div class="calc-option" onclick="toggleCalcOption('animated')">
-            <div class="calc-option-left">
-              <input type="checkbox" id="calc-animated" class="calc-checkbox">
-              <label class="calc-label" for="calc-animated">Interactive Lottie Animations</label>
-            </div>
-            <div class="calc-cost">+$80</div>
-          </div>
-
+          <div id="calculatorOptionsWrapper"></div>
           <div class="calc-notes-box">
-            <label class="calc-notes-lbl" for="calc-notes">BLUEPRINT DIRECTIVES / NOTE DETAILS</label>
-            <textarea id="calc-notes" class="calc-textarea" placeholder="Include references, dimensions, atmospheric details..."></textarea>
+            <label class="calc-notes-lbl">CREATIVE MANIFESTO BRIEF</label>
+            <textarea class="calc-textarea" placeholder="Input parameters, asset constraints, and thematic mandates..."></textarea>
           </div>
-
           <div class="calc-total-box">
-            <div class="total-lbl">ESTIMATED RUNTIME VALUE</div>
-            <div id="calc-total" class="total-price">$150</div>
+            <div class="total-lbl">ESTIMATED VALUATION</div>
+            <div class="total-price" id="calcTotalDisplay">$0.00</div>
           </div>
-
-          <button class="btn-calc-submit" onclick="submitCommissionOrder()">
-            SEND DIRECTIVE BLUEPRINT <i class="fa-solid fa-cube"></i>
+          <button class="btn-calc-submit" onclick="dispatchCommissionOrder()">
+            DISPATCH COMMISSIONS REQUEST <i class="fa-solid fa-terminal"></i>
           </button>
         </div>
-
       </div>
-    </div>
+    </section>
 
   </main>
 
-  <!-- POPUP CREDENTIAL DRAWER -->
-  <div id="auth-modal" class="modal-overlay" onclick="closeAuthModalViaBackdrop(event)">
+  <div class="modal-overlay" id="authModalDrawer" onclick="closeAuthModalViaOverlay(event)">
     <div class="modal-card">
-      <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
-      <h2 class="auth-title">IDENTITY SEED DIRECT</h2>
-      <p class="auth-subtitle">Verify cryptographic credentials or connect standard anchors.</p>
+      <button class="modal-close-btn" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+      <h2 class="auth-title">ACCESS PORTAL</h2>
+      <p class="auth-subtitle">Establish centralized matrix authentication</p>
       
-      <form onsubmit="handleMockAuth(event)">
-        <div class="auth-form-group">
-          <label class="auth-label">SECURE EMAIL UPLINK</label>
-          <input type="email" required class="auth-input" placeholder="operator@network.net">
-        </div>
-        <div class="auth-form-group">
-          <label class="auth-label">CREDENTIAL KEYPASS</label>
-          <input type="password" required class="auth-input" placeholder="••••••••••••••••">
-        </div>
-        <button type="submit" class="btn-auth-submit">INITIALIZE LOGIN SEQUENCE</button>
-      </form>
-
-      <div class="auth-divider">OR INTEGRATE FEDERATED CODE</div>
-
-      <div class="social-auth-grid">
-        <button class="social-btn google" onclick="handleSocialAuth('Google')" title="Auth via Google Grid">
-          <i class="fa-brands fa-google"></i>
+      <div class="auth-form-group">
+        <label class="auth-label">IDENTITY DEPLOYMENT EMAIL</label>
+        <input type="email" class="auth-input" placeholder="operator@domain.com">
+      </div>
+      <div class="auth-form-group">
+        <label class="auth-label">SECURE CODEWORDS PASSPHRASE</label>
+        <input type="password" class="auth-input" placeholder="••••••••••••">
+      </div>
+      
+      <button class="btn-auth-submit" onclick="simulateFormLogin()">AUTHENTICATE MATRIX ACCESS</button>
+      
+      <div class="auth-divider">OR INTEGRATE INTEGRITY CREDENTIALS</div>
+      
+      <div class="oauth-grid">
+        <button class="oauth-btn oauth-btn-google" onclick="triggerOAuthPipe('Google Identity Server')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_Logo.svg" style="width:16px;" alt="Google"> Sync with Google Access
         </button>
-        <button class="social-btn discord" onclick="handleSocialAuth('Discord')" title="Auth via Discord Sync">
-          <i class="fa-brands fa-discord"></i>
+        <button class="oauth-btn oauth-btn-discord" onclick="triggerOAuthPipe('Discord Gateway Matrix')">
+          <i class="fa-brands fa-discord"></i> Connect Discord Endpoint
         </button>
-        <button class="social-btn meta" onclick="handleSocialAuth('Meta')" title="Auth via Meta Link">
-          <i class="fa-brands fa-instagram"></i>
+        <button class="oauth-btn oauth-btn-meta" onclick="triggerOAuthPipe('Meta Core Infrastructure')">
+          <i class="fa-brands fa-instagram"></i> Link Meta Creator Node
         </button>
       </div>
     </div>
   </div>
 
-  <!-- POPUP DETAILS / LIGHTBOX SYSTEM -->
-  <div id="lightbox-modal" class="modal-overlay" onclick="closeLightboxViaBackdrop(event)">
-    <div class="modal-card lightbox-card">
-      <button class="modal-close-btn" onclick="closeLightbox()">&times;</button>
-      
-      <div class="lightbox-layout">
-        <div class="lightbox-visual">
-          <img id="lightbox-img" class="lightbox-img-render" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
-        </div>
+  <div class="lightbox-overlay" id="lightboxView" onclick="closeLightboxViaOverlay(event)">
+    <div class="lightbox-card">
+      <div class="lightbox-viewer">
+        <img src="" class="lightbox-img" id="lightboxTargetImg" alt="High Resolution Asset Node">
+      </div>
+      <div class="lightbox-sidebar">
         <div class="lightbox-details">
-          <div class="lightbox-heading">
-            <h2 id="lightbox-title">Artwork Blueprint</h2>
-            <p id="lightbox-desc" class="lightbox-desc">Constructing interface layout metrics...</p>
-          </div>
-
-          <div class="palette-generator-box">
-            <span class="palette-title">PROGRAMMATIC ATMOSPHERIC SWATCHES (CLICK HEX TO REPLICATE)</span>
-            <div id="palette-chips-flex" class="palette-chips-flex"></div>
-          </div>
+          <button class="modal-close-btn" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+          <h2 id="lightboxTitle">Asset Node Title</h2>
+          <p id="lightboxDescription">Detailed matrix illustration descriptions</p>
+        </div>
+        <div class="palette-box">
+          <div class="palette-title">EXTRACTED CORE CHROMATIC SWATCHES</div>
+          <div class="palette-swatches" id="lightboxPaletteContainer"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Toast Feed Stack -->
-  <div id="toast-deck" class="toast-deck"></div>
+  <div class="toast-container" id="globalToastVault"></div>
 
-  <!-- -------------------------------------------------------------------------- -->
-  <!-- 7. REAL-TIME FRONTEND JAVASCRIPT LOGIC                                     */
-  /* -------------------------------------------------------------------------- */
   <script>
-    // --------------------------------------------------------------------------
-    // MOCK RAW ARTWORK DATABASE
-    // --------------------------------------------------------------------------
-    const ART_DATA = [
-      {
-        id: 1,
-        title: "Neo-Tokyo Skyline 2099",
-        category: "digital-paintings",
-        image: "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?auto=format&fit=crop&w=800&q=80",
-        desc: "A sprawling megacity suffocated by neon smog, rendering the transition between organic and synthetic obsolete.",
-        palette: ["#00f0ff", "#ff007f", "#0a0a10", "#1e1b4b", "#701a75"],
-        date: "2026-03-12"
-      },
-      {
-        id: 2,
-        title: "Ghost in the Shell Sketch",
-        category: "sketches",
-        image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
-        desc: "Raw charcoal and digital brush studies examining cybernetic cranial integration patterns.",
-        palette: ["#1e293b", "#64748b", "#cbd5e1", "#f1f5f9", "#0f172a"],
-        date: "2026-04-19"
-      },
-      {
-        id: 3,
-        title: "Project Zero: Android Geisha",
-        category: "concept-art",
-        image: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80",
-        desc: "Concept layout for a high-society espionage unit disguised as traditional tea hosts.",
-        palette: ["#ff0055", "#ffd700", "#111111", "#4a0404", "#ffffff"],
-        date: "2026-05-02"
-      },
-      {
-        id: 4,
-        title: "Shinjuku Alleyway Overload",
-        category: "digital-paintings",
-        image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
-        desc: "Dense layering of AR advertisements crowding a narrow residential pathway.",
-        palette: ["#ff00ff", "#00ffff", "#ffea00", "#121214", "#2c003e"],
-        date: "2026-05-15"
-      },
-      {
-        id: 5,
-        title: "Chiba Port Quarantine",
-        category: "concept-art",
-        image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80",
-        desc: "Environment study of automated cargo drone terminals under local quarantine locks.",
-        palette: ["#0284c7", "#0f172a", "#38bdf8", "#0369a1", "#020617"],
-        date: "2026-05-28"
-      },
-      {
-        id: 6,
-        title: "Wired Consciousness study #9",
-        category: "sketches",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-        desc: "Exploratory linework highlighting neural wire routing directly into the optic nerve.",
-        palette: ["#475569", "#334155", "#1e293b", "#0f172a", "#f8fafc"],
-        date: "2026-06-01"
-      },
-      {
-        id: 7,
-        title: "Synth-wave Nomad",
-        category: "digital-paintings",
-        image: "https://images.unsplash.com/photo-1515260268569-9271009adfdb?auto=format&fit=crop&w=800&q=80",
-        desc: "An outlier traveling through the ruined waste networks between major city clusters.",
-        palette: ["#f43f5e", "#fb7185", "#be123c", "#111827", "#fca5a5"],
-        date: "2026-06-05"
-      },
-      {
-        id: 8,
-        title: "Kuro-Glass Protocol",
-        category: "concept-art",
-        image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80",
-        desc: "Slick matte black frame designs featuring responsive thermal optical camouflage.",
-        palette: ["#090d16", "#1c2434", "#4a5568", "#a0aec0", "#e2e8f0"],
-        date: "2026-06-10"
-      },
-      {
-        id: 9,
-        title: "Neuro-Net Diver",
-        category: "digital-paintings",
-        image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
-        desc: "Deep-sea metaphor representing complex data stream analysis in deep cyberspace dive.",
-        palette: ["#06b6d4", "#0891b2", "#155e75", "#082f49", "#ecfeff"],
-        date: "2026-06-15"
-      },
-      {
-        id: 10,
-        title: "Augmented Vision Interface",
-        category: "concept-art",
-        image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80",
-        desc: "A mock heads-up display showcasing live tracking metrics of civilian biometric nodes.",
-        palette: ["#10b981", "#059669", "#064e3b", "#022c22", "#d1fae5"],
-        date: "2026-06-20"
-      },
-      {
-        id: 11,
-        title: "Memory Core Retrieval",
-        category: "sketches",
-        image: "https://images.unsplash.com/photo-1561715276-a2d087060f1d?auto=format&fit=crop&w=800&q=80",
-        desc: "Rapid ideation sketch of physical memory cards pulled from decommissioned units.",
-        palette: ["#b45309", "#d97706", "#f59e0b", "#1e1b4b", "#78350f"],
-        date: "2026-06-22"
-      },
-      {
-        id: 12,
-        title: "Carbon Husk Rebirth",
-        category: "digital-paintings",
-        image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80",
-        desc: "The dramatic re-housing of high-ranking AI entities into organic-carbon hybrid body shells.",
-        palette: ["#ec4899", "#f43f5e", "#111827", "#312e81", "#fbcfe8"],
-        date: "2026-06-24"
-      }
+    /* Mock Database Context Packets */
+    const artDatabase = [
+      { id: 1, title: 'Neo-Tokyo Shift', category: 'digital', author: 'Takashi_Bijutsu', desc: 'Metropolitan neon dispersion layout via distributed engine nodes.', src: 'https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?auto=format&fit=crop&w=500&q=80', colors: ['#00f0ff', '#ff007f', '#0b0b16', '#7e22ce', '#3b82f6'] },
+      { id: 2, title: 'Ghost in the Shell', category: 'sketches', author: 'Aesthetic_Ghost', desc: 'Rough exploratory cybernetic biomechanic anatomical schematics.', src: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=500&q=80', colors: ['#1e293b', '#64748b', '#cbd5e1', '#0f172a', '#334155'] },
+      { id: 3, title: 'Synthesized Oasis Layout', category: 'concept', author: 'Nexus_Core', desc: 'Terraced matrix structures mapped inside virtual biosphere layers.', src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80', colors: ['#f472b6', '#38bdf8', '#1e1b4b', '#4c1d95', '#030712'] },
+      { id: 4, title: 'Cyberpunk Catalyst', category: 'digital', author: 'Takashi_Bijutsu', desc: 'High-density streetscape composition using chroma overlay vectors.', src: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80', colors: ['#e11d48', '#2563eb', '#111827', '#f59e0b', '#06b6d4'] },
+      { id: 5, title: 'Mecha Core Assembly', category: 'sketches', author: 'KuroEmi', desc: 'Orthographic structural layouts of armored dreadnought frames.', src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=500&q=80', colors: ['#4b5563', '#1f2937', '#9ca3af', '#111827', '#d1d5db'] },
+      { id: 6, title: 'Neural Fracture Plane', category: 'concept', author: 'Cyber_Vandal', desc: 'Abstracted canvas arrays interpreting raw synapses matrix loads.', src: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=500&q=80', colors: ['#000000', '#ffffff', '#3f3f46', '#71717a', '#a1a1aa'] }
     ];
 
-    // --------------------------------------------------------------------------
-    // MOCK CONVERSATIONS DATABASE
-    // --------------------------------------------------------------------------
-    let conversations = [
-      {
-        username: "cyber_junkie_99",
-        status: "online",
-        desc: "Network Operative",
-        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80",
-        messages: [
-          { sender: "them", text: "Hey! Do you still have commissions open for the Shinjuku style designs?", time: "10:30 AM" },
-          { sender: "me", text: "Yes! Absolutely. You can estimate the pricing parameters over at the Creator Hub panel and submit a blueprint directly to this channel.", time: "10:32 AM" },
-          { sender: "them", text: "Excellent! I am looking for a character portrait with custom neon backgrounds.", time: "10:33 AM" }
-        ]
-      },
-      {
-        username: "Kusanagi_Tech",
-        status: "idle",
-        desc: "Cybernetic Architect",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80",
-        messages: [
-          { sender: "them", text: "Your 'Neuro-Net Diver' piece matches with our upcoming visual novel aesthetics.", time: "Yesterday" },
-          { sender: "me", text: "I appreciate that. Let me know if you would like to run commercial clearance processes on it.", time: "Yesterday" },
-          { sender: "them", text: "I will consult our lead designers. I will get back to you shortly.", time: "Yesterday" }
-        ]
-      },
-      {
-        username: "Zero_Cool",
-        status: "offline",
-        desc: "Console Cowboy",
-        avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=80&q=80",
-        messages: [
-          { sender: "them", text: "Did you use customized noise filters on 'Chiba Port Quarantine'?", time: "2 days ago" },
-          { sender: "me", text: "Yes! They are proprietary textures drawn on physical medium, then layered under a high-pass brush stack.", time: "2 days ago" }
-        ]
-      },
-      {
-        username: "Nexus_Alpha",
-        status: "online",
-        desc: "Systems Coordinator",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80",
-        messages: [
-          { sender: "them", text: "We verified the licensing files. Your contract parameters look structurally solid.", time: "3 days ago" },
-          { sender: "me", text: "Great. Ready to build when the transfer details clear.", time: "3 days ago" }
-        ]
-      }
-    ];
-
-    // --------------------------------------------------------------------------
-    // GLOBAL APP STATE MANAGEMENT
-    // --------------------------------------------------------------------------
-    let currentActiveTab = 'feed';
-    let currentFilterCategory = 'all';
-    let activeChatUser = "cyber_junkie_99";
-    let isUserLoggedIn = false;
-
-    // Commission State
-    const commissionConfig = {
-      portrait: true,
-      background: false,
-      commercial: false,
-      animated: false
+    const chatDatabase = {
+      'Aesthetic_Ghost': { avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80', status: 'online', logs: [{ type: 'incoming', text: 'Hey, I checked out your Neo-Tokyo Shift layout. The blending curves look pristine.', time: '14:22' }, { type: 'outgoing', text: 'Thanks! Extracted those color layers manually over vector grids.', time: '14:25' }] },
+      'Nexus_Core': { avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80', status: 'idle', logs: [{ type: 'incoming', text: 'Are your system commission pipelines operational right now?', time: '09:12' }] },
+      'KuroEmi': { avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80', status: 'offline', logs: [{ type: 'incoming', text: 'Dispatched the orthographic sketch reference nodes to your matrix terminal.', time: 'Yesterday' }] }
     };
 
-    // Custom Interactive Pointer Follower
-    const cursor = document.getElementById('js-cursor');
-    const cursorDot = document.getElementById('js-cursor-dot');
+    const commissionCalculatorSchema = [
+      { id: 'portrait', name: 'Character Cyber Portrait', price: 150.00 },
+      { id: 'bg', name: 'Custom High-Density Cyber Background', price: 250.00 },
+      { id: 'commercial', name: 'Commercial Exploitation License Extensions', price: 200.00 },
+      { id: 'fx', name: 'Neon Shader Micro-Animation Effects (FX)', price: 100.00 }
+    ];
+
+    let currentActiveChatUser = 'Aesthetic_Ghost';
+
+    /* Custom Floating Selection Tracking Logic */
+    const cursor = document.getElementById('cursorNode');
+    const cursorDot = document.getElementById('cursorDotNode');
 
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
@@ -1882,7 +1673,7 @@
     document.addEventListener('mousedown', () => {
       cursor.style.width = '24px';
       cursor.style.height = '24px';
-      cursor.style.backgroundColor = 'rgba(0, 240, 255, 0.2)';
+      cursor.style.backgroundColor = 'rgba(0, 240, 255, 0.1)';
     });
 
     document.addEventListener('mouseup', () => {
@@ -1891,511 +1682,287 @@
       cursor.style.backgroundColor = 'transparent';
     });
 
-    // --------------------------------------------------------------------------
-    // SYSTEM INITIALIZATION
-    // --------------------------------------------------------------------------
-    window.addEventListener('DOMContentLoaded', () => {
-      // Setup Search Event Dispatcher
-      const searchBox = document.getElementById('nav-search');
-      searchBox.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          handleUserGlobalSearch(e.target.value.trim());
-        }
-      });
+    /* Single Page Routing Controller Matrix */
+    function navigate(panelId) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(`panel-${panelId}`).classList.add('active');
+      document.getElementById(`tab-${panelId}`).classList.add('active');
+      
+      if(panelId === 'messenger') {
+        renderMessengerSidebar();
+        renderChatStream();
+      }
+    }
 
-      // Render default state skeleton load
-      renderInitialSkeletons();
+    /* Rendering Core Engine Mechanics */
+    window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        renderGalleryFeed();
+        document.getElementById('skeletonFeed').style.display = 'none';
+        const catalogNode = document.getElementById('actualArtCatalog');
+        catalogNode.style.display = 'block';
+        renderArtGrid(artDatabase);
+        renderProfileShowcase();
+        initializeCalculator();
       }, 1200);
 
-      // Setup initial calculator total
-      recalculateCommissionTotal();
-
-      // Bind IP protection script
-      bindIPGuard();
+      setupIntellectualPropertyShield();
     });
 
-    // --------------------------------------------------------------------------
-    // ROUTING / TAB MANAGER
-    // --------------------------------------------------------------------------
-    function navigate(tabName) {
-      currentActiveTab = tabName;
-      
-      // Update UI active tab buttons
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = document.getElementById(`tab-${tabName}`);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      // Update Panel Displays
-      document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
-      const activePanel = document.getElementById(`panel-${tabName}`);
-      if (activePanel) activePanel.classList.add('active');
-
-      // Hook tab-specific rendering triggers
-      if (tabName === 'messenger') {
-        renderConversations();
-        renderActiveChatStream();
-      }
-    }
-
-    // --------------------------------------------------------------------------
-    // PANEL A: GALLERY FEED & FILTER LOGIC
-    // --------------------------------------------------------------------------
-    function renderInitialSkeletons() {
-      const grid = document.getElementById('art-grid-container');
-      grid.innerHTML = '';
-      
-      // Inject 8 identical structural placeholders
-      for (let i = 0; i < 8; i++) {
-        const placeholder = document.createElement('div');
-        placeholder.className = 'skeleton-card';
-        placeholder.innerHTML = `
-          <div class="skeleton-block skeleton-image"></div>
-          <div class="skeleton-block skeleton-title"></div>
-          <div class="skeleton-block skeleton-desc"></div>
-          <div class="skeleton-block skeleton-desc" style="width: 75%;"></div>
-        `;
-        grid.appendChild(placeholder);
-      }
-    }
-
-    function renderGalleryFeed() {
-      const grid = document.getElementById('art-grid-container');
-      grid.innerHTML = '';
-
-      const filtered = ART_DATA.filter(art => {
-        if (currentFilterCategory === 'all') return true;
-        return art.category === currentFilterCategory;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 48px; font-family: var(--font-cyber);">NO ACTIVE STATIONS DETECTED IN THIS CATEGORY.</div>`;
-        return;
-      }
-
-      filtered.forEach(art => {
+    function renderArtGrid(dataset) {
+      const container = document.getElementById('actualArtCatalog');
+      container.innerHTML = '';
+      dataset.forEach(art => {
         const card = document.createElement('div');
         card.className = 'art-card';
-        card.setAttribute('data-id', art.id);
-        card.onclick = () => openLightbox(art.id);
-
+        card.setAttribute('onclick', `openLightbox(${art.id})`);
         card.innerHTML = `
           <div class="art-card-img-wrapper">
-            <img class="art-card-img" src="${art.image}" alt="${art.title}" loading="lazy">
+            <img src="${art.src}" class="art-card-img" alt="${art.title}">
             <div class="art-card-overlay">
-              <span class="art-card-category">${art.category.replace('-', ' ')}</span>
+              <span class="art-card-category">${art.category}</span>
             </div>
           </div>
           <div class="art-card-info">
             <h3>${art.title}</h3>
-            <p>${art.desc}</p>
+            <p>Architect // <strong>@${art.author}</strong></p>
           </div>
         `;
-        grid.appendChild(card);
+        container.appendChild(card);
       });
     }
 
-    function filterGallery(category, trigger) {
-      currentFilterCategory = category;
-      
-      // Handle chip highlighting states
-      document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
-      trigger.classList.add('active');
-
-      // Trigger temporary shimmer sequence before rendering items
-      renderInitialSkeletons();
-      setTimeout(() => {
-        renderGalleryFeed();
-      }, 500);
+    function filterCatalog(category, element) {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      element.classList.add('active');
+      if(category === 'all') {
+        renderArtGrid(artDatabase);
+      } else {
+        const filtered = artDatabase.filter(a => a.category === category);
+        renderArtGrid(filtered);
+      }
     }
 
-    // --------------------------------------------------------------------------
-    // PANEL B: LIVE MESSENGER LOGIC
-    // --------------------------------------------------------------------------
-    function renderConversations() {
-      const listContainer = document.getElementById('chats-list');
-      listContainer.innerHTML = '';
-
-      conversations.forEach(conv => {
+    /* Live Messenger Internal Control Blocks */
+    function renderMessengerSidebar() {
+      const container = document.getElementById('activeChatsContainer');
+      container.innerHTML = '';
+      Object.keys(chatDatabase).forEach(username => {
+        const data = chatDatabase[username];
+        const lastMsgObj = data.logs[data.logs.length - 1];
+        const lastMsgText = lastMsgObj ? lastMsgObj.text : 'Channel Opened';
+        
         const node = document.createElement('div');
-        node.className = `chat-node ${conv.username === activeChatUser ? 'active' : ''}`;
-        node.onclick = () => selectChatUser(conv.username);
-
-        const lastMessage = conv.messages.length > 0 
-          ? conv.messages[conv.messages.length - 1].text 
-          : "Secure link established.";
-
+        node.className = `chat-node ${username === currentActiveChatUser ? 'active' : ''}`;
+        node.setAttribute('onclick', `switchChatTarget('${username}')`);
         node.innerHTML = `
           <div class="avatar-wrapper">
-            <img class="avatar" src="${conv.avatar}" alt="${conv.username}">
-            <span class="status-badge ${conv.status}"></span>
+            <img src="${data.avatar}" class="avatar" alt="${username}">
+            <div class="status-badge ${data.status}"></div>
           </div>
           <div class="chat-meta">
-            <div class="chat-username">${conv.username}</div>
-            <div class="chat-last-msg">${lastMessage}</div>
+            <div class="chat-username">${username}</div>
+            <div class="chat-last-msg">${lastMsgText}</div>
           </div>
         `;
-        listContainer.appendChild(node);
+        container.appendChild(node);
       });
     }
 
-    function renderActiveChatStream() {
-      const activeConv = conversations.find(c => c.username === activeChatUser);
-      if (!activeConv) return;
-
-      // Update header nodes
-      document.getElementById('chat-header-user').innerText = activeConv.username;
-      document.getElementById('chat-header-desc').innerText = activeConv.desc || "Active Channel Partner";
-      document.getElementById('chat-header-avatar').src = activeConv.avatar;
+    function renderChatStream() {
+      const container = document.getElementById('chatMessageStream');
+      container.innerHTML = '';
+      const context = chatDatabase[currentActiveChatUser];
       
-      const badge = document.getElementById('chat-header-status');
-      badge.className = `status-badge ${activeConv.status}`;
-
-      // Build message streams
-      const stream = document.getElementById('message-stream');
-      stream.innerHTML = '';
-
-      activeConv.messages.forEach(msg => {
-        const alignClass = msg.sender === 'me' ? 'outgoing' : 'incoming';
-        const msgNode = document.createElement('div');
-        msgNode.className = `bubble-wrapper ${alignClass}`;
-
-        msgNode.innerHTML = `
-          <div class="bubble">${msg.text}</div>
-          <span class="bubble-time">${msg.time}</span>
+      document.getElementById('activeChatAvatar').src = context.avatar;
+      document.getElementById('activeChatTitle').innerText = currentActiveChatUser;
+      
+      const badge = document.getElementById('activeChatStatus');
+      badge.className = `status-badge ${context.status}`;
+      
+      context.logs.forEach(log => {
+        const wrapper = document.createElement('div');
+        wrapper.className = `bubble-wrapper ${log.type}`;
+        wrapper.innerHTML = `
+          <div class="bubble">${log.text}</div>
+          <div class="bubble-time">${log.time}</div>
         `;
-        stream.appendChild(msgNode);
+        container.appendChild(wrapper);
       });
-
-      // Secure scrolling execution down to base
-      stream.scrollTop = stream.scrollHeight;
+      container.scrollTop = container.scrollHeight;
     }
 
-    function selectChatUser(username) {
-      activeChatUser = username;
-      renderConversations();
-      renderActiveChatStream();
+    function switchChatTarget(username) {
+      currentActiveChatUser = username;
+      renderMessengerSidebar();
+      renderChatStream();
     }
 
-    function handleSendMessage(event) {
-      event.preventDefault();
-      const input = document.getElementById('chat-text-input');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const activeConv = conversations.find(c => c.username === activeChatUser);
-      if (!activeConv) return;
-
-      // Inject operator message
-      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      activeConv.messages.push({
-        sender: "me",
-        text: text,
-        time: currentTime
+    function executeMessageSend() {
+      const input = document.getElementById('chatInputField');
+      if(!input.value.trim()) return;
+      
+      const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      chatDatabase[currentActiveChatUser].logs.push({
+        type: 'outgoing',
+        text: input.value,
+        time: timeNow
       });
-
+      
       input.value = '';
-      renderActiveChatStream();
-      renderConversations();
-
-      // Trigger automatic reply logic depending on target context
-      setTimeout(() => {
-        generateSystemReply(activeConv, text);
-      }, 1200);
+      renderMessengerSidebar();
+      renderChatStream();
     }
 
-    function generateSystemReply(convoObj, lastUserMsg) {
-      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      let replyText = "Uplink verified. Directive logged in storage matrices.";
+    document.getElementById('chatInputField').addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') executeMessageSend();
+    });
 
-      // Tailored responses depending on active chat terminal handles
-      if (convoObj.username === "cyber_junkie_99") {
-        replyText = "The parameter layout looks structurally viable. Let me pass this through to my ledger framework.";
-      } else if (convoObj.username === "Kusanagi_Tech") {
-        replyText = "Parsing parameters. Our legal terminals will issue structural clearing coordinates shortly.";
-      } else if (convoObj.username === "Zero_Cool") {
-        replyText = "Excellent. I will test these parameters inside our legacy compilers tonight.";
-      } else if (convoObj.username === "Nexus_Alpha") {
-        replyText = "Direct link established. Re-indexing visual storage cores now.";
-      } else {
-        replyText = `Data block registered from temporary terminal. We are monitoring this trace.`;
-      }
-
-      convoObj.messages.push({
-        sender: "them",
-        text: replyText,
-        time: currentTime
-      });
-
-      renderActiveChatStream();
-      renderConversations();
-      showToast(`Signal payload from [${convoObj.username}] received`, "success");
-    }
-
-    // --------------------------------------------------------------------------
-    // PANEL C: CREATOR HUB & COMMISSION ESTIMATOR
-    // --------------------------------------------------------------------------
-    function toggleCalcOption(optionName) {
-      if (optionName === 'portrait') return; // Core constraint anchor
-
-      const targetBox = document.getElementById(`calc-${optionName}`);
-      targetBox.checked = !targetBox.checked;
-      commissionConfig[optionName] = targetBox.checked;
-      
-      recalculateCommissionTotal();
-    }
-
-    function recalculateCommissionTotal() {
-      let baseCost = 150;
-      if (document.getElementById('calc-background').checked) baseCost += 100;
-      if (document.getElementById('calc-commercial').checked) baseCost += 150;
-      if (document.getElementById('calc-animated').checked) baseCost += 80;
-
-      document.getElementById('calc-total').innerText = `$${baseCost}`;
-    }
-
-    function submitCommissionOrder() {
-      const notes = document.getElementById('calc-notes').value.trim();
-      
-      // Compile selected options array
-      const selections = ["Character Cyber Portrait"];
-      let costSum = 150;
-
-      if (document.getElementById('calc-background').checked) {
-        selections.push("Custom Neo-Tokyo BG");
-        costSum += 100;
-      }
-      if (document.getElementById('calc-commercial').checked) {
-        selections.push("Commercial Rights Uplink");
-        costSum += 150;
-      }
-      if (document.getElementById('calc-animated').checked) {
-        selections.push("Interactive Lottie Animations");
-        costSum += 80;
-      }
-
-      // Format standard transaction layout message
-      const blueprintPayload = `⚡ NEW SYSTEM BLUEPRINT ORDER DIRECTIVE ⚡\n\n- Build Base: Portrait\n- Integrations: ${selections.slice(1).join(', ') || 'No secondary layers'}\n- Projected Value: $${costSum}\n- Operator Directive Notes: "${notes || 'No extra guidelines input'}"\n\nStatus: Initializing connection protocol.`;
-
-      // Search or create Bijutsu administrative thread
-      let targetConv = conversations.find(c => c.username === "Bijutsu_HQ");
-      if (!targetConv) {
-        targetConv = {
-          username: "Bijutsu_HQ",
-          status: "online",
-          desc: "Administrative Matrix Gateway",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80",
-          messages: []
-        };
-        conversations.unshift(targetConv);
-      }
-
-      // Inject system messages
-      const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      targetConv.messages.push({
-        sender: "me",
-        text: blueprintPayload,
-        time: timestamp
-      });
-
-      // Clear input directives
-      document.getElementById('calc-notes').value = '';
-      
-      showToast("Order blueprint successfully transmitted. Directing to messenger channel...", "success");
-
-      // Navigate layout automatically to active chat node
-      activeChatUser = "Bijutsu_HQ";
-      
-      setTimeout(() => {
-        navigate('messenger');
+    /* Global Search Matrix Discovery Route Interceptors */
+    document.getElementById('globalSearchInput').addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') {
+        const query = e.target.value.trim();
+        if(!query) return;
         
-        // Dynamic administrative callback trigger
-        setTimeout(() => {
-          targetConv.messages.push({
-            sender: "them",
-            text: "⚡ SECURE COMLINK STABLE ⚡ We have caught your blueprint stream. System processors are resolving execution timeline values now. Standby for network update.",
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-          });
-          renderActiveChatStream();
-          renderConversations();
-        }, 1500);
-
-      }, 800);
-    }
-
-    function triggerShowcaseDetail(artworkId) {
-      openLightbox(artworkId);
-    }
-
-    // --------------------------------------------------------------------------
-    // GLOBAL TERMINAL SEARCH ENGINE
-    // --------------------------------------------------------------------------
-    function handleUserGlobalSearch(usernameQuery) {
-      if (!usernameQuery) return;
-
-      const parsedQuery = usernameQuery.toLowerCase();
-      let targetConv = conversations.find(c => c.username.toLowerCase() === parsedQuery);
-
-      if (!targetConv) {
-        // Dynamically instantiate brand new channel partner on search match failures
-        targetConv = {
-          username: usernameQuery,
-          status: "online",
-          desc: "External Direct Operator",
-          avatar: `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 900000000)}?auto=format&fit=crop&w=80&q=80`,
-          messages: [
-            { sender: "them", text: `Connection established to unidentified external operator endpoint [${usernameQuery}]. Direct signal routing activated.`, time: "Just Now" }
-          ]
-        };
-        conversations.unshift(targetConv);
+        if(!chatDatabase[query]) {
+          chatDatabase[query] = {
+            avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80',
+            status: 'online',
+            logs: [{ type: 'incoming', text: `System Automated handshake routing packet targeting @${query}. Send a message packet.`, time: 'Now' }]
+          };
+        }
+        currentActiveChatUser = query;
+        e.target.value = '';
+        navigate('messenger');
       }
+    });
 
-      // Activate and set active chat variables
-      activeChatUser = targetConv.username;
-      
-      // Wipe the search field cleanly
-      document.getElementById('nav-search').value = '';
-
-      showToast(`Active comlink tunnel routed to user terminal: [${targetConv.username}]`, "success");
-      
-      navigate('messenger');
-    }
-
-    // --------------------------------------------------------------------------
-    // AUTH MODAL LOGIC
-    // --------------------------------------------------------------------------
-    function openAuthModal() {
-      document.getElementById('auth-modal').classList.add('active');
-    }
-
-    function closeAuthModal() {
-      document.getElementById('auth-modal').classList.remove('active');
-    }
-
-    function closeAuthModalViaBackdrop(event) {
-      if (event.target === document.getElementById('auth-modal')) {
-        closeAuthModal();
-      }
-    }
-
-    function handleMockAuth(event) {
-      event.preventDefault();
-      isUserLoggedIn = true;
-      closeAuthModal();
-      showToast("Verification key registered. Operator Identity Synchronized.", "success");
-      document.querySelector('.btn-signin').innerText = "OPERATOR ACTIVE";
-      document.querySelector('.btn-signin').style.background = "rgba(0, 240, 255, 0.1)";
-      document.querySelector('.btn-signin').style.border = "1px solid var(--neon-cyan)";
-      document.querySelector('.btn-signin').style.color = "var(--neon-cyan)";
-      document.querySelector('.btn-signin').style.boxShadow = "var(--glow-cyan)";
-    }
-
-    function handleSocialAuth(networkName) {
-      closeAuthModal();
-      showToast(`Identity payload validated via ${networkName} authentication.`, "success");
-      document.querySelector('.btn-signin').innerText = "LINKED CORE";
-    }
-
-    // --------------------------------------------------------------------------
-    // LIGHTBOX & PALETTE GENERATOR
-    // --------------------------------------------------------------------------
-    function openLightbox(artId) {
-      const artObj = ART_DATA.find(a => a.id === artId);
-      if (!artObj) return;
-
-      document.getElementById('lightbox-img').src = artObj.image;
-      document.getElementById('lightbox-title').innerText = artObj.title;
-      document.getElementById('lightbox-desc').innerText = artObj.desc;
-
-      // Programmatic Color Swatches Extraction Layout Draw
-      const paletteContainer = document.getElementById('palette-chips-flex');
-      paletteContainer.innerHTML = '';
-
-      artObj.palette.forEach(colorHex => {
-        const chip = document.createElement('div');
-        chip.className = 'color-chip';
-        chip.style.backgroundColor = colorHex;
-        chip.title = `Click to clone hex code: ${colorHex}`;
-
-        // Hex Code Hover Badge Node
-        const hexBadge = document.createElement('span');
-        hexBadge.className = 'color-chip-hex';
-        hexBadge.innerText = colorHex;
-        chip.appendChild(hexBadge);
-
-        // Click interaction copy logic
-        chip.onclick = () => {
-          navigator.clipboard.writeText(colorHex).then(() => {
-            showToast(`Hex key cloned: ${colorHex}`, "success");
-          });
-        };
-
-        paletteContainer.appendChild(chip);
+    /* Pricing Calculator Logic Grid Blocks */
+    function initializeCalculator() {
+      const wrapper = document.getElementById('calculatorOptionsWrapper');
+      wrapper.innerHTML = '';
+      commissionCalculatorSchema.forEach(option => {
+        const node = document.createElement('div');
+        node.className = 'calc-option';
+        node.setAttribute('onclick', `toggleCalculatorNode('${option.id}')`);
+        node.innerHTML = `
+          <div class="calc-option-left">
+            <input type="checkbox" class="calc-checkbox" id="calc-cb-${option.id}" value="${option.price}" onclick="event.stopPropagation(); processCalculationFormula();">
+            <span class="calc-label">${option.name}</span>
+          </div>
+          <div class="calc-cost">$${option.price.toFixed(2)}</div>
+        `;
+        wrapper.appendChild(node);
       });
-
-      document.getElementById('lightbox-modal').classList.add('active');
     }
 
-    function closeLightbox() {
-      document.getElementById('lightbox-modal').classList.remove('active');
+    function toggleCalculatorNode(id) {
+      const cb = document.getElementById(`calc-cb-${id}`);
+      cb.checked = !cb.checked;
+      processCalculationFormula();
     }
 
-    function closeLightboxViaBackdrop(event) {
-      if (event.target === document.getElementById('lightbox-modal')) {
-        closeLightbox();
-      }
+    function processCalculationFormula() {
+      let runTotal = 0;
+      commissionCalculatorSchema.forEach(option => {
+        const cb = document.getElementById(`calc-cb-${option.id}`);
+        if(cb && cb.checked) runTotal += parseFloat(cb.value);
+      });
+      document.getElementById('calcTotalDisplay').innerText = `$${runTotal.toFixed(2)}`;
     }
 
-    // --------------------------------------------------------------------------
-    // EXPERT SYSTEM INTELLECTUAL PROPERTY GUARD
-    // --------------------------------------------------------------------------
-    function bindIPGuard() {
-      // Prevent standard browser right-click contextual overrides on image wrappers
+    function dispatchCommissionOrder() {
+      triggerCustomToast('Commissions Parameter Payload Dispatched successfully.');
+    }
+
+    /* Modal Layer Controller Interceptors */
+    function openAuthModal() { document.getElementById('authModalDrawer').classList.add('active'); }
+    function closeAuthModal() { document.getElementById('authModalDrawer').classList.remove('active'); }
+    function closeAuthModalViaOverlay(e) { if(e.target.id === 'authModalDrawer') closeAuthModal(); }
+    
+    function simulateFormLogin() {
+      triggerCustomToast('Secure internal identity mapping successful.');
+      closeAuthModal();
+    }
+    function triggerOAuthPipe(provider) {
+      triggerCustomToast(`OAuth payload verification route via [${provider}] verified.`);
+      closeAuthModal();
+    }
+
+    /* Lightbox & Palette Processor Blocks */
+    function openLightbox(id) {
+      const asset = artDatabase.find(a => a.id === id);
+      if(!asset) return;
+      
+      document.getElementById('lightboxTargetImg').src = asset.src;
+      document.getElementById('lightboxTitle').innerText = asset.title;
+      document.getElementById('lightboxDescription').innerText = asset.desc;
+      
+      const paletteContainer = document.getElementById('lightboxPaletteContainer');
+      paletteContainer.innerHTML = '';
+      
+      asset.colors.forEach(hex => {
+        const swatch = document.createElement('div');
+        swatch.className = 'swatch';
+        swatch.style.backgroundColor = hex;
+        swatch.setAttribute('data-hex', hex);
+        swatch.setAttribute('onclick', `navigator.clipboard.writeText('${hex}'); triggerCustomToast('Hex code copied to clipboard: ${hex}');`);
+        paletteContainer.appendChild(swatch);
+      });
+      
+      document.getElementById('lightboxView').classList.add('active');
+    }
+
+    function closeLightbox() { document.getElementById('lightboxView').classList.remove('active'); }
+    function closeLightboxViaOverlay(e) { if(e.target.id === 'lightboxView') closeLightbox(); }
+
+    function renderProfileShowcase() {
+      const container = document.getElementById('profileShowcaseGrid');
+      container.innerHTML = '';
+      const filtered = artDatabase.filter(a => a.author === 'Takashi_Bijutsu');
+      filtered.forEach(art => {
+        const node = document.createElement('div');
+        node.className = 'hub-showcase-node';
+        node.setAttribute('onclick', `openLightbox(${art.id})`);
+        node.innerHTML = `<img src="${art.src}" alt="${art.title}">`;
+        container.appendChild(node);
+      });
+    }
+
+    /* IP Protection Layer Strategy Interceptors */
+    function setupIntellectualPropertyShield() {
       document.addEventListener('contextmenu', (e) => {
-        if (e.target.tagName === 'IMG' || e.target.closest('.art-card') || e.target.closest('.lightbox-visual')) {
+        if(e.target.tagName === 'IMG' || e.target.classList.contains('art-card-overlay')) {
           e.preventDefault();
-          showToast("Bijutsu Art Integrity Protection: Downloading Restricted.", "warning");
+          triggerCustomToast('Bijutsu Art Integrity Protection: Downloading Restricted.');
         }
       });
 
-      // Implement long-press protection mechanics for mobile interfaces
-      let touchDurationTimer = null;
       document.addEventListener('touchstart', (e) => {
-        if (e.target.tagName === 'IMG') {
-          touchDurationTimer = setTimeout(() => {
-            showToast("Bijutsu Art Integrity Protection: Downloading Restricted.", "warning");
-          }, 800);
+        if(e.target.tagName === 'IMG') {
+          window.touchLockTimer = setTimeout(() => {
+            triggerCustomToast('Bijutsu Art Security: Context Menu Isolation Active.');
+          }, 600);
         }
       }, { passive: true });
 
       document.addEventListener('touchend', () => {
-        if (touchDurationTimer) {
-          clearTimeout(touchDurationTimer);
-        }
+        if(window.touchLockTimer) clearTimeout(window.touchLockTimer);
       });
     }
 
-    // --------------------------------------------------------------------------
-    // CUSTOM VISUAL FLOATING TOASTS NOTIFIER
-    // --------------------------------------------------------------------------
-    function showToast(messageText, notificationType = 'default') {
-      const deck = document.getElementById('toast-deck');
-      const toast = document.createElement('div');
-      toast.className = `toast-node ${notificationType}`;
-
-      toast.innerHTML = `
-        <span><i class="fa-solid fa-microchip" style="margin-right: 10px;"></i> ${messageText}</span>
-      `;
-
-      deck.appendChild(toast);
-
-      // Programmatic destruction lifetime limits
+    function triggerCustomToast(msg) {
+      const vault = document.getElementById('globalToastVault');
+      const node = document.createElement('div');
+      node.className = 'toast-node';
+      node.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span>${msg}</span>`;
+      vault.appendChild(node);
+      
       setTimeout(() => {
-        toast.classList.add('toast-die');
-        toast.addEventListener('animationend', () => {
-          toast.remove();
-        });
+        node.style.opacity = '0';
+        node.style.transform = 'translateY(20px)';
+        setTimeout(() => node.remove(), 300);
       }, 4000);
     }
   </script>
