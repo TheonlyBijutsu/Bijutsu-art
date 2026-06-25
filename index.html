@@ -3,579 +3,2401 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bijutsu Studio | Premium Anime Art & Animation</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/chatbot.css">
+  <title>BIJUTSU ART // Cybernetic Portfolio & Creator Hub</title>
+  
+  <!-- Fonts & Icon Libraries -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    /* ── HOME HERO ── */
-    .home-hero {
-      min-height: 93vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
-      overflow: hidden;
+    /* -------------------------------------------------------------------------- */
+    /* 1. CORE VARIABLES & CYBERPUNK STYLING BASE                                 */
+    /* -------------------------------------------------------------------------- */
+    :root {
+      --bg-color: #050508;
+      --cyber-black: #020204;
+      --neon-cyan: #00f0ff;
+      --neon-magenta: #ff007f;
+      --glass-bg: rgba(10, 10, 18, 0.7);
+      --glass-bg-solid: rgba(14, 14, 26, 0.95);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border-cyan: rgba(0, 240, 255, 0.25);
+      --glass-border-magenta: rgba(255, 0, 127, 0.25);
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --font-cyber: 'Orbitron', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --transition-fast: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      
+      --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.3), 0 0 20px rgba(0, 240, 255, 0.1);
+      --glow-magenta: 0 0 10px rgba(255, 0, 127, 0.3), 0 0 20px rgba(255, 0, 127, 0.1);
     }
 
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 5rem 2.5rem 5rem 5rem;
-      position: relative;
-      z-index: 2;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .hero-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
-      font-weight: 700;
-      line-height: 1.12;
-      margin-bottom: 1.5rem;
-    }
-    .hero-title em { font-style: normal; color: var(--sakura); }
-
-    .hero-sub {
-      font-size: 0.97rem;
-      color: var(--muted);
-      line-height: 1.85;
-      max-width: 370px;
-      margin-bottom: 2.5rem;
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.04) 0%, transparent 40%);
+      background-attachment: fixed;
     }
 
-    .hero-btns { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
-
-    .stats {
-      display: flex;
-      gap: 2.8rem;
-      padding-top: 2.2rem;
-      border-top: 0.5px solid var(--border-light);
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--cyber-black);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--neon-cyan);
     }
 
-    .stat-num {
-      font-family: 'Cinzel', serif;
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .stat-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--muted);
-    }
-
-    /* ── HERO RIGHT ── */
-    .hero-right {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 3rem 3rem 3rem 1rem;
-    }
-
-    /* Glowing orb behind art */
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 320px; height: 320px;
-      background: radial-gradient(ellipse, rgba(232,160,180,0.08) 0%, transparent 70%);
+    /* Custom Floating Selection Indicator */
+    .custom-cursor {
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--neon-cyan);
       border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
       pointer-events: none;
-      animation: orbPulse 5s ease-in-out infinite;
+      z-index: 99999;
+      transition: width 0.15s, height 0.15s, background-color 0.15s;
+    }
+    .custom-cursor-dot {
+      width: 4px;
+      height: 4px;
+      background-color: var(--neon-magenta);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 99999;
+    }
+    @media (pointer: coarse) {
+      .custom-cursor, .custom-cursor-dot {
+        display: none !important;
+      }
     }
 
-    @keyframes orbPulse {
-      0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.8; }
-      50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
+    /* -------------------------------------------------------------------------- */
+    /* 2. LAYOUT & NAVIGATION                                                     */
+    /* -------------------------------------------------------------------------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(5, 5, 8, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
     }
 
-    .art-stack {
-      position: relative;
-      width: 280px;
-      height: 380px;
-    }
-
-    .art-card {
-      position: absolute;
-      border: 0.5px solid var(--border);
-      border-radius: 3px;
-      background: var(--ink-3);
-      overflow: hidden;
-    }
-
-    .art-card-main {
-      width: 250px; height: 330px;
-      top: 25px; left: 15px;
-      z-index: 3;
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      border-radius: 8px;
+      display: flex;
       align-items: center;
       justify-content: center;
+      font-family: var(--font-cyber);
+      font-weight: 900;
+      color: var(--neon-cyan);
+      font-size: 18px;
+      background: rgba(0, 0, 0, 0.5);
     }
 
-    .art-card-behind {
-      width: 234px; height: 314px;
-      top: 12px; left: 28px;
-      z-index: 2;
-      transform: rotate(3deg);
-      border-color: rgba(232,160,180,0.05);
+    .brand-title {
+      font-family: var(--font-cyber);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .art-card-back {
-      width: 218px; height: 298px;
-      top: 0; left: 42px;
-      z-index: 1;
-      transform: rotate(6deg);
-      border-color: rgba(232,160,180,0.03);
+    .search-bar-wrapper {
+      flex: 1;
+      max-width: 400px;
+      position: relative;
     }
 
-    /* Hero image — shown when you add images/hero.png */
-    .hero-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
+    .search-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 10px 16px 10px 42px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: var(--transition-fast);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tab-btn.active {
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.05);
+      border-color: var(--glass-border-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .btn-signin {
+      background: linear-gradient(135deg, var(--neon-magenta), #c084fc);
+      border: none;
+      color: #ffffff;
+      font-family: var(--font-cyber);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 10px 22px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: var(--glow-magenta);
+      transition: var(--transition-fast);
+    }
+
+    .btn-signin:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .panel {
+      display: none;
+      animation: panelFadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    .panel.active {
       display: block;
     }
 
-    .corner-tl, .corner-br {
-      position: absolute;
-      width: 16px; height: 16px;
-    }
-    .corner-tl { top: 8px; left: 8px; border-top: 1px solid var(--sakura); border-left: 1px solid var(--sakura); }
-    .corner-br { bottom: 8px; right: 8px; border-bottom: 1px solid var(--sakura); border-right: 1px solid var(--sakura); }
-
-    .float-tag {
-      position: absolute;
-      background: var(--ink-4);
-      border: 0.5px solid var(--border);
-      border-radius: 2px;
-      padding: 0.35rem 0.75rem;
-      font-size: 0.64rem;
-      color: var(--sakura);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      animation: floatY 4s ease-in-out infinite;
-      white-space: nowrap;
+    @keyframes panelFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .float-tag:nth-child(1) { top: 4%; right: -8px; animation-delay: 0s; }
-    .float-tag:nth-child(2) { bottom: 14%; left: -14px; animation-delay: 1.8s; }
-    .float-tag:nth-child(3) { top: 42%; right: -18px; animation-delay: 3.2s; }
-
-    @keyframes floatY {
-      0%,100% { transform: translateY(0px); }
-      50% { transform: translateY(-9px); }
-    }
-
-    /* ── MARQUEE STRIP ── */
-    .marquee-strip {
-      overflow: hidden;
-      border-top: 0.5px solid var(--border-light);
-      border-bottom: 0.5px solid var(--border-light);
-      padding: 0.75rem 0;
-      background: var(--ink-2);
-    }
-
-    .marquee-track {
+    /* -------------------------------------------------------------------------- */
+    /* 3. PANEL A: ART FEED (MASONRY GRID & CONTROLS)                             */
+    /* -------------------------------------------------------------------------- */
+    .feed-controls {
       display: flex;
-      gap: 2.5rem;
-      animation: marquee 22s linear infinite;
-      width: max-content;
-    }
-
-    .marquee-item {
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      white-space: nowrap;
-      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      margin-bottom: 28px;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .marquee-item::after {
-      content: '✦';
-      color: var(--sakura);
-      font-size: 0.5rem;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ── SERVICES ── */
-    .services { background: var(--ink-2); }
-
-    .sec-label {
+    .filter-chips {
       display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2.8rem;
-    }
-    .sec-label span {
-      font-size: 0.64rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--sakura);
-      white-space: nowrap;
-    }
-    .sec-label::after {
-      content: '';
-      flex: 1;
-      height: 0.5px;
-      background: var(--border-light);
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 0.5px solid var(--border-light);
+    .chip {
+      background: rgba(15, 15, 25, 0.6);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      font-family: var(--font-cyber);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition-fast);
     }
 
-    .svc {
-      padding: 2.5rem 1.8rem;
-      border-right: 0.5px solid var(--border-light);
+    .chip:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    .chip.active {
+      background: rgba(0, 240, 255, 0.08);
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .art-grid {
+      columns: 4 300px;
+      column-gap: 24px;
+      width: 100%;
+    }
+
+    .art-card {
+      break-inside: avoid;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      transition: var(--transition-smooth);
       position: relative;
-      transition: background 0.3s;
-      overflow: hidden;
+      cursor: pointer;
+      display: block;
     }
-    .svc:last-child { border-right: none; }
-    .svc:hover { background: var(--ink-3); }
 
-    .svc::before {
+    .art-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 0; height: 1px;
-      background: linear-gradient(to right, var(--sakura), transparent);
-      transition: width 0.5s ease;
-    }
-    .svc:hover::before { width: 100%; }
-
-    .svc-num {
-      font-family: 'Cinzel', serif;
-      font-size: 0.58rem;
-      color: rgba(232,160,180,0.2);
-      letter-spacing: 0.22em;
-      margin-bottom: 1.4rem;
-    }
-
-    .svc-glyph { font-size: 1.5rem; margin-bottom: 1.1rem; display: block; }
-
-    .svc-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.7rem;
-    }
-
-    .svc-desc {
-      font-size: 0.81rem;
-      color: var(--muted);
-      line-height: 1.78;
-      margin-bottom: 1.4rem;
-    }
-
-    .svc-price {
-      font-size: 0.73rem;
-      color: var(--sakura);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .svc-price::before { content: ''; display: block; width: 12px; height: 0.5px; background: var(--sakura); }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials { background: var(--ink); }
-
-    .testi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-light);
-    }
-
-    .testi-card {
-      background: var(--ink-2);
-      padding: 2rem 1.8rem;
-      transition: background 0.25s;
-    }
-    .testi-card:hover { background: var(--ink-3); }
-
-    .testi-stars {
-      color: var(--sakura);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.9rem;
-    }
-
-    .testi-text {
-      font-size: 0.84rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1.2rem;
-      font-style: italic;
-    }
-
-    .testi-name {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--white);
-    }
-
-    /* ── CTA ── */
-    .cta-section {
-      padding: 7rem 2.5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 700px; height: 400px;
-      background: radial-gradient(ellipse, rgba(232,160,180,0.05) 0%, transparent 60%);
+      inset: 0;
+      border-radius: 12px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
       pointer-events: none;
     }
 
-    .cta-inner { position: relative; z-index: 2; max-width: 540px; margin: 0 auto; }
-    .cta-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    .art-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--glass-border-cyan);
+      box-shadow: 0 12px 24px rgba(0, 240, 255, 0.1);
+    }
+
+    .art-card-img-wrapper {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .art-card-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition-smooth);
+    }
+
+    .art-card:hover .art-card-img {
+      transform: scale(1.03);
+    }
+
+    .art-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(5, 5, 8, 0.8) 0%, transparent 60%);
+      opacity: 0;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+
+    .art-card:hover .art-card-overlay {
+      opacity: 1;
+    }
+
+    .art-card-category {
+      background: rgba(0, 240, 255, 0.15);
+      border: 1.5px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      font-family: var(--font-cyber);
+      font-size: 10px;
       font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-    .cta-desc { color: var(--muted); margin-bottom: 2.4rem; line-height: 1.7; font-size: 0.95rem; }
-    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    .divider-line {
-      width: 1px; height: 55px;
-      background: linear-gradient(to bottom, transparent, var(--sakura-dim), transparent);
-      margin: 0 auto 2rem;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
     }
 
-    /* ── RESPONSIVE HOME ── */
-    @media (max-width: 860px) {
-      .home-hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 3rem 1.2rem 1.5rem; text-align: center; align-items: center; }
-      .hero-sub { max-width: none; }
-      .hero-btns { justify-content: center; margin-bottom: 2rem; }
-      .stats { justify-content: center; gap: 1.6rem; }
-      .hero-right { order: -1; padding: 2.5rem 1.2rem 1rem; }
-      .art-stack { width: 210px; height: 285px; }
-      .art-card-main { width: 190px; height: 255px; }
-      .art-card-behind { width: 176px; height: 240px; }
-      .art-card-back { width: 162px; height: 225px; }
-      .float-tag { display: none; }
-      .services-grid { grid-template-columns: 1fr; }
-      .svc { border-right: none; border-bottom: 0.5px solid var(--border-light); }
-      .svc:last-child { border-bottom: none; }
-      .testi-grid { grid-template-columns: 1fr; }
-      .cta-section { padding: 4rem 1.2rem; }
+    .art-card-info h3 {
+      font-family: var(--font-cyber);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .art-card-info p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* SKELETON LOADERS (PULSE PREVENTING LAYOUT SHIFT)                           */
+    /* -------------------------------------------------------------------------- */
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .skeleton-card {
+      background: rgba(10, 10, 18, 0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skeleton-block {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
+      background-size: 200% 100%;
+      animation: pulse-shimmer 1.5s infinite linear;
+      border-radius: 6px;
+    }
+
+    .skeleton-image {
+      width: 100%;
+      height: 280px;
+      margin-bottom: 14px;
+    }
+
+    .skeleton-title {
+      width: 60%;
+      height: 16px;
+      margin-bottom: 10px;
+    }
+
+    .skeleton-desc {
+      width: 90%;
+      height: 12px;
+      margin-bottom: 6px;
+    }
+
+    .skeleton-desc-short {
+      width: 45%;
+      height: 12px;
+    }
+
+    @keyframes pulse-shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* 4. PANEL B: LIVE MESSENGER UI                                              */
+    /* -------------------------------------------------------------------------- */
+    .messenger-wrapper {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      height: calc(100vh - 160px);
+      min-height: 600px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .messenger-sidebar {
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      background: rgba(5, 5, 8, 0.5);
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .sidebar-header h2 {
+      font-family: var(--font-cyber);
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+
+    .active-chats-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .chat-node {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border-left: 3px solid transparent;
+    }
+
+    .chat-node:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .chat-node.active {
+      background: rgba(0, 240, 255, 0.04);
+      border-left-color: var(--neon-cyan);
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--cyber-black);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status-badge {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      border: 2px solid var(--bg-color);
+    }
+
+    .status-badge.online {
+      background-color: #10b981;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+    }
+
+    .status-badge.idle {
+      background-color: #f59e0b;
+    }
+
+    .status-badge.offline {
+      background-color: #64748b;
+    }
+
+    .chat-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chat-username {
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-last-msg {
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .messenger-chat-area {
+      display: flex;
+      flex-direction: column;
+      background: rgba(2, 2, 4, 0.2);
+    }
+
+    .chat-area-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(5, 5, 8, 0.3);
+    }
+
+    .chat-header-profile {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .chat-header-info h3 {
+      font-family: var(--font-cyber);
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .chat-header-info p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .message-stream {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bubble-wrapper {
+      display: flex;
+      gap: 12px;
+      max-width: 70%;
+    }
+
+    .bubble-wrapper.incoming {
+      align-self: flex-start;
+    }
+
+    .bubble-wrapper.outgoing {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .bubble {
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .bubble-wrapper.incoming .bubble {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+    }
+
+    .bubble-wrapper.outgoing .bubble {
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--glass-border-cyan);
+      color: var(--text-primary);
+    }
+
+    .bubble-time {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      align-self: flex-end;
+      font-family: var(--font-mono);
+    }
+
+    .bubble-wrapper.outgoing .bubble-time {
+      align-self: flex-start;
+    }
+
+    .chat-input-wrapper {
+      padding: 20px 24px;
+      border-top: 1px solid var(--glass-border);
+      background: rgba(5, 5, 8, 0.5);
+    }
+
+    .chat-input-container {
+      display: flex;
+      gap: 12px;
+    }
+
+    .chat-text-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: var(--transition-fast);
+    }
+
+    .chat-text-input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+    }
+
+    .chat-send-btn {
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      border-radius: 8px;
+      padding: 0 24px;
+      cursor: pointer;
+      font-family: var(--font-cyber);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      box-shadow: var(--glow-cyan);
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-send-btn:hover {
+      background: var(--neon-cyan);
+      color: var(--cyber-black);
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* 5. PANEL C: CREATOR HUB & CALCULATOR                                       */
+    /* -------------------------------------------------------------------------- */
+    .creator-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+    }
+
+    @media (max-width: 1024px) {
+      .creator-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hub-profile-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+    }
+
+    .hub-profile-header {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .hub-profile-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .profile-avatar-frame {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      flex-shrink: 0;
+    }
+
+    .profile-avatar-frame::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+      animation: rotateFrame 6s linear infinite;
+    }
+
+    @keyframes rotateFrame {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .profile-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      border: 4px solid var(--bg-color);
+    }
+
+    .profile-meta h1 {
+      font-family: var(--font-cyber);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .profile-handle {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--neon-cyan);
+      margin-bottom: 8px;
+    }
+
+    .profile-bio {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 24px 0;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 640px) {
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-node {
+      text-align: center;
+    }
+
+    .stat-val {
+      font-family: var(--font-cyber);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      font-family: var(--font-cyber);
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .hub-showcase-title {
+      font-family: var(--font-cyber);
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hub-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .hub-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hub-showcase-node {
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .hub-showcase-node img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-fast);
+    }
+
+    .hub-showcase-node:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Pricing Calculator Block */
+    .calculator-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border-magenta);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--glow-magenta);
+      height: fit-content;
+    }
+
+    .calc-header {
+      margin-bottom: 20px;
+    }
+
+    .calc-header h2 {
+      font-family: var(--font-cyber);
+      font-size: 18px;
+      letter-spacing: 1px;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .calc-header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .calc-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition-fast);
+    }
+
+    .calc-option:hover {
+      border-color: rgba(255, 0, 127, 0.4);
+    }
+
+    .calc-option-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .calc-checkbox {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--text-muted);
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition-fast);
+    }
+
+    .calc-checkbox:checked {
+      background: var(--neon-magenta);
+      border-color: var(--neon-magenta);
+      box-shadow: var(--glow-magenta);
+    }
+
+    .calc-checkbox:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .calc-label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .calc-cost {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--neon-cyan);
+    }
+
+    .calc-notes-box {
+      margin-top: 16px;
+    }
+
+    .calc-notes-lbl {
+      display: block;
+      font-family: var(--font-cyber);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .calc-textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 13px;
+      resize: none;
+      height: 80px;
+    }
+
+    .calc-textarea:focus {
+      outline: none;
+      border-color: var(--neon-magenta);
+    }
+
+    .calc-total-box {
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(255, 0, 127, 0.04);
+      border: 1px solid rgba(255, 0, 127, 0.15);
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-lbl {
+      font-family: var(--font-cyber);
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+    }
+
+    .total-price {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+    }
+
+    .btn-calc-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--neon-magenta), #9333ea);
+      border: none;
+      color: #ffffff;
+      font-family: var(--font-cyber);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 16px;
+      cursor: pointer;
+      box-shadow: var(--glow-magenta);
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-calc-submit:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* 6. ADVANCED DISCOVERY & AUTH MODALS                                        */
+    /* -------------------------------------------------------------------------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 2, 4, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1010;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      padding: 24px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--glass-bg-solid);
+      border: 1px solid var(--glass-border-cyan);
+      box-shadow: var(--glow-cyan);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 440px;
+      padding: 36px;
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .auth-title {
+      font-family: var(--font-cyber);
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .auth-subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .auth-form-group {
+      margin-bottom: 18px;
+    }
+
+    .auth-label {
+      display: block;
+      font-family: var(--font-cyber);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .auth-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: var(--transition-fast);
+    }
+
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+    }
+
+    .btn-auth-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--neon-cyan), #06b6d4);
+      border: none;
+      color: var(--cyber-black);
+      font-family: var(--font-cyber);
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      padding: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: var(--glow-cyan);
+      transition: var(--transition-fast);
+    }
+
+    .btn-auth-submit:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-family: var(--font-cyber);
+      margin: 24px 0;
+    }
+
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .auth-divider:not(:empty)::before {
+      margin-right: 12px;
+    }
+
+    .auth-divider:not(:empty)::after {
+      margin-left: 12px;
+    }
+
+    .social-auth-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .social-btn {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+      font-size: 18px;
+    }
+
+    .social-btn.google { color: #ea4335; }
+    .social-btn.discord { color: #5865f2; }
+    .social-btn.meta { color: #1877f2; }
+
+    .social-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* LIGHTBOX & PALETTE GENERATOR                                               */
+    /* -------------------------------------------------------------------------- */
+    .lightbox-card {
+      max-width: 900px;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--glass-border-cyan);
+    }
+
+    .lightbox-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .lightbox-visual {
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+      max-height: 550px;
+    }
+
+    .lightbox-img-render {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .lightbox-details {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--glass-bg-solid);
+    }
+
+    .lightbox-heading h2 {
+      font-family: var(--font-cyber);
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .lightbox-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .palette-generator-box {
+      border-top: 1px solid var(--glass-border);
+      padding-top: 24px;
+    }
+
+    .palette-title {
+      font-family: var(--font-cyber);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .palette-chips-flex {
+      display: flex;
+      gap: 12px;
+    }
+
+    .color-chip {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .color-chip:hover {
+      transform: scale(1.15);
+      border-color: #ffffff;
+    }
+
+    .color-chip-hex {
+      position: absolute;
+      bottom: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-secondary);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .color-chip:hover .color-chip-hex {
+      opacity: 1;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* CUSTOM FLOATING TOASTS                                                     */
+    /* -------------------------------------------------------------------------- */
+    .toast-deck {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 380px;
+      width: calc(100% - 48px);
+    }
+
+    .toast-node {
+      background: var(--glass-bg-solid);
+      border-left: 3px solid var(--neon-cyan);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+      color: var(--text-primary);
+      padding: 16px 20px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: toastSlideIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    .toast-node.warning {
+      border-left-color: var(--neon-magenta);
+    }
+
+    .toast-node.success {
+      border-left-color: #10b981;
+    }
+
+    @keyframes toastSlideIn {
+      from {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .toast-node.toast-die {
+      animation: toastSlideOut 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes toastSlideOut {
+      to {
+        transform: translateX(120%);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-<canvas id="particle-canvas"></canvas>
+  <!-- Custom Cursor Nodes -->
+  <div id="js-cursor" class="custom-cursor"></div>
+  <div id="js-cursor-dot" class="custom-cursor-dot"></div>
 
-<nav>
-  <a href="index.html" class="logo"><span class="logo-dot"></span>BIJUTSU</a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="pricing.html">Pricing</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="contact.html" class="nav-cta">Contact</a></li>
-  </ul>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-overlay" id="nav-overlay"></div>
+  <!-- Header Section -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand" onclick="navigate('feed'); return false;">
+        <div class="brand-logo">B</div>
+        <div class="brand-title">BIJUTSU</div>
+      </a>
 
-<main>
-  <!-- HERO -->
-  <section class="home-hero">
-    <div class="hero-left fade-in">
-      <p class="eyebrow">Bijutsu Studio</p>
-      <h1 class="hero-title">Where Stories<br>Bloom Into <em>Art.</em></h1>
-      <p class="hero-sub">Premium anime profile pictures, original character designs, and cinematic short animations — crafted with emotion and stunning detail.</p>
-      <div class="hero-btns">
-        <a href="portfolio.html" class="btn btn-primary">View Portfolio</a>
-        <a href="pricing.html" class="btn btn-outline">Commission Prices</a>
+      <div class="search-bar-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="nav-search" class="search-input" placeholder="Search terminal users (e.g., cyber_junkie_99)...">
       </div>
-      <div class="stats">
-        <div>
-          <div class="stat-num" data-target="120" data-suffix="+">0+</div>
-          <div class="stat-label">Commissions Done</div>
-        </div>
-        <div>
-          <div class="stat-num">4.9★</div>
-          <div class="stat-label">Client Rating</div>
-        </div>
-        <div>
-          <div class="stat-num" data-target="48" data-suffix="h">0h</div>
-          <div class="stat-label">Avg. Response</div>
+
+      <nav class="nav-tabs">
+        <button id="tab-feed" class="tab-btn active" onclick="navigate('feed')">
+          <i class="fa-solid fa-shapes"></i> Art Feed
+        </button>
+        <button id="tab-messenger" class="tab-btn" onclick="navigate('messenger')">
+          <i class="fa-solid fa-message"></i> Messenger
+        </button>
+        <button id="tab-creator" class="tab-btn" onclick="navigate('creator')">
+          <i class="fa-solid fa-user-gear"></i> Creator Hub
+        </button>
+      </nav>
+
+      <button class="btn-signin" onclick="openAuthModal()">SIGN IN</button>
+    </div>
+  </header>
+
+  <!-- Main Application Workspace -->
+  <main>
+    
+    <!-- PANEL A: ART FEED -->
+    <div id="panel-feed" class="panel active">
+      <div class="feed-controls">
+        <div class="filter-chips">
+          <button class="chip active" onclick="filterGallery('all', this)">All Matrices</button>
+          <button class="chip" onclick="filterGallery('sketches', this)">Sketches</button>
+          <button class="chip" onclick="filterGallery('concept-art', this)">Concept Art</button>
+          <button class="chip" onclick="filterGallery('digital-paintings', this)">Digital Paintings</button>
         </div>
       </div>
+
+      <!-- Gallery Grid & Skeleton Injectors -->
+      <div id="art-grid-container" class="art-grid"></div>
     </div>
 
-    <div class="hero-right fade-in" style="transition-delay:0.2s">
-      <div class="art-stack">
-        <div class="art-card art-card-back"></div>
-        <div class="art-card art-card-behind"></div>
-        <div class="art-card art-card-main">
-          <div class="corner-tl"></div>
-          <div class="corner-br"></div>
-          <!-- Add images/hero.png to show your art here -->
-          <img class="hero-img" src="images/hero.png" alt="Bijutsu Art"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-            style="border-radius:2px;">
-          <div style="display:none;flex-direction:column;align-items:center;gap:0.6rem;">
-            <span style="font-size:2rem;">🎨</span>
-            <span style="font-family:'Cinzel',serif;font-size:0.65rem;color:rgba(232,160,180,0.3);letter-spacing:0.15em;text-transform:uppercase;text-align:center;padding:0 1rem;">Add images/hero.png</span>
+    <!-- PANEL B: LIVE MESSENGER UI -->
+    <div id="panel-messenger" class="panel">
+      <div class="messenger-wrapper">
+        <div class="messenger-sidebar">
+          <div class="sidebar-header">
+            <h2>ACTIVE COMLINKS</h2>
+          </div>
+          <div id="chats-list" class="active-chats-list"></div>
+        </div>
+
+        <div class="messenger-chat-area">
+          <div class="chat-area-header">
+            <div class="chat-header-profile">
+              <div class="avatar-wrapper">
+                <img id="chat-header-avatar" class="avatar" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
+                <span id="chat-header-status" class="status-badge"></span>
+              </div>
+              <div class="chat-header-info">
+                <h3 id="chat-header-user">Terminal Session</h3>
+                <p id="chat-header-desc">Awaiting Handshake</p>
+              </div>
+            </div>
+            <div style="font-size: 14px; color: var(--text-muted);">
+              <i class="fa-solid fa-link"></i> Sec_Lnk_Up
+            </div>
+          </div>
+
+          <div id="message-stream" class="message-stream"></div>
+
+          <div class="chat-input-wrapper">
+            <form id="chat-form" class="chat-input-container" onsubmit="handleSendMessage(event)">
+              <input type="text" id="chat-text-input" class="chat-text-input" placeholder="Type direct instruction payload..." autocomplete="off">
+              <button type="submit" class="chat-send-btn">
+                UPLINK <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
           </div>
         </div>
-        <div class="float-tag">Anime PFP</div>
-        <div class="float-tag">OC Design</div>
-        <div class="float-tag">Animation</div>
       </div>
     </div>
-  </section>
 
-  <!-- MARQUEE -->
-  <div class="marquee-strip">
-    <div class="marquee-track">
-      <span class="marquee-item">Anime PFP</span>
-      <span class="marquee-item">OC Design</span>
-      <span class="marquee-item">Short Animation</span>
-      <span class="marquee-item">Commission Open</span>
-      <span class="marquee-item">Fast Delivery</span>
-      <span class="marquee-item">From ₹49</span>
-      <span class="marquee-item">Anime PFP</span>
-      <span class="marquee-item">OC Design</span>
-      <span class="marquee-item">Short Animation</span>
-      <span class="marquee-item">Commission Open</span>
-      <span class="marquee-item">Fast Delivery</span>
-      <span class="marquee-item">From ₹49</span>
+    <!-- PANEL C: CREATOR HUB -->
+    <div id="panel-creator" class="panel">
+      <div class="creator-grid">
+        
+        <!-- Biography & Details Node -->
+        <div class="hub-profile-card">
+          <div class="hub-profile-header">
+            <div class="profile-avatar-frame">
+              <img class="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Bijutsu Core">
+            </div>
+            <div class="profile-meta">
+              <h1>BIJUTSU CORE</h1>
+              <p class="profile-handle">@the_only_bijutsu_grid</p>
+              <p class="profile-bio">High-tech visual synthesis unit based in Tokyo. Creating neural-interface concept art, low-life structural blueprints, and glowing vector studies. Merging synthetic and organic paradigms.</p>
+            </div>
+          </div>
+
+          <!-- Stats Dashboard -->
+          <div class="stats-container">
+            <div class="stat-node">
+              <div class="stat-val">124K</div>
+              <div class="stat-lbl">UPLINKS</div>
+            </div>
+            <div class="stat-node">
+              <div class="stat-val">9.4K</div>
+              <div class="stat-lbl">RESONATORS</div>
+            </div>
+            <div class="stat-node">
+              <div class="stat-val">42</div>
+              <div class="stat-lbl">BUILDS</div>
+            </div>
+            <div class="stat-node">
+              <div class="stat-val">100%</div>
+              <div class="stat-lbl">STABILITY</div>
+            </div>
+          </div>
+
+          <h3 class="hub-showcase-title">
+            <i class="fa-solid fa-fire-flame-curved" style="color: var(--neon-cyan);"></i> ACTIVE RECENT STATIONS
+          </h3>
+          
+          <div class="hub-showcase-grid">
+            <div class="hub-showcase-node" onclick="triggerShowcaseDetail(1)">
+              <img src="https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?auto=format&fit=crop&w=300&q=80" alt="">
+            </div>
+            <div class="hub-showcase-node" onclick="triggerShowcaseDetail(4)">
+              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80" alt="">
+            </div>
+            <div class="hub-showcase-node" onclick="triggerShowcaseDetail(3)">
+              <img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=300&q=80" alt="">
+            </div>
+          </div>
+        </div>
+
+        <!-- Commission Price Calculator Box -->
+        <div class="calculator-card">
+          <div class="calc-header">
+            <h2>COMMISSION ESTIMATOR</h2>
+            <p>Select target directives to compute processing quotes.</p>
+          </div>
+
+          <div class="calc-option" onclick="toggleCalcOption('portrait')">
+            <div class="calc-option-left">
+              <input type="checkbox" id="calc-portrait" class="calc-checkbox" checked disabled>
+              <label class="calc-label" for="calc-portrait">Character Cyber Portrait</label>
+            </div>
+            <div class="calc-cost">$150</div>
+          </div>
+
+          <div class="calc-option" onclick="toggleCalcOption('background')">
+            <div class="calc-option-left">
+              <input type="checkbox" id="calc-background" class="calc-checkbox">
+              <label class="calc-label" for="calc-background">Custom Neo-Tokyo BG</label>
+            </div>
+            <div class="calc-cost">+$100</div>
+          </div>
+
+          <div class="calc-option" onclick="toggleCalcOption('commercial')">
+            <div class="calc-option-left">
+              <input type="checkbox" id="calc-commercial" class="calc-checkbox">
+              <label class="calc-label" for="calc-commercial">Commercial Rights Uplink</label>
+            </div>
+            <div class="calc-cost">+$150</div>
+          </div>
+
+          <div class="calc-option" onclick="toggleCalcOption('animated')">
+            <div class="calc-option-left">
+              <input type="checkbox" id="calc-animated" class="calc-checkbox">
+              <label class="calc-label" for="calc-animated">Interactive Lottie Animations</label>
+            </div>
+            <div class="calc-cost">+$80</div>
+          </div>
+
+          <div class="calc-notes-box">
+            <label class="calc-notes-lbl" for="calc-notes">BLUEPRINT DIRECTIVES / NOTE DETAILS</label>
+            <textarea id="calc-notes" class="calc-textarea" placeholder="Include references, dimensions, atmospheric details..."></textarea>
+          </div>
+
+          <div class="calc-total-box">
+            <div class="total-lbl">ESTIMATED RUNTIME VALUE</div>
+            <div id="calc-total" class="total-price">$150</div>
+          </div>
+
+          <button class="btn-calc-submit" onclick="submitCommissionOrder()">
+            SEND DIRECTIVE BLUEPRINT <i class="fa-solid fa-cube"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- POPUP CREDENTIAL DRAWER -->
+  <div id="auth-modal" class="modal-overlay" onclick="closeAuthModalViaBackdrop(event)">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+      <h2 class="auth-title">IDENTITY SEED DIRECT</h2>
+      <p class="auth-subtitle">Verify cryptographic credentials or connect standard anchors.</p>
+      
+      <form onsubmit="handleMockAuth(event)">
+        <div class="auth-form-group">
+          <label class="auth-label">SECURE EMAIL UPLINK</label>
+          <input type="email" required class="auth-input" placeholder="operator@network.net">
+        </div>
+        <div class="auth-form-group">
+          <label class="auth-label">CREDENTIAL KEYPASS</label>
+          <input type="password" required class="auth-input" placeholder="••••••••••••••••">
+        </div>
+        <button type="submit" class="btn-auth-submit">INITIALIZE LOGIN SEQUENCE</button>
+      </form>
+
+      <div class="auth-divider">OR INTEGRATE FEDERATED CODE</div>
+
+      <div class="social-auth-grid">
+        <button class="social-btn google" onclick="handleSocialAuth('Google')" title="Auth via Google Grid">
+          <i class="fa-brands fa-google"></i>
+        </button>
+        <button class="social-btn discord" onclick="handleSocialAuth('Discord')" title="Auth via Discord Sync">
+          <i class="fa-brands fa-discord"></i>
+        </button>
+        <button class="social-btn meta" onclick="handleSocialAuth('Meta')" title="Auth via Meta Link">
+          <i class="fa-brands fa-instagram"></i>
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- SERVICES -->
-  <section class="services section">
-    <div class="container">
-      <div class="sec-label"><span>What I Create</span></div>
-      <div class="services-grid">
-        <div class="svc fade-in">
-          <div class="svc-num">01</div>
-          <span class="svc-glyph">🎭</span>
-          <div class="svc-title">Anime PFPs</div>
-          <p class="svc-desc">Detailed portraits with expressive eyes, dramatic lighting, and aesthetic effects that make your profile impossible to scroll past.</p>
-          <div class="svc-price">From ₹49</div>
+  <!-- POPUP DETAILS / LIGHTBOX SYSTEM -->
+  <div id="lightbox-modal" class="modal-overlay" onclick="closeLightboxViaBackdrop(event)">
+    <div class="modal-card lightbox-card">
+      <button class="modal-close-btn" onclick="closeLightbox()">&times;</button>
+      
+      <div class="lightbox-layout">
+        <div class="lightbox-visual">
+          <img id="lightbox-img" class="lightbox-img-render" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
         </div>
-        <div class="svc fade-in" style="transition-delay:0.15s">
-          <div class="svc-num">02</div>
-          <span class="svc-glyph">✦</span>
-          <div class="svc-title">Original Characters</div>
-          <p class="svc-desc">Complete character concepts built from your lore, references, and imagination — from first sketch to final polished render.</p>
-          <div class="svc-price">From ₹99</div>
-        </div>
-        <div class="svc fade-in" style="transition-delay:0.3s">
-          <div class="svc-num">03</div>
-          <span class="svc-glyph">🎬</span>
-          <div class="svc-title">Short Animations</div>
-          <p class="svc-desc">10–15 second cinematic loops with glow, motion blur, and polished finishing that bring your character to life.</p>
-          <div class="svc-price">From ₹199</div>
+        <div class="lightbox-details">
+          <div class="lightbox-heading">
+            <h2 id="lightbox-title">Artwork Blueprint</h2>
+            <p id="lightbox-desc" class="lightbox-desc">Constructing interface layout metrics...</p>
+          </div>
+
+          <div class="palette-generator-box">
+            <span class="palette-title">PROGRAMMATIC ATMOSPHERIC SWATCHES (CLICK HEX TO REPLICATE)</span>
+            <div id="palette-chips-flex" class="palette-chips-flex"></div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials section">
-    <div class="container">
-      <div class="sec-label"><span>Client Reviews</span></div>
-      <div class="testi-grid">
-        <div class="testi-card fade-in">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-text">"Absolutely stunning work. My OC came to life exactly how I imagined. Super fast delivery too!"</p>
-          <div class="testi-name">— Raven_OC</div>
-        </div>
-        <div class="testi-card fade-in" style="transition-delay:0.12s">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-text">"The animation loop is insane quality for the price. Everyone on my Discord server loved it."</p>
-          <div class="testi-name">— ShadowBlade99</div>
-        </div>
-        <div class="testi-card fade-in" style="transition-delay:0.24s">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-text">"Best anime PFP commission I've ever ordered. The detail in the eyes is just chef's kiss."</p>
-          <div class="testi-name">— MoonlitArtist</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="cta-inner fade-in">
-      <div class="divider-line"></div>
-      <p class="eyebrow">Ready to commission?</p>
-      <h2 class="cta-title">Bring Your Vision<br>To Life.</h2>
-      <p class="cta-desc">Every piece is unique. Share your ideas and I'll craft art that truly represents your character and story.</p>
-      <div class="cta-btns">
-        <a href="contact.html" class="btn btn-primary">Start a Commission</a>
-        <a href="https://discord.gg/JxbduArPvH" class="btn btn-outline" target="_blank">Join Discord</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <a href="index.html" class="footer-logo">BIJUTSU</a>
-  <ul class="footer-links">
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="pricing.html">Pricing</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-  <div class="footer-copy">© 2025 Bijutsu Studio</div>
-</footer>
-
-<!-- AI CHATBOT — original IDs preserved exactly -->
-<div class="ai-ring"></div>
-<button id="ai-toggle" aria-label="Open Bijutsu Assistant">
-  <span class="bot-core"></span>
-</button>
-
-<div class="ai-panel" id="ai-panel">
-  <div class="ai-header">
-    <div>
-      <strong style="font-size:0.9rem;">Bijutsu Assistant</strong>
-      <small>● Online — Ask me anything!</small>
-    </div>
-    <button id="ai-close">✕</button>
   </div>
-  <div class="ai-messages" id="ai-messages"></div>
-  <div class="ai-input-row">
-    <input id="ai-input" placeholder="Ask about prices, delivery, commissions…" />
-    <button id="ai-send">→</button>
-  </div>
-</div>
 
-<script src="js/script.js"></script>
-<script src="js/ai.js"></script>
+  <!-- Toast Feed Stack -->
+  <div id="toast-deck" class="toast-deck"></div>
+
+  <!-- -------------------------------------------------------------------------- -->
+  <!-- 7. REAL-TIME FRONTEND JAVASCRIPT LOGIC                                     */
+  /* -------------------------------------------------------------------------- */
+  <script>
+    // --------------------------------------------------------------------------
+    // MOCK RAW ARTWORK DATABASE
+    // --------------------------------------------------------------------------
+    const ART_DATA = [
+      {
+        id: 1,
+        title: "Neo-Tokyo Skyline 2099",
+        category: "digital-paintings",
+        image: "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?auto=format&fit=crop&w=800&q=80",
+        desc: "A sprawling megacity suffocated by neon smog, rendering the transition between organic and synthetic obsolete.",
+        palette: ["#00f0ff", "#ff007f", "#0a0a10", "#1e1b4b", "#701a75"],
+        date: "2026-03-12"
+      },
+      {
+        id: 2,
+        title: "Ghost in the Shell Sketch",
+        category: "sketches",
+        image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
+        desc: "Raw charcoal and digital brush studies examining cybernetic cranial integration patterns.",
+        palette: ["#1e293b", "#64748b", "#cbd5e1", "#f1f5f9", "#0f172a"],
+        date: "2026-04-19"
+      },
+      {
+        id: 3,
+        title: "Project Zero: Android Geisha",
+        category: "concept-art",
+        image: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80",
+        desc: "Concept layout for a high-society espionage unit disguised as traditional tea hosts.",
+        palette: ["#ff0055", "#ffd700", "#111111", "#4a0404", "#ffffff"],
+        date: "2026-05-02"
+      },
+      {
+        id: 4,
+        title: "Shinjuku Alleyway Overload",
+        category: "digital-paintings",
+        image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
+        desc: "Dense layering of AR advertisements crowding a narrow residential pathway.",
+        palette: ["#ff00ff", "#00ffff", "#ffea00", "#121214", "#2c003e"],
+        date: "2026-05-15"
+      },
+      {
+        id: 5,
+        title: "Chiba Port Quarantine",
+        category: "concept-art",
+        image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80",
+        desc: "Environment study of automated cargo drone terminals under local quarantine locks.",
+        palette: ["#0284c7", "#0f172a", "#38bdf8", "#0369a1", "#020617"],
+        date: "2026-05-28"
+      },
+      {
+        id: 6,
+        title: "Wired Consciousness study #9",
+        category: "sketches",
+        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+        desc: "Exploratory linework highlighting neural wire routing directly into the optic nerve.",
+        palette: ["#475569", "#334155", "#1e293b", "#0f172a", "#f8fafc"],
+        date: "2026-06-01"
+      },
+      {
+        id: 7,
+        title: "Synth-wave Nomad",
+        category: "digital-paintings",
+        image: "https://images.unsplash.com/photo-1515260268569-9271009adfdb?auto=format&fit=crop&w=800&q=80",
+        desc: "An outlier traveling through the ruined waste networks between major city clusters.",
+        palette: ["#f43f5e", "#fb7185", "#be123c", "#111827", "#fca5a5"],
+        date: "2026-06-05"
+      },
+      {
+        id: 8,
+        title: "Kuro-Glass Protocol",
+        category: "concept-art",
+        image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80",
+        desc: "Slick matte black frame designs featuring responsive thermal optical camouflage.",
+        palette: ["#090d16", "#1c2434", "#4a5568", "#a0aec0", "#e2e8f0"],
+        date: "2026-06-10"
+      },
+      {
+        id: 9,
+        title: "Neuro-Net Diver",
+        category: "digital-paintings",
+        image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+        desc: "Deep-sea metaphor representing complex data stream analysis in deep cyberspace dive.",
+        palette: ["#06b6d4", "#0891b2", "#155e75", "#082f49", "#ecfeff"],
+        date: "2026-06-15"
+      },
+      {
+        id: 10,
+        title: "Augmented Vision Interface",
+        category: "concept-art",
+        image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80",
+        desc: "A mock heads-up display showcasing live tracking metrics of civilian biometric nodes.",
+        palette: ["#10b981", "#059669", "#064e3b", "#022c22", "#d1fae5"],
+        date: "2026-06-20"
+      },
+      {
+        id: 11,
+        title: "Memory Core Retrieval",
+        category: "sketches",
+        image: "https://images.unsplash.com/photo-1561715276-a2d087060f1d?auto=format&fit=crop&w=800&q=80",
+        desc: "Rapid ideation sketch of physical memory cards pulled from decommissioned units.",
+        palette: ["#b45309", "#d97706", "#f59e0b", "#1e1b4b", "#78350f"],
+        date: "2026-06-22"
+      },
+      {
+        id: 12,
+        title: "Carbon Husk Rebirth",
+        category: "digital-paintings",
+        image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80",
+        desc: "The dramatic re-housing of high-ranking AI entities into organic-carbon hybrid body shells.",
+        palette: ["#ec4899", "#f43f5e", "#111827", "#312e81", "#fbcfe8"],
+        date: "2026-06-24"
+      }
+    ];
+
+    // --------------------------------------------------------------------------
+    // MOCK CONVERSATIONS DATABASE
+    // --------------------------------------------------------------------------
+    let conversations = [
+      {
+        username: "cyber_junkie_99",
+        status: "online",
+        desc: "Network Operative",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80",
+        messages: [
+          { sender: "them", text: "Hey! Do you still have commissions open for the Shinjuku style designs?", time: "10:30 AM" },
+          { sender: "me", text: "Yes! Absolutely. You can estimate the pricing parameters over at the Creator Hub panel and submit a blueprint directly to this channel.", time: "10:32 AM" },
+          { sender: "them", text: "Excellent! I am looking for a character portrait with custom neon backgrounds.", time: "10:33 AM" }
+        ]
+      },
+      {
+        username: "Kusanagi_Tech",
+        status: "idle",
+        desc: "Cybernetic Architect",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80",
+        messages: [
+          { sender: "them", text: "Your 'Neuro-Net Diver' piece matches with our upcoming visual novel aesthetics.", time: "Yesterday" },
+          { sender: "me", text: "I appreciate that. Let me know if you would like to run commercial clearance processes on it.", time: "Yesterday" },
+          { sender: "them", text: "I will consult our lead designers. I will get back to you shortly.", time: "Yesterday" }
+        ]
+      },
+      {
+        username: "Zero_Cool",
+        status: "offline",
+        desc: "Console Cowboy",
+        avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=80&q=80",
+        messages: [
+          { sender: "them", text: "Did you use customized noise filters on 'Chiba Port Quarantine'?", time: "2 days ago" },
+          { sender: "me", text: "Yes! They are proprietary textures drawn on physical medium, then layered under a high-pass brush stack.", time: "2 days ago" }
+        ]
+      },
+      {
+        username: "Nexus_Alpha",
+        status: "online",
+        desc: "Systems Coordinator",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80",
+        messages: [
+          { sender: "them", text: "We verified the licensing files. Your contract parameters look structurally solid.", time: "3 days ago" },
+          { sender: "me", text: "Great. Ready to build when the transfer details clear.", time: "3 days ago" }
+        ]
+      }
+    ];
+
+    // --------------------------------------------------------------------------
+    // GLOBAL APP STATE MANAGEMENT
+    // --------------------------------------------------------------------------
+    let currentActiveTab = 'feed';
+    let currentFilterCategory = 'all';
+    let activeChatUser = "cyber_junkie_99";
+    let isUserLoggedIn = false;
+
+    // Commission State
+    const commissionConfig = {
+      portrait: true,
+      background: false,
+      commercial: false,
+      animated: false
+    };
+
+    // Custom Interactive Pointer Follower
+    const cursor = document.getElementById('js-cursor');
+    const cursorDot = document.getElementById('js-cursor-dot');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursorDot.style.left = e.clientX + 'px';
+      cursorDot.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mousedown', () => {
+      cursor.style.width = '24px';
+      cursor.style.height = '24px';
+      cursor.style.backgroundColor = 'rgba(0, 240, 255, 0.2)';
+    });
+
+    document.addEventListener('mouseup', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      cursor.style.backgroundColor = 'transparent';
+    });
+
+    // --------------------------------------------------------------------------
+    // SYSTEM INITIALIZATION
+    // --------------------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      // Setup Search Event Dispatcher
+      const searchBox = document.getElementById('nav-search');
+      searchBox.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          handleUserGlobalSearch(e.target.value.trim());
+        }
+      });
+
+      // Render default state skeleton load
+      renderInitialSkeletons();
+      setTimeout(() => {
+        renderGalleryFeed();
+      }, 1200);
+
+      // Setup initial calculator total
+      recalculateCommissionTotal();
+
+      // Bind IP protection script
+      bindIPGuard();
+    });
+
+    // --------------------------------------------------------------------------
+    // ROUTING / TAB MANAGER
+    // --------------------------------------------------------------------------
+    function navigate(tabName) {
+      currentActiveTab = tabName;
+      
+      // Update UI active tab buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // Update Panel Displays
+      document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+      const activePanel = document.getElementById(`panel-${tabName}`);
+      if (activePanel) activePanel.classList.add('active');
+
+      // Hook tab-specific rendering triggers
+      if (tabName === 'messenger') {
+        renderConversations();
+        renderActiveChatStream();
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // PANEL A: GALLERY FEED & FILTER LOGIC
+    // --------------------------------------------------------------------------
+    function renderInitialSkeletons() {
+      const grid = document.getElementById('art-grid-container');
+      grid.innerHTML = '';
+      
+      // Inject 8 identical structural placeholders
+      for (let i = 0; i < 8; i++) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'skeleton-card';
+        placeholder.innerHTML = `
+          <div class="skeleton-block skeleton-image"></div>
+          <div class="skeleton-block skeleton-title"></div>
+          <div class="skeleton-block skeleton-desc"></div>
+          <div class="skeleton-block skeleton-desc" style="width: 75%;"></div>
+        `;
+        grid.appendChild(placeholder);
+      }
+    }
+
+    function renderGalleryFeed() {
+      const grid = document.getElementById('art-grid-container');
+      grid.innerHTML = '';
+
+      const filtered = ART_DATA.filter(art => {
+        if (currentFilterCategory === 'all') return true;
+        return art.category === currentFilterCategory;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 48px; font-family: var(--font-cyber);">NO ACTIVE STATIONS DETECTED IN THIS CATEGORY.</div>`;
+        return;
+      }
+
+      filtered.forEach(art => {
+        const card = document.createElement('div');
+        card.className = 'art-card';
+        card.setAttribute('data-id', art.id);
+        card.onclick = () => openLightbox(art.id);
+
+        card.innerHTML = `
+          <div class="art-card-img-wrapper">
+            <img class="art-card-img" src="${art.image}" alt="${art.title}" loading="lazy">
+            <div class="art-card-overlay">
+              <span class="art-card-category">${art.category.replace('-', ' ')}</span>
+            </div>
+          </div>
+          <div class="art-card-info">
+            <h3>${art.title}</h3>
+            <p>${art.desc}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterGallery(category, trigger) {
+      currentFilterCategory = category;
+      
+      // Handle chip highlighting states
+      document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
+      trigger.classList.add('active');
+
+      // Trigger temporary shimmer sequence before rendering items
+      renderInitialSkeletons();
+      setTimeout(() => {
+        renderGalleryFeed();
+      }, 500);
+    }
+
+    // --------------------------------------------------------------------------
+    // PANEL B: LIVE MESSENGER LOGIC
+    // --------------------------------------------------------------------------
+    function renderConversations() {
+      const listContainer = document.getElementById('chats-list');
+      listContainer.innerHTML = '';
+
+      conversations.forEach(conv => {
+        const node = document.createElement('div');
+        node.className = `chat-node ${conv.username === activeChatUser ? 'active' : ''}`;
+        node.onclick = () => selectChatUser(conv.username);
+
+        const lastMessage = conv.messages.length > 0 
+          ? conv.messages[conv.messages.length - 1].text 
+          : "Secure link established.";
+
+        node.innerHTML = `
+          <div class="avatar-wrapper">
+            <img class="avatar" src="${conv.avatar}" alt="${conv.username}">
+            <span class="status-badge ${conv.status}"></span>
+          </div>
+          <div class="chat-meta">
+            <div class="chat-username">${conv.username}</div>
+            <div class="chat-last-msg">${lastMessage}</div>
+          </div>
+        `;
+        listContainer.appendChild(node);
+      });
+    }
+
+    function renderActiveChatStream() {
+      const activeConv = conversations.find(c => c.username === activeChatUser);
+      if (!activeConv) return;
+
+      // Update header nodes
+      document.getElementById('chat-header-user').innerText = activeConv.username;
+      document.getElementById('chat-header-desc').innerText = activeConv.desc || "Active Channel Partner";
+      document.getElementById('chat-header-avatar').src = activeConv.avatar;
+      
+      const badge = document.getElementById('chat-header-status');
+      badge.className = `status-badge ${activeConv.status}`;
+
+      // Build message streams
+      const stream = document.getElementById('message-stream');
+      stream.innerHTML = '';
+
+      activeConv.messages.forEach(msg => {
+        const alignClass = msg.sender === 'me' ? 'outgoing' : 'incoming';
+        const msgNode = document.createElement('div');
+        msgNode.className = `bubble-wrapper ${alignClass}`;
+
+        msgNode.innerHTML = `
+          <div class="bubble">${msg.text}</div>
+          <span class="bubble-time">${msg.time}</span>
+        `;
+        stream.appendChild(msgNode);
+      });
+
+      // Secure scrolling execution down to base
+      stream.scrollTop = stream.scrollHeight;
+    }
+
+    function selectChatUser(username) {
+      activeChatUser = username;
+      renderConversations();
+      renderActiveChatStream();
+    }
+
+    function handleSendMessage(event) {
+      event.preventDefault();
+      const input = document.getElementById('chat-text-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const activeConv = conversations.find(c => c.username === activeChatUser);
+      if (!activeConv) return;
+
+      // Inject operator message
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      activeConv.messages.push({
+        sender: "me",
+        text: text,
+        time: currentTime
+      });
+
+      input.value = '';
+      renderActiveChatStream();
+      renderConversations();
+
+      // Trigger automatic reply logic depending on target context
+      setTimeout(() => {
+        generateSystemReply(activeConv, text);
+      }, 1200);
+    }
+
+    function generateSystemReply(convoObj, lastUserMsg) {
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      let replyText = "Uplink verified. Directive logged in storage matrices.";
+
+      // Tailored responses depending on active chat terminal handles
+      if (convoObj.username === "cyber_junkie_99") {
+        replyText = "The parameter layout looks structurally viable. Let me pass this through to my ledger framework.";
+      } else if (convoObj.username === "Kusanagi_Tech") {
+        replyText = "Parsing parameters. Our legal terminals will issue structural clearing coordinates shortly.";
+      } else if (convoObj.username === "Zero_Cool") {
+        replyText = "Excellent. I will test these parameters inside our legacy compilers tonight.";
+      } else if (convoObj.username === "Nexus_Alpha") {
+        replyText = "Direct link established. Re-indexing visual storage cores now.";
+      } else {
+        replyText = `Data block registered from temporary terminal. We are monitoring this trace.`;
+      }
+
+      convoObj.messages.push({
+        sender: "them",
+        text: replyText,
+        time: currentTime
+      });
+
+      renderActiveChatStream();
+      renderConversations();
+      showToast(`Signal payload from [${convoObj.username}] received`, "success");
+    }
+
+    // --------------------------------------------------------------------------
+    // PANEL C: CREATOR HUB & COMMISSION ESTIMATOR
+    // --------------------------------------------------------------------------
+    function toggleCalcOption(optionName) {
+      if (optionName === 'portrait') return; // Core constraint anchor
+
+      const targetBox = document.getElementById(`calc-${optionName}`);
+      targetBox.checked = !targetBox.checked;
+      commissionConfig[optionName] = targetBox.checked;
+      
+      recalculateCommissionTotal();
+    }
+
+    function recalculateCommissionTotal() {
+      let baseCost = 150;
+      if (document.getElementById('calc-background').checked) baseCost += 100;
+      if (document.getElementById('calc-commercial').checked) baseCost += 150;
+      if (document.getElementById('calc-animated').checked) baseCost += 80;
+
+      document.getElementById('calc-total').innerText = `$${baseCost}`;
+    }
+
+    function submitCommissionOrder() {
+      const notes = document.getElementById('calc-notes').value.trim();
+      
+      // Compile selected options array
+      const selections = ["Character Cyber Portrait"];
+      let costSum = 150;
+
+      if (document.getElementById('calc-background').checked) {
+        selections.push("Custom Neo-Tokyo BG");
+        costSum += 100;
+      }
+      if (document.getElementById('calc-commercial').checked) {
+        selections.push("Commercial Rights Uplink");
+        costSum += 150;
+      }
+      if (document.getElementById('calc-animated').checked) {
+        selections.push("Interactive Lottie Animations");
+        costSum += 80;
+      }
+
+      // Format standard transaction layout message
+      const blueprintPayload = `⚡ NEW SYSTEM BLUEPRINT ORDER DIRECTIVE ⚡\n\n- Build Base: Portrait\n- Integrations: ${selections.slice(1).join(', ') || 'No secondary layers'}\n- Projected Value: $${costSum}\n- Operator Directive Notes: "${notes || 'No extra guidelines input'}"\n\nStatus: Initializing connection protocol.`;
+
+      // Search or create Bijutsu administrative thread
+      let targetConv = conversations.find(c => c.username === "Bijutsu_HQ");
+      if (!targetConv) {
+        targetConv = {
+          username: "Bijutsu_HQ",
+          status: "online",
+          desc: "Administrative Matrix Gateway",
+          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80",
+          messages: []
+        };
+        conversations.unshift(targetConv);
+      }
+
+      // Inject system messages
+      const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      targetConv.messages.push({
+        sender: "me",
+        text: blueprintPayload,
+        time: timestamp
+      });
+
+      // Clear input directives
+      document.getElementById('calc-notes').value = '';
+      
+      showToast("Order blueprint successfully transmitted. Directing to messenger channel...", "success");
+
+      // Navigate layout automatically to active chat node
+      activeChatUser = "Bijutsu_HQ";
+      
+      setTimeout(() => {
+        navigate('messenger');
+        
+        // Dynamic administrative callback trigger
+        setTimeout(() => {
+          targetConv.messages.push({
+            sender: "them",
+            text: "⚡ SECURE COMLINK STABLE ⚡ We have caught your blueprint stream. System processors are resolving execution timeline values now. Standby for network update.",
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          });
+          renderActiveChatStream();
+          renderConversations();
+        }, 1500);
+
+      }, 800);
+    }
+
+    function triggerShowcaseDetail(artworkId) {
+      openLightbox(artworkId);
+    }
+
+    // --------------------------------------------------------------------------
+    // GLOBAL TERMINAL SEARCH ENGINE
+    // --------------------------------------------------------------------------
+    function handleUserGlobalSearch(usernameQuery) {
+      if (!usernameQuery) return;
+
+      const parsedQuery = usernameQuery.toLowerCase();
+      let targetConv = conversations.find(c => c.username.toLowerCase() === parsedQuery);
+
+      if (!targetConv) {
+        // Dynamically instantiate brand new channel partner on search match failures
+        targetConv = {
+          username: usernameQuery,
+          status: "online",
+          desc: "External Direct Operator",
+          avatar: `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 900000000)}?auto=format&fit=crop&w=80&q=80`,
+          messages: [
+            { sender: "them", text: `Connection established to unidentified external operator endpoint [${usernameQuery}]. Direct signal routing activated.`, time: "Just Now" }
+          ]
+        };
+        conversations.unshift(targetConv);
+      }
+
+      // Activate and set active chat variables
+      activeChatUser = targetConv.username;
+      
+      // Wipe the search field cleanly
+      document.getElementById('nav-search').value = '';
+
+      showToast(`Active comlink tunnel routed to user terminal: [${targetConv.username}]`, "success");
+      
+      navigate('messenger');
+    }
+
+    // --------------------------------------------------------------------------
+    // AUTH MODAL LOGIC
+    // --------------------------------------------------------------------------
+    function openAuthModal() {
+      document.getElementById('auth-modal').classList.add('active');
+    }
+
+    function closeAuthModal() {
+      document.getElementById('auth-modal').classList.remove('active');
+    }
+
+    function closeAuthModalViaBackdrop(event) {
+      if (event.target === document.getElementById('auth-modal')) {
+        closeAuthModal();
+      }
+    }
+
+    function handleMockAuth(event) {
+      event.preventDefault();
+      isUserLoggedIn = true;
+      closeAuthModal();
+      showToast("Verification key registered. Operator Identity Synchronized.", "success");
+      document.querySelector('.btn-signin').innerText = "OPERATOR ACTIVE";
+      document.querySelector('.btn-signin').style.background = "rgba(0, 240, 255, 0.1)";
+      document.querySelector('.btn-signin').style.border = "1px solid var(--neon-cyan)";
+      document.querySelector('.btn-signin').style.color = "var(--neon-cyan)";
+      document.querySelector('.btn-signin').style.boxShadow = "var(--glow-cyan)";
+    }
+
+    function handleSocialAuth(networkName) {
+      closeAuthModal();
+      showToast(`Identity payload validated via ${networkName} authentication.`, "success");
+      document.querySelector('.btn-signin').innerText = "LINKED CORE";
+    }
+
+    // --------------------------------------------------------------------------
+    // LIGHTBOX & PALETTE GENERATOR
+    // --------------------------------------------------------------------------
+    function openLightbox(artId) {
+      const artObj = ART_DATA.find(a => a.id === artId);
+      if (!artObj) return;
+
+      document.getElementById('lightbox-img').src = artObj.image;
+      document.getElementById('lightbox-title').innerText = artObj.title;
+      document.getElementById('lightbox-desc').innerText = artObj.desc;
+
+      // Programmatic Color Swatches Extraction Layout Draw
+      const paletteContainer = document.getElementById('palette-chips-flex');
+      paletteContainer.innerHTML = '';
+
+      artObj.palette.forEach(colorHex => {
+        const chip = document.createElement('div');
+        chip.className = 'color-chip';
+        chip.style.backgroundColor = colorHex;
+        chip.title = `Click to clone hex code: ${colorHex}`;
+
+        // Hex Code Hover Badge Node
+        const hexBadge = document.createElement('span');
+        hexBadge.className = 'color-chip-hex';
+        hexBadge.innerText = colorHex;
+        chip.appendChild(hexBadge);
+
+        // Click interaction copy logic
+        chip.onclick = () => {
+          navigator.clipboard.writeText(colorHex).then(() => {
+            showToast(`Hex key cloned: ${colorHex}`, "success");
+          });
+        };
+
+        paletteContainer.appendChild(chip);
+      });
+
+      document.getElementById('lightbox-modal').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.remove('active');
+    }
+
+    function closeLightboxViaBackdrop(event) {
+      if (event.target === document.getElementById('lightbox-modal')) {
+        closeLightbox();
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // EXPERT SYSTEM INTELLECTUAL PROPERTY GUARD
+    // --------------------------------------------------------------------------
+    function bindIPGuard() {
+      // Prevent standard browser right-click contextual overrides on image wrappers
+      document.addEventListener('contextmenu', (e) => {
+        if (e.target.tagName === 'IMG' || e.target.closest('.art-card') || e.target.closest('.lightbox-visual')) {
+          e.preventDefault();
+          showToast("Bijutsu Art Integrity Protection: Downloading Restricted.", "warning");
+        }
+      });
+
+      // Implement long-press protection mechanics for mobile interfaces
+      let touchDurationTimer = null;
+      document.addEventListener('touchstart', (e) => {
+        if (e.target.tagName === 'IMG') {
+          touchDurationTimer = setTimeout(() => {
+            showToast("Bijutsu Art Integrity Protection: Downloading Restricted.", "warning");
+          }, 800);
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchend', () => {
+        if (touchDurationTimer) {
+          clearTimeout(touchDurationTimer);
+        }
+      });
+    }
+
+    // --------------------------------------------------------------------------
+    // CUSTOM VISUAL FLOATING TOASTS NOTIFIER
+    // --------------------------------------------------------------------------
+    function showToast(messageText, notificationType = 'default') {
+      const deck = document.getElementById('toast-deck');
+      const toast = document.createElement('div');
+      toast.className = `toast-node ${notificationType}`;
+
+      toast.innerHTML = `
+        <span><i class="fa-solid fa-microchip" style="margin-right: 10px;"></i> ${messageText}</span>
+      `;
+
+      deck.appendChild(toast);
+
+      // Programmatic destruction lifetime limits
+      setTimeout(() => {
+        toast.classList.add('toast-die');
+        toast.addEventListener('animationend', () => {
+          toast.remove();
+        });
+      }, 4000);
+    }
+  </script>
 </body>
 </html>
